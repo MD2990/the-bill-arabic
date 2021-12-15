@@ -10,3 +10,49 @@ a:focus,
 a:active {
   text-decoration: none !important;
 }
+
+
+/* paganate: css */
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  cursor: pointer;
+  color: #494a53;
+  font-family: sans-serif;
+  margin-bottom: 15px;
+}
+
+.pagination a {
+  outline: none;
+  padding: 10px;
+  margin: 5px 5px;
+
+  color: #83848a;
+  font-size: 15px;
+  border-radius: 2px;
+  user-select: none;
+}
+
+.pagination__link {
+  font-weight: bold;
+  user-select: none;
+}
+
+.pagination__link--active a {
+  user-select: none;
+  color: #fff;
+  background: #8f8585;
+}
+
+.pagination__link--disabled a {
+  color: rgb(160, 154, 165);
+  border: none;
+  cursor: not-allowed;
+}
+
+
+button{
+  box-shadow: none !important;
+}

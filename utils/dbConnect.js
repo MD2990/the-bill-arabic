@@ -1,201 +1,156 @@
-import axios from 'axios';
-import mongoose from 'mongoose';
-import * as currency from 'currency.js';
-import { toast } from 'react-toastify';
-import jsPDF from 'jspdf';
-import font from '../public/Amiri-Regular-normal';
+import axios from "axios";
+import mongoose from "mongoose";
+import * as currency from "currency.js";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import Swal from "sweetalert2";
+
+import font from "../public/Amiri-Regular-normal";
+import { errorMsg, successMsg } from "../lib/funcs";
 const DB = process.env.DB;
 export async function dbConnect() {
-	// check if we have a connection to the database or if it's currently
-	// connecting or disconnecting (readyState 1, 2 and 3)
-	if (mongoose.connection.readyState >= 1) {
-		return;
-	}
+  // check if we have a connection to the database or if it's currently
+  // connecting or disconnecting (readyState 1, 2 and 3)
+  if (mongoose.connection.readyState >= 1) {
+    return;
+  }
 
-	return mongoose.connect(DB, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-		useCreateIndex: true,
-		maxIdleTimeMS: 10000,
-		serverSelectionTimeoutMS: 10000,
-		socketTimeoutMS: 20000,
-	});
+  return mongoose.connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    maxIdleTimeMS: 10000,
+    serverSelectionTimeoutMS: 10000,
+    socketTimeoutMS: 20000,
+  });
 }
 
 export function jsonify(obj) {
-	return JSON.parse(JSON.stringify(obj));
+  return JSON.parse(JSON.stringify(obj));
 }
 
 const OMR = (value) =>
-	currency(value, {
-		symbol: 'OMR ',
-		decimal: '.',
-		separator: ',',
-		precision: 3,
-	});
+  currency(value, {
+    symbol: "OMR ",
+    decimal: ".",
+    separator: ",",
+    precision: 3,
+  });
 
 export function toCurrency(number) {
-	return OMR(number).format();
-}
-export function Pre(obj) {
-	return <pre> {JSON.stringify(obj, null, 2)} </pre>;
+  return OMR(number).format();
 }
 
-
-export function getSum(sum1,sum2,sub) {
-	return currency(sum1).add(sum2).subtract(sub); // => "13.68"
-
+export function getSum(sum1, sum2, sub) {
+  return currency(sum1).add(sum2).subtract(sub); // => "13.68"
 }
 
 export async function post(url, values) {
-	url = 'http://localhost:3000/api/' + url;
-	try {
-		await axios
-			.post(url, values)
-
-			.then((res) =>
-				toast(` تمت الإضافة بنجاح `, {
-					type: toast.TYPE.SUCCESS,
-					autoClose: 1000,
-				})
-			)
-			.catch((error) => {
-				toast(`حدث خطأ, الرجاء المحاولة مجددا ${error}`, {
-					type: toast.TYPE.ERROR,
-					autoClose: 3000,
-				});
-			});
-	} catch (error) {
-		toast('Something went wrong please check the car details and try again', {
-			type: toast.TYPE.ERROR,
-			autoClose: 3000,
-		});
-	}
+  url = "http://localhost:3000/api/" + url;
+  try {
+    await axios
+      .post(url, values)
+      .then((res) => (res.status === 201 ? successMsg() : errorMsg()))
+      .catch((error) => {
+        errorMsg();
+      });
+  } catch (error) {
+    errorMsg();
+  }
 }
 
-export const handlePut = async (form, field, url, router) => {
-	const contentType = 'application/json';
-	const { id } = router.query;
+export const handlePut = async ({ values, url, router }) => {
+  const contentType = "application/json";
+  const { id } = router.query;
 
-	try {
-		const res = await fetch(`/api/${url}/${id}`, {
-			method: 'PUT',
-			headers: {
-				Accept: contentType,
-				'Content-Type': contentType,
-			},
-			body: JSON.stringify(form),
-		});
+  try {
+    const res = await fetch(`/api/${url}/${id}`, {
+      method: "PUT",
+      headers: {
+        Accept: contentType,
+        "Content-Type": contentType,
+      },
+      body: JSON.stringify(values),
+    });
 
-		// Throw error with status code in case Fetch API req failed
-		if (!res.ok) {
-			toast(
-				` Something went wrong, ${res.status} \n please try again`,
-
-				{
-					type: toast.TYPE.ERROR,
-					autoClose: 2000,
-				}
-			);
-			res.end;
-		} else {
-			toast(
-				` ${field} :تم تحديث البيانات  `,
-
-				{
-					type: toast.TYPE.SUCCESS,
-					autoClose: 1500,
-				}
-			);
-		}
-	} catch (error) {
-		toast(
-			` Something went wrong, ${error} \n please try again`,
-
-			{
-				type: toast.TYPE.ERROR,
-				autoClose: 2500,
-			}
-		);
-		res.end;
-	}
+    // Throw error with status code in case Fetch API req failed
+    if (!res.ok) {
+      errorMsg();
+      res.end;
+    } else {
+      successMsg("تم تعديل البيانات بنجاح");
+    }
+  } catch (error) {
+    errorMsg();
+    res.end;
+  }
 };
 
 export const handlePutEmp = async (name, url, router) => {
-	const contentType = 'application/json';
+  const contentType = "application/json";
 
-	const { id } = router.query;
+  const { id } = router.query;
 
-	try {
-		const res = await fetch(`/api/${url}/${id}`, {
-			method: 'PUT',
-			headers: {
-				Accept: contentType,
-				'Content-Type': contentType,
-			},
-			body: JSON.stringify(name),
-		});
+  try {
+    const res = await fetch(`/api/${url}/${id}`, {
+      method: "PUT",
+      headers: {
+        Accept: contentType,
+        "Content-Type": contentType,
+      },
+      body: JSON.stringify(name),
+    });
 
-		// Throw error with status code in case Fetch API req failed
-		if (!res.ok) {
-			toast(
-				` Something went wrong, ${res.status} \n please try again`,
+    // Throw error with status code in case Fetch API req failed
+    if (!res.ok) {
+      toast(
+        ` Something went wrong, ${res.status} \n please try again`,
 
-				{
-					type: toast.TYPE.ERROR,
-					autoClose: 2000,
-				}
-			);
-		}
-	} catch (error) {
-		toast(
-			` Something went wrong, ${error} \n please try again`,
+        {
+          type: toast.TYPE.ERROR,
+          autoClose: 2000,
+        }
+      );
+    }
+  } catch (error) {
+    toast(
+      ` Something went wrong, ${error} \n please try again`,
 
-			{
-				type: toast.TYPE.ERROR,
-				autoClose: 2500,
-			}
-		);
-	}
+      {
+        type: toast.TYPE.ERROR,
+        autoClose: 2500,
+      }
+    );
+  }
 };
 
-export const handleDelete = async (backPageUrl, deleteUrl, id, router) => {
-	deleteUrl = `http://localhost:3000/api/${deleteUrl}/${id}`;
-	try {
-		await axios.delete(deleteUrl);
-
-		toast(
-			`تم الحذف`,
-
-			{
-				type: toast.TYPE.SUCCESS,
-				autoClose: 1000,
-			}
-		);
-		setTimeout(() => {
-			router.replace(window.history.back());
-		}, 800);
-	} catch (error) {
-		toast(
-			` Something went wrong, please try again, ${error}`,
-
-			{
-				type: toast.TYPE.ERROR,
-				autoClose: 2500,
-			}
-		);
-	}
+export const handleDelete = async ({ deleteUrl, id }) => {
+  deleteUrl = `http://localhost:3000/api/${deleteUrl}/${id}`;
+  try {
+    await axios
+      .delete(deleteUrl)
+      .then((res) => {
+        if (res.status === 200) {
+          successMsg("تم حذف البيانات بنجاح");
+        } else {
+          errorMsg();
+        }
+      })
+      .catch((error) => {
+        errorMsg();
+      });
+  } catch (error) {
+    errorMsg();
+  }
 };
 
 export const toPDF = (rows, columns, title) => {
-	var doc = new jsPDF('p', 'pt'); // l or p
+  var doc = new jsPDF("p", "pt"); // l or p
 
-	doc.addFileToVFS('Amiri.ttf', font);
-	doc.addFont('Amiri.ttf', 'Amiri', 'normal');
-	doc.setFont('Amiri');
+  doc.addFileToVFS("Amiri.ttf", font);
+  doc.addFont("Amiri.ttf", "Amiri", "normal");
+  doc.setFont("Amiri");
 
-	/*doc.autoTable(columns, ss, {
+  /*doc.autoTable(columns, ss, {
 		/* 	styles: {
 			cellPadding: 5,
 			fontSize: 12,
@@ -212,7 +167,7 @@ export const toPDF = (rows, columns, title) => {
 			minCellHeight: 20,
 			cellWidth: 'auto', // 'auto', 'wrap' or a number },
 		}, */
-	/* 	columnStyles: {
+  /* 	columnStyles: {
 			id: { fillColor: 255 },
 		},
 		margin: { top: 60 }, 
@@ -227,56 +182,56 @@ export const toPDF = (rows, columns, title) => {
 		},
 	});*/
 
-	const totalPagesExp = '{total_pages_count_string}';
+  const totalPagesExp = "{total_pages_count_string}";
 
-	doc.autoTable({
-		columns: columns,
-		body: rows,
-		headStyles: {
-			halign: 'center',
-			fillColor: '#c3e5eb',
-			textColor: '#333333',
-			fontStyle: 'Amiri',
-			font: 'Amiri',
-			fontSize: 9,
-		},
+  doc.autoTable({
+    columns: columns,
+    body: rows,
+    headStyles: {
+      halign: "center",
+      fillColor: "#c3e5eb",
+      textColor: "#333333",
+      fontStyle: "Amiri",
+      font: "Amiri",
+      fontSize: 9,
+    },
 
-		styles: {
-			fillStyle: 'F', // 'S', 'F' or 'DF' (stroke, fill or fill then stroke)
-			minCellHeight: 20,
-			cellWidth: 'wrap', // 'auto', 'wrap' or a number },
-			valign: 'middle', // top, middle, bottom
-			overflow: 'linebreak', // visible, hidden, ellipsize or linebreak
-			cellPadding: 4,
-			fontSize: 9,
-			font: 'Amiri', // helvetica, times, courier
-			lineColor: 200,
-			lineWidth: 0.1,
-			halign: 'center',
-			fontStyle: 'normal', // normal, bold, italic, bolditalic
-		},
-		didDrawPage: (data) => {
-			if (doc.internal.getNumberOfPages() === 1) {
-				doc.setFontSize(12);
-				doc.text(title, 350, 30, 'right');
-			}
+    styles: {
+      fillStyle: "F", // 'S', 'F' or 'DF' (stroke, fill or fill then stroke)
+      minCellHeight: 20,
+      cellWidth: "wrap", // 'auto', 'wrap' or a number },
+      valign: "middle", // top, middle, bottom
+      overflow: "linebreak", // visible, hidden, ellipsize or linebreak
+      cellPadding: 4,
+      fontSize: 9,
+      font: "Amiri", // helvetica, times, courier
+      lineColor: 200,
+      lineWidth: 0.1,
+      halign: "center",
+      fontStyle: "normal", // normal, bold, italic, bolditalic
+    },
+    didDrawPage: (data) => {
+      if (doc.internal.getNumberOfPages() === 1) {
+        doc.setFontSize(12);
+        doc.text(title, 350, 30, "right");
+      }
 
-			let footerStr = 'Page ' + doc.internal.getNumberOfPages();
-			if (typeof doc.putTotalPages === 'function') {
-				footerStr = footerStr + ' of ' + totalPagesExp;
-			}
-			doc.setFontSize(8);
-			doc.text(
-				footerStr,
-				data.settings.margin.left,
-				doc.internal.pageSize.height - 10
-			);
-		},
-	});
-	if (typeof doc.putTotalPages === 'function') {
-		doc.putTotalPages(totalPagesExp);
-	}
+      let footerStr = "Page " + doc.internal.getNumberOfPages();
+      if (typeof doc.putTotalPages === "function") {
+        footerStr = footerStr + " of " + totalPagesExp;
+      }
+      doc.setFontSize(8);
+      doc.text(
+        footerStr,
+        data.settings.margin.left,
+        doc.internal.pageSize.height - 10
+      );
+    },
+  });
+  if (typeof doc.putTotalPages === "function") {
+    doc.putTotalPages(totalPagesExp);
+  }
 
-	doc.save('table.pdf');
+  doc.save("table.pdf");
 };
 export default dbConnect;

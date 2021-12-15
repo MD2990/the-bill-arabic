@@ -9,16 +9,9 @@ import {
   FcKindle,
 } from "react-icons/fc";
 
-import { Title } from "./comUtil/ComUtil";
 import {
   Center,
   Text,
-  Divider,
-  Container,
-  StackDivider,
-  Stack,
-  VStack,
-  Input,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
@@ -67,6 +60,10 @@ export default function Main() {
         shadow="dark-lg"
         rounded="2xl"
       >
+
+        <CustomCol path="/addNewBillPage" text={"إضافة فاتورة جديدة"}>
+          <FcKindle />
+        </CustomCol>
         <CustomCol path="/showBillPage" text={"عرض الفواتير"}>
           <FcInspection />
         </CustomCol>
@@ -77,10 +74,6 @@ export default function Main() {
 
         <CustomCol path="/addNewSellPage" text={"إضافة الدخل اليومي"}>
           <FcAcceptDatabase />
-        </CustomCol>
-
-        <CustomCol path="/addNewBillPage" text={"إضافة فاتورة جديدة"}>
-          <FcKindle />
         </CustomCol>
 
         <CustomCol path="/showAllSal" text={"عرض جميع الرواتب"}>
