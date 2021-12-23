@@ -17,5 +17,6 @@ const state = proxy({
   empName: null,
   exp: [],
   empName: [],
+  isFiltered:false,
 });
 export default state;

@@ -207,7 +207,6 @@ export const CustomField = ({
   labelName,
   type = "text",
   disabled = false,
-
 }) => {
   return (
     <WrapItem>
@@ -225,7 +224,6 @@ export const CustomField = ({
               placeholder={labelName}
               size="lg"
               type={type}
-             
             />
             <FormErrorMessage>{meta.error}</FormErrorMessage>
           </FC>
@@ -234,6 +232,39 @@ export const CustomField = ({
     </WrapItem>
   );
 };
+
+export const CustomFieldWithValue = ({
+  fieldName,
+  labelName,
+
+  disabled = false,
+  values,
+}) => {
+  return (
+    <WrapItem>
+      <Field name={fieldName}>
+        {({ field, meta }) => (
+          <FC isInvalid={meta.touched && meta.error}>
+            <FormLabel fontSize="larger" fontWeight="bold" htmlFor={fieldName}>
+              {labelName}
+            </FormLabel>
+            <Input
+              textAlign="right"
+              disabled={disabled}
+              {...field}
+              id={fieldName}
+              placeholder={labelName}
+              value={values}
+              color={values == "OMR 0.000" ? "green.500" : "red.500"}
+            />
+            <FormErrorMessage>{meta.error}</FormErrorMessage>
+          </FC>
+        )}
+      </Field>
+    </WrapItem>
+  );
+};
+
 export const CustomTextArea = ({ fieldName, labelName }) => {
   return (
     <WrapItem>
@@ -248,7 +279,6 @@ export const CustomTextArea = ({ fieldName, labelName }) => {
               id={fieldName}
               placeholder={labelName}
               size="lg"
-             
             />
           </FC>
         )}
@@ -256,8 +286,6 @@ export const CustomTextArea = ({ fieldName, labelName }) => {
     </WrapItem>
   );
 };
-
-
 
 export const CustomDropdown = ({ fieldName, labelName, children }) => {
   return (
@@ -314,7 +342,7 @@ export const FormBottomButton = ({
   onDelete,
 }) => {
   return (
-    <Wrap justify="center"  direction='row-reverse' >
+    <Wrap justify="center" direction="row-reverse">
       <WrapItem>
         <Button
           className="hvr-rectangle-out"
@@ -387,10 +415,6 @@ export const EmployeesDropdownOptions = ({ emp }) => {
     <option> No Employees Added Yet ...</option>
   );
 };
-
-
-
-
 
 export const BackBtn = ({ router }) => (
   <Button

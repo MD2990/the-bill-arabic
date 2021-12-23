@@ -9,7 +9,7 @@ import {handleDelete} from "../../utils/dbConnect"
 
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
-import { handleFormDelete } from "../../lib/funcs";
+import { cutString, handleFormDelete } from "../../lib/funcs";
 
 export default function BillCards() {
   const snap = useSnapshot(state);
@@ -30,21 +30,23 @@ export default function BillCards() {
       {rs()?.map(
         ({
           _id,
-          company_name,
-          bill_number,
+          details,
+         
           bill_date,
-          bill_type,
-          bill_amount,
-          payment_status,
-          check_date,
-          notes,
+          advance,
+          total_price,
+          balance,
+         
+          remarks,
+
+
+
         }) => {
           return (
-            <Wrap key={_id} justify="center" spacing="4"  >
+            <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
                 link={`/${_id}/billEdit`}
-                header={`رقم الفاتورة ${bill_number}`}
-              
+                header={`رقم الفاتورة ${cutString(_id, 18, 24)}`}
                 deleteFunction={async () => {
                   await handleFormDelete({
                     deleteUrl: "bill",
@@ -58,19 +60,14 @@ export default function BillCards() {
                   });
                 }}
               >
-                <AllText title=" الشركة:" data={company_name} />
-                <AllText title=" النوع:" data={bill_type} />
+                <AllText title=" التفاصيل:" data={details} />
+                <AllText title=" المبلغ المدفوع:" data={advance} />
 
-                <AllText title=" المبلغ:" data={bill_amount} />
+                <AllText title=" الإجمالي:" data={total_price} />
 
-                <AllText
-                  title=" الحالة:"
-                  data={payment_status ? "لم  السداد" : "لم يتم الدفع"}
-                
-                />
-                <AllText title=" تاريخ الشيك:" data={check_date} />
+                <AllText title=" المبلغ المتبقي:" data={balance} />
                 <AllText title=" تاريخ الفاتورة:" data={bill_date} />
-                <AllText title=" الملاحظات:" data={notes} />
+                <AllText title=" الملاحظات:" data={remarks} />
               </SingleCard>
             </Wrap>
           );

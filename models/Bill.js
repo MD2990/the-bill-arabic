@@ -2,37 +2,30 @@ import mongoose, { Schema } from "mongoose";
 
 const MODEL_NAME = "BILL";
 const schema = new Schema({
-  company_name: {
+  details: {
     type: String,
     required: [true, "Please add a company name"],
   },
-  bill_number: {
-    type: String,
-    required: [true, "Please add a bill number"],
-  },
+
   bill_date: {
     type: String,
     required: [true, "Please add a bill date"],
   },
-  bill_type: {
+  advance: {
     type: String,
     required: [true, "Please add a bill type"],
   },
-  bill_amount: {
+
+  total_price: {
     type: String,
     required: [true, "Please add a bill amount"],
   },
-  payment_status: {
-    type: Boolean,
-    default: false,
-    required: [true, "Please add a payment status"],
-  },
-  check_date: {
+  balance: {
     type: String,
-    default: "2010-01-01",
+    required: [true, "Please add a bill amount"],
   },
 
-  notes: {
+  remarks: {
     type: String,
   },
 });

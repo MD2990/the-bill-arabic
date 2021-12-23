@@ -1,13 +1,15 @@
-import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Wrap, WrapItem } from "@chakra-ui/layout";
+import { AddIcon, CalendarIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Wrap, WrapItem, Divider, Text } from "@chakra-ui/layout";
 import { useRouter } from "next/dist/client/router";
 import { useSnapshot } from "valtio";
-import { Btn, PrintBtn } from "../comUtil/ComUtil";
+import { Btn, PrintBtn, Title } from "../comUtil/ComUtil";
 import state from "../../stor";
 import { toPDF } from "../../utils/dbConnect";
 import TotalText from "../../sharedComponents/TotalText";
 import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
+import { Button } from "@chakra-ui/react";
+import moment from "moment";
 
 export const BillButtons = () => {
   const snap = useSnapshot(state);
@@ -16,6 +18,8 @@ export const BillButtons = () => {
 
   const clear = () => {
     state.searchTerm = "";
+    state.isFiltered = false;
+    state.searchResults = snap.bill;
   };
 
   function printPdf() {
@@ -64,6 +68,12 @@ export const BillButtons = () => {
 
     return toPDF(rows, columns, "bill Details");
   }
+
+  function getCurrentMonth() {
+    state.searchResults = state.searchResults.filter((b) => {
+      return moment(b.bill_date.toString()).isSame(moment(), "month");
+    });
+  }
   return (
     <Wrap
       spacing="4"
@@ -102,6 +112,21 @@ export const BillButtons = () => {
           text={`الإجمالي:  ${snap.bill && snap.searchResults.length}`}
         />
       </WrapItem>
+
+      <Btn
+        color="blue.400"
+        icon={<CalendarIcon />}
+        title={"فواتير الشهر الحالي"}
+        click={getCurrentMonth}
+      />
+
+      {snap.searchResults.length < 1 && (
+        <>
+          <Divider />
+
+          <Title title="لا توجد نتائج للعرض ..."></Title>
+        </>
+      )}
     </Wrap>
   );
 };

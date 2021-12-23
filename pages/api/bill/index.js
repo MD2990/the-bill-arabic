@@ -1,4 +1,4 @@
-import dbConnect from "../../../utils/dbConnect";
+import dbConnect, { getSum, toCurrency } from "../../../utils/dbConnect";
 import Bill from "../../../models/Bill";
 
 export default async function handler(req, res) {
@@ -19,7 +19,24 @@ export default async function handler(req, res) {
       break;
     case "POST":
       try {
-        const bill = await Bill.create(req.body);
+        let { details, bill_date, advance, total_price, balance, remarks } =
+          req.body;
+        advance = toCurrency(advance);
+        total_price = toCurrency(total_price);
+
+        balance = getSum(total_price, advance);
+        balance = toCurrency(balance);
+
+        bill_date = bill_date.replace(/T/, " ");
+
+        const bill = await Bill.create({
+          details,
+          bill_date,
+          advance,
+          total_price,
+          balance,
+          remarks,
+        });
         /* create a new model in the database */
         res.status(201).json({ bill });
       } catch (error) {

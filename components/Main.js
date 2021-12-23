@@ -56,9 +56,11 @@ export default function Main() {
         justify="center"
         spacing={[4, 6, 8, 12]}
         mx="2%"
-        mt="5%"
+        my="3%"
         shadow="dark-lg"
         rounded="2xl"
+
+    
       >
 
         <CustomCol path="/addNewBillPage" text={"إضافة فاتورة جديدة"}>
