@@ -1,4 +1,4 @@
-import dbConnect, { toCurrency } from "../../../utils/dbConnect";
+import dbConnect, { getSum, toCurrency } from "../../../utils/dbConnect";
 import Bill from "../../../models/Bill";
 import { convertDate, getDate } from "../../../lib/funcs";
 
@@ -25,38 +25,33 @@ export default async function handler(req, res) {
 
     case "PUT" /* Edit a model by its ID */:
       try {
-        let {
-          bill_amount,
-          company_name,
-          bill_number,
-          bill_date,
-          bill_type,
-          payment_status,
-          check_date,
-          notes,
-        } = req.body;
+        let { details, bill_date, advance, total_price, balance, remarks } =
+          req.body;
+        advance = toCurrency(advance);
+        total_price = toCurrency(total_price);
 
-        bill_amount = toCurrency(bill_amount);
-        bill_date = getDate(bill_date);
-        check_date = getDate(check_date);
+        balance = getSum(total_price, advance);
+        balance = toCurrency(balance);
+
+        bill_date = bill_date.replace(/T/, " ");
 
         const bill = await Bill.findByIdAndUpdate(
           id,
-          ({bill_amount,
-          company_name,
-          bill_number,
-          bill_date,
-          bill_type,
-          payment_status,
-          check_date,
-          notes}),
+          {
+            details,
+            bill_date,
+            advance,
+            total_price,
+            balance,
+            remarks,
+          },
           {
             new: true,
             runValidators: true,
           }
         );
         if (!bill) {
-          return res.status(400).json({ success: false });
+          return res.status(400).json({ success: false, data: bill });
         }
         res.status(200).json({ success: true, data: bill });
       } catch (error) {

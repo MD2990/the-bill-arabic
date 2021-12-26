@@ -10,6 +10,7 @@ import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
 import { Button } from "@chakra-ui/react";
 import moment from "moment";
+import { cutString } from "../../lib/funcs";
 
 export const BillButtons = () => {
   const snap = useSnapshot(state);
@@ -25,28 +26,12 @@ export const BillButtons = () => {
   function printPdf() {
     const rows = snap.searchResults.map(
       (
-        {
-          company_name,
-          bill_number,
-          bill_amount,
-          bill_type,
-          bill_date,
-          check_date,
-          payment_status,
-          notes,
-        },
+        { details, bill_date, advance, total_price, balance, remarks,_id },
         index
       ) => {
         index += 1;
         const data = {
-          company_name,
-          bill_number,
-          bill_amount,
-          bill_type,
-          bill_date,
-          check_date,
-          notes,
-          payment_status,
+      details, bill_date, advance, total_price, balance, remarks,id: cutString(_id, 18, 24),
           index,
         };
 
@@ -54,19 +39,23 @@ export const BillButtons = () => {
       }
     );
 
+ // const id = cutString(rows._id, 18, 24);
     const columns = [
-      { title: "#", key: "index" },
-      { title: "Company Name", key: "company_name" },
-      { title: "bill Number", key: "bill_number" },
-      { title: "bill Amount", key: "bill_amount" },
-      { title: "bill Type", key: "bill_type" },
-      { title: "bill Date", key: "bill_date" },
-      { title: "Check Date", key: "check_date" },
-      { title: "Payment Status", key: "payment_status" },
-      { title: "Remarks", key: "notes" },
+      { title: "الملاحظات", key: "remarks" },
+      { title: "تاريخ الفاتورة", key: "bill_date" },
+      { title: "المبلغ المتبقي", key: "balance" },
+      { title: "المبلغ المدفوع", key: "advance" },
+      { title: "الإجمالي", key: "total_price" },
+      { title: "تفاصيل الفاتورة", key: "details" },
+      { title: "رقم الفاتورة", key: "id" },
+      { title: "ت", key: "index" },
     ];
 
-    return toPDF(rows, columns, "bill Details");
+    return toPDF(
+      rows,
+      columns,
+      `تفاصيل الفواتير                      العدد ${rows.length} `
+    );
   }
 
   function getCurrentMonth() {

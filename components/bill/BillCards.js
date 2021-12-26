@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 import { Title } from "../comUtil/ComUtil";
 import MySkeletons from "../../sharedComponents/MySkeletons";
-import {handleDelete} from "../../utils/dbConnect"
+import { handleDelete } from "../../utils/dbConnect";
 
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
@@ -31,16 +31,13 @@ export default function BillCards() {
         ({
           _id,
           details,
-         
+
           bill_date,
           advance,
           total_price,
           balance,
-         
+
           remarks,
-
-
-
         }) => {
           return (
             <Wrap key={_id} justify="center" spacing="4">
@@ -61,10 +58,8 @@ export default function BillCards() {
                 }}
               >
                 <AllText title=" التفاصيل:" data={details} />
-                <AllText title=" المبلغ المدفوع:" data={advance} />
-
                 <AllText title=" الإجمالي:" data={total_price} />
-
+                <AllText title=" المبلغ المدفوع:" data={advance} />
                 <AllText title=" المبلغ المتبقي:" data={balance} />
                 <AllText title=" تاريخ الفاتورة:" data={bill_date} />
                 <AllText title=" الملاحظات:" data={remarks} />

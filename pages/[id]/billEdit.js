@@ -4,20 +4,22 @@ import { dbConnect, jsonify } from '../../utils/dbConnect';
 import Edit_Delete_Bill from '../../components/bill/Edit_Delete_Bill';
 import { Hd, Spans, Title } from '../../components/comUtil/ComUtil';
 import Bill from '../../models/Bill';
+import { convertToNumber, cutString, setCurrentDateTime } from '../../lib/funcs';
 
 const EditBill = ({ bill }) => {
 	const router = useRouter();
+
 
 	if (router.isFallback) {
 		return <Spans />;
 	}
 
 	return (
-		<>
-			<Hd title={`تحديث الفاتورة رقم: ${bill.bill_number}`} />
-		<Edit_Delete_Bill bill={bill} />
-		</>
-	);
+    <>
+      <Hd title={`تحديث الفاتورة رقم: ${cutString(router.query.id, 18, 24)}`} />
+      <Edit_Delete_Bill bill={bill} />
+    </>
+  );
 };
 
 // This function gets called at build time
@@ -34,6 +36,15 @@ export async function getServerSideProps({ params }) {
 		};
 	}
 	const bill = await jsonify(data);
+
+	//convert to Date and time
+   bill.bill_date = setCurrentDateTime(bill.bill_date);
+   // remove all non-numeric characters except for decimal point
+
+   bill.total_price = convertToNumber(bill.total_price)      
+   bill.advance = convertToNumber(bill.advance);  
+ 
+  
 
 	return {
 		props: {

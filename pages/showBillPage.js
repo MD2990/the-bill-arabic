@@ -8,10 +8,9 @@ import { Hd, Spans, Title } from "../components/comUtil/ComUtil";
 import state from "../stor";
 
 export default function ShowBillPage({ bills }) {
-
   const { data, error } = useSWR("/api/bill", {
     initialData: { bills },
-   revalidateOnMount: true,
+    revalidateOnMount: true,
   });
 
   if (error)
@@ -19,13 +18,12 @@ export default function ShowBillPage({ bills }) {
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
   if (!data) return <Spans />;
- state.bill = data.bill;
+  state.bill = data.bill.sort((a, b) => (a._id < b._id ? 1 : -1));
 
-	
   return (
     <>
       <Hd title="عرض الفواتير" />
-      <ShowBills billData={data.bill} />
+      <ShowBills />
     </>
   );
 }
@@ -41,7 +39,6 @@ export const getStaticProps = async () => {
     };
   }
   const bills = await jsonify(data);
-
 
   return {
     props: {

@@ -5,26 +5,26 @@ import { Wrap, Center, Divider } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
   CustomField,
+  CustomFieldWithValue,
   CustomTextArea,
   FormBottomButton,
 } from "../../comUtil/ComUtil";
 import { BILL_validationSchema } from "../../lib/constants";
-import { handlePut,handleDelete } from "../../utils/dbConnect";
-import { handleFormDelete } from "../../lib/funcs";
+import { handlePut,handleDelete, toCurrency } from "../../utils/dbConnect";
+import { cutString, handleFormDelete } from "../../lib/funcs";
 
 export default function Edit_Delete_Bill({ bill }) {
   const router = useRouter();
 
   const {
-    company_name,
-    bill_number,
+    details,
     bill_date,
-    bill_type,
-    bill_amount,
-    payment_status,
-    check_date,
+    advance,
+    total_price,
+    balance,
+    remarks,
     _id,
-    notes,
+    
   } = bill;
 
    async function put(values) {
@@ -45,41 +45,52 @@ export default function Edit_Delete_Bill({ bill }) {
   return (
     <Formik
       initialValues={{
-        company_name,
-        bill_number,
+        details,
         bill_date,
-        bill_type,
-        bill_amount,
-        payment_status,
-        check_date,
-        notes,
+        advance,
+        total_price,
+        balance,
+        remarks,
       }}
       onSubmit={async (values, actions) => {
         await put(values);
         actions.setSubmitting(false);
-        
       }}
       validationSchema={BILL_validationSchema}
     >
       {(props) => {
         return (
           <Form>
-            <Title title="إضافة فاتورة" />
+            <Title title={`تحديث الفاتورة رقم: ${cutString(_id, 18, 24)}`}/>
             <Center m="2" p="2">
               <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8">
                 <CustomField
-                  fieldName="company_name"
-                  labelName="company_name"
-                />
-                <CustomField fieldName="bill_number" labelName="bill_number" />
-                <CustomField
                   fieldName="bill_date"
-                  labelName="bill_date"
-                  type="date"
+                  labelName="التاريخ"
+                  type="datetime-local"
                 />
-                <CustomField fieldName="bill_type" labelName="bill_type" />
-                <CustomField fieldName="bill_amount" labelName="bill_amount" />
-                <CustomTextArea fieldName="notes" labelName="notes" />
+                <CustomTextArea fieldName="details" labelName="التفاصيل" />
+
+                <CustomField
+                  fieldName="total_price"
+                  type="number"
+                  labelName="المجموع"
+                />
+                <CustomField
+                  fieldName="advance"
+                  type="number"
+                  labelName="المدفوع"
+                />
+                <CustomFieldWithValue
+                  fieldName="balance"
+                  labelName="المتبقي"
+                  values={
+                    toCurrency(
+                      props.values.total_price - props.values.advance
+                    ) || 0
+                  }
+                />
+                <CustomTextArea fieldName="remarks" labelName="الملاحظات" />
 
                 <Divider />
 

@@ -7,8 +7,10 @@ html,
 a:hover,
 a,
 a:focus,
+section,
 a:active {
   text-decoration: none !important;
+  box-shadow: none !important;
 }
 
 

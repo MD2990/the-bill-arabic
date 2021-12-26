@@ -213,7 +213,12 @@ export const CustomField = ({
       <Field name={fieldName}>
         {({ field, meta }) => (
           <FC isInvalid={meta.touched && meta.error}>
-            <FormLabel fontSize="larger" fontWeight="bold" htmlFor={fieldName}>
+            <FormLabel
+              fontSize="larger"
+              fontWeight="bold"
+              htmlFor={fieldName}
+              id={fieldName}
+            >
               {labelName}
             </FormLabel>
             <Input
@@ -245,7 +250,12 @@ export const CustomFieldWithValue = ({
       <Field name={fieldName}>
         {({ field, meta }) => (
           <FC isInvalid={meta.touched && meta.error}>
-            <FormLabel fontSize="larger" fontWeight="bold" htmlFor={fieldName}>
+            <FormLabel
+              id={fieldName}
+              fontSize="larger"
+              fontWeight="bold"
+              htmlFor={fieldName}
+            >
               {labelName}
             </FormLabel>
             <Input
@@ -271,7 +281,12 @@ export const CustomTextArea = ({ fieldName, labelName }) => {
       <Field name={fieldName}>
         {({ field, meta }) => (
           <FC isInvalid={meta.touched && meta.error}>
-            <FormLabel fontSize="larger" fontWeight="bold" htmlFor={fieldName}>
+            <FormLabel
+              id={fieldName}
+               fontSize="larger"
+              fontWeight="bold"
+              htmlFor={fieldName}
+            >
               {labelName}
             </FormLabel>
             <Textarea
