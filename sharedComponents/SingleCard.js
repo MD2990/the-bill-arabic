@@ -19,9 +19,8 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { IconButton } from "@chakra-ui/react";
 import { setItem } from "../lib/funcs";
 export const AllText = ({ color = " blackAlpha.50", title, data }) => (
-  <Text pb="0.5" color={color}  >
-   
-    <Text pr="1" as="span" fontWeight="black" color="blackAlpha.800" >
+  <Text pb="0.5" color={color} fontSize={["xs", "sm", "md", "lg"]}>
+    <Text pl="2" as="span" fontWeight="black" color="blackAlpha.800">
       {title}
     </Text>
     {data}
@@ -33,11 +32,9 @@ export default function SingleCard({
   deleteFunction,
   showSalary = false,
   deleteObject = true,
-
   link,
   children,
   _id,
-
   header,
 }) {
   const router = useRouter();
@@ -50,8 +47,8 @@ export default function SingleCard({
       boxShadow="dark-lg"
       rounded="2xl"
     >
-      <Center m="2" p="2" cursor="pointer" mr="-1">
-        <HStack spacing="4">
+      <Center m={[1, 1.5, 2]} p={[1, 1.5, 2]} cursor="pointer" mr="-1">
+        <HStack spacing="2">
           <Tooltip
             label="Edit"
             color="black"
@@ -123,8 +120,6 @@ export default function SingleCard({
               bg="gray.100"
             >
               <IconButton
-              
-
                 variant="unstyled"
                 aria-label="Search database"
                 icon={<DeleteIcon />}

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { Children } from "react";
 import { Box, Center } from "@chakra-ui/layout";
 import { Button, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { CalendarIcon } from "@chakra-ui/icons";
 
-export function Title({ title }) {
-  console.log("dss");
+export function Title({ title, children }) {
   return (
-    <Center>
+    <Center mx="2">
       <Box
+        isTruncated
         userSelect="none"
         mt={"8%"}
         fontSize={[20, 25, 35, 50]}
@@ -16,6 +16,7 @@ export function Title({ title }) {
         fontWeight={"extrabold"}
       >
         {title}
+        {children}
       </Box>
     </Center>
   );

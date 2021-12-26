@@ -82,11 +82,11 @@ export default function Main() {
           <FcDonate />
         </CustomCol>
 
-        <CustomCol path="/emp" text={"عرض بيانات الموظفين"}>
+        <CustomCol path="/showEmpPage" text={"عرض بيانات الموظفين"}>
           <FcCollaboration />
         </CustomCol>
 
-        <CustomCol path="/empAdd" text={"إضافة موظف جديد"}>
+        <CustomCol path="/addNewEmpPage" text={"إضافة موظف جديد"}>
           <FcBusinessman />
         </CustomCol>
       </Wrap>

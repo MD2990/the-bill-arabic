@@ -12,7 +12,7 @@ import {
   FormBottomButton,
 } from "../../comUtil/ComUtil";
 import { useRouter } from "next/router";
-import {  getCurrentDateTime } from "../../lib/funcs";
+import { getCurrentDateTime } from "../../lib/funcs";
 import moment from "moment";
 
 export default function AddBill() {
@@ -27,7 +27,7 @@ export default function AddBill() {
     <Formik
       initialValues={{
         details: "",
-        bill_date: getCurrentDateTime(), 
+        bill_date: getCurrentDateTime(),
         advance: "",
         total_price: "",
         balance: 0,
@@ -45,13 +45,7 @@ export default function AddBill() {
           <Form>
             <Title title="إضافة فاتورة" />
             <Center m="2" p="2">
-              <Wrap
-                justify="center"
-                borderWidth="1px"
-                borderRadius="lg"
-                p="8"
-            
-              >
+              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8">
                 <CustomField
                   fieldName="bill_date"
                   labelName="التاريخ"

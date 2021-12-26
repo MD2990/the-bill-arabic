@@ -227,7 +227,7 @@ export const CustomField = ({
               {...field}
               id={fieldName}
               placeholder={labelName}
-              size="lg"
+              size={type === "datetime-local" ? "sm" : "lg"}
               type={type}
             />
             <FormErrorMessage>{meta.error}</FormErrorMessage>

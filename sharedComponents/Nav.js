@@ -22,7 +22,6 @@ import {
   ChevronRightIcon,
   AddIcon,
   ExternalLinkIcon,
-  ViewIcon,
 } from "@chakra-ui/icons";
 import { FaCar } from "react-icons/fa";
 
@@ -105,19 +104,25 @@ export default function WithSubnavigation() {
 }
 
 const DesktopNav = () => {
-  const linkHoverColor = useColorModeValue("teal.600", "red");
+  const linkHoverColor = "teal.300";
   const popoverContentBgColor = "white";
 
   return (
-    <Stack direction={"row"} spacing={8} mt="3" zIndex="dropdown" mr="8">
+    <Stack
+      direction={"row"}
+      spacing={[4, 6, 8, 10]}
+      mt="3"
+      zIndex="dropdown"
+      mr="8"
+    >
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
-          <Popover trigger={"hover"} placement={"bottom-start"}>
+          <Popover id={navItem.label} trigger={"hover"} placement={"top-end"}>
             <PopoverTrigger>
               <LN
                 p={2}
                 href={navItem.href ?? "#"}
-                fontSize={"xl"}
+                fontSize={["md", "lg", "xl", "2xl"]}
                 fontWeight={700}
                 color="blue.700"
                 _hover={{
@@ -132,16 +137,16 @@ const DesktopNav = () => {
 
             {navItem.children && (
               <PopoverContent
-                color="blue.700"
-                fontSize={"lg"}
-                fontWeight="extrabold"
+                color="blue.500"
+                fontSize={["xs", "sm", "md", "lg"]}
+                fontWeight="black"
                 border={0}
                 boxShadow={"xl"}
+                textShadow={"0px 0px 5px rgba(0, 0, 0, 0.45)"}
                 bg={popoverContentBgColor}
                 p={2}
                 rounded={"xl"}
-                w="12rem"
-                minW={"6rem"}
+                w={"auto"}
               >
                 <Stack>
                   {navItem.children.map((child) => (
@@ -174,7 +179,7 @@ const DesktopSubNav = ({ label, href, children }) => {
           <Box>
             <Text
               transition={"all .3s ease"}
-              _groupHover={{ color: "blue.400" }}
+              _groupHover={{ color: "blue.600" }}
               fontWeight={500}
             >
               {label}
@@ -267,21 +272,21 @@ const NAV_ITEMS = [
       {
         label: "إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
-        href: "/trans/cx/devices/add",
+        href: "/addNewBillPage",
       },
       {
         label: "عرض",
-        href: "/trans/cx/devices",
+        href: "/showBillPage",
         icon: <ExternalLinkIcon color="blue.300" w="5" h="5" />,
       },
     ],
   },
 
   {
-    label: "المصاريف",
+    label: "5المصاريف",
     children: [
       {
-        label: "إضافة ",
+        label: "5إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
         href: "/trans/cx/devices/add",
       },
@@ -298,11 +303,11 @@ const NAV_ITEMS = [
       {
         label: "إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
-        href: "/trans/cx/devices/add",
+        href: "/addNewEmpPage",
       },
       {
         label: "عرض",
-        href: "/trans/cx/devices",
+        href: "/showEmpPage",
         icon: <ExternalLinkIcon color="blue.300" w="5" h="5" />,
       },
     ],

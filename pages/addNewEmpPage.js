@@ -1,12 +1,12 @@
 import React from 'react';
 import { Hd } from '../components/comUtil/ComUtil';
-import Add from '../components/emp/Add';
+import AddEmp from '../components/emp/AddEmp';
 
-export default function expAdd() {
+export default function AddnewEmpPage() {
 	return (
 		<>
 			<Hd title='إضافة موظف جديد' />
-			<Add />
+			<AddEmp />
 		</>
 	);
 }

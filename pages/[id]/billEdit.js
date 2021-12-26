@@ -47,11 +47,11 @@ export async function getServerSideProps({ params }) {
   
 
 	return {
-		props: {
-			bill,
-		},
-	
-	};
+    props: {
+      bill,
+    },
+    revalidate: 1,
+  };
 }
 
 
