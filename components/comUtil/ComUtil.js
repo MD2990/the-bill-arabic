@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import { Box, Center } from "@chakra-ui/layout";
 import { Button, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
@@ -6,11 +6,9 @@ import { CalendarIcon } from "@chakra-ui/icons";
 
 export function Title({ title, children }) {
   return (
-    <Center mx="2">
+    <Center  mx="2" userSelect="none" mt={"5%"}>
       <Box
         isTruncated
-        userSelect="none"
-        mt={"8%"}
         fontSize={[20, 25, 35, 50]}
         color={"teal.500"}
         fontWeight={"extrabold"}

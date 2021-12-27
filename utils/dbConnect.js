@@ -40,9 +40,10 @@ export function toCurrency(number) {
   return OMR(number).format();
 }
 
-/* export function getSum(sum1, sum2, sub) {
-  return currency(sum1).add(sum2).subtract(sub); 
-} */
+ export function getSumToNum(sum1, sum2, sub) {
+  let total= currency(sum1).add(sum2).subtract(sub); 
+  return toCurrency(total);
+} 
 
  export function getSum(sum1, sub) {
   return currency(sum1).subtract(sub); 

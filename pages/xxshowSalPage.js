@@ -1,10 +1,10 @@
 import useSWR from 'swr';
-import ShowAll from '../components/sal/ShowAll';
+import ShowSal from '../components/sal/ShowSal';
 import { dbConnect, jsonify } from '../utils/dbConnect';
 import Sal from '../models/Sal';
 import { Hd, Spans,Title } from '../components/comUtil/ComUtil';
 
-export default function showAllSal({ sal }) {
+export default function ShowSalPage({ sal }) {
 
 
 	const { data, error } = useSWR('/api/sal', {
@@ -20,7 +20,7 @@ export default function showAllSal({ sal }) {
 	return (
 		<>
 			<Hd title={`عرض الرواتب`} />
-			<ShowAll sal={data} />
+			<ShowSal sal={data} />
 		</>
 	);
 }

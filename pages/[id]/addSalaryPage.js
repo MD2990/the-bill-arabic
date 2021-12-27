@@ -1,28 +1,29 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import { dbConnect, jsonify } from '../../utils/dbConnect';
-import AddSal from '../../components/sal/Add';
-import Emp from '../../models/Emp';
+
 import { Hd, Spans, Title } from '../../components/comUtil/ComUtil';
-
+import AddSal from '../../components/sal/AddSal';
+import { getItem } from '../../lib/funcs';
+ 
 //Here we need {sal} to add a salary for specific employee
-const empAddSal = ({ sal }) => {
-	const router = useRouter();
+const AddSalaryPage = () => {
+  const router = useRouter();
+  const empName= getItem( 'emp');
 
-	if (router.isFallback) {
-		return <Spans />;
-	}
+  if (router.isFallback || !empName) {
+    return <Spans />;
+  }
 
-	return (
-		<>
-			<Hd title={`إضافة راتب للموظف: ${sal.emp_name}`} />
-			<AddSal sal={sal} />
-		</>
-	);
+  return (
+    <>
+      <Hd title={`إضافة راتب للموظف: ${empName||" . . ."}`} />
+      <AddSal empName={empName}/>
+    </>
+  );
 };
 
 // This function gets called at build time
-export async function getStaticProps({ params }) {
+/*  export async function getStaticProps({ params }) {
 	dbConnect();
 	const data = await Emp.findById(params.id);
 	const sal = await jsonify(data);
@@ -54,6 +55,6 @@ export async function getStaticPaths() {
 	// We'll pre-render only these paths at build time.
 	// { fallback: false } means other routes should 404.
 	return { paths, fallback: true };
-}
+} */ 
 
-export default empAddSal;
+export default AddSalaryPage;

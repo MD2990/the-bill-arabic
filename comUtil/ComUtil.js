@@ -241,9 +241,9 @@ export const CustomField = ({
 export const CustomFieldWithValue = ({
   fieldName,
   labelName,
-
-  disabled = false,
+  disabled = true,
   values,
+  forSalary = false,
 }) => {
   return (
     <WrapItem>
@@ -265,7 +265,9 @@ export const CustomFieldWithValue = ({
               id={fieldName}
               placeholder={labelName}
               value={values}
-              color={values == "OMR 0.000" ? "green.500" : "red.500"}
+              color={
+                !forSalary && (values == "OMR 0.000" ? "green.500" : "red.500")
+              }
             />
             <FormErrorMessage>{meta.error}</FormErrorMessage>
           </FC>
@@ -283,7 +285,7 @@ export const CustomTextArea = ({ fieldName, labelName }) => {
           <FC isInvalid={meta.touched && meta.error}>
             <FormLabel
               id={fieldName}
-               fontSize="larger"
+              fontSize="larger"
               fontWeight="bold"
               htmlFor={fieldName}
             >

@@ -75,15 +75,16 @@ export default function SingleCard({
             >
               <IconButton
                 variant="unstyled"
-                aria-label="Search database"
+                aria-label="Add Salary"
                 icon={<AddIcon />}
                 color="green.300"
                 size="1.5rem"
                 onClick={() => {
                   setItem("id", _id);
                   setItem("emp", header);
+                
 
-                  router.push(`/${_id}/AddSalary`);
+                 router.push(`/${_id}/addSalaryPage`);
                 }}
               />
             </Tooltip>
@@ -105,7 +106,7 @@ export default function SingleCard({
                 onClick={() => {
                   setItem("id", _id);
                   setItem("emp", header);
-                  router.push(`/${_id}/ShowEmpSalPage`);
+                  router.push(`/${_id}/showSalPage`);
                 }}
               />
             </Tooltip>

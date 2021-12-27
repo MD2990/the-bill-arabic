@@ -9,11 +9,13 @@ import { handleDelete } from "../../utils/dbConnect";
 
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
-import { cutString, handleFormDelete } from "../../lib/funcs";
+import {  getItem, handleFormDelete } from "../../lib/funcs";
 
-export default function EmpCards() {
+export default function SalCards() {
   const snap = useSnapshot(state);
 
+
+  
   const rs = useCallback(
     () => state.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
     [snap.PER_PAGE, snap.offset, snap.searchResults]
@@ -23,46 +25,47 @@ export default function EmpCards() {
     rs();
   }, [rs]);
 
-  if (!snap.emp) return <MySkeletons />;
-  if (!snap.emp.length) return <Title title="   لا توجد فواتير للعرض !!!" />;
+  if (!snap.sal) return <MySkeletons />;
+  if (!snap.sal.length) return <Title title="   لا توجد فواتير للعرض !!!" />;
   return (
     <>
       {rs()?.map(
         ({
           _id,
-          emp_name,
-          job,
-          civil_id,
-          passport_number,
-          empl_date,
-          added_date,
+          basic_salary,
+          bonus,
+          loans,
+          total_salary,
+          salary_date,
           remarks,
         }) => {
           return (
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
                 _id={_id}
-                showSalary
-                addSalary
-                link={`/${_id}/empEdit`}
-                header={emp_name?.toUpperCase()}
+                link={`/${_id}/salEdit`}
+                header={getItem('emp')?.toUpperCase()}
                 deleteFunction={async () => {
                   await handleFormDelete({
-                    deleteUrl: "emp",
+                    deleteUrl: "sal",
                     id: _id,
 
                     handleDelete,
 
                     secondDelete: () =>
-                      (state.emp = snap.emp.filter((item) => item._id !== _id)),
+                      (state.sal = snap.sal.filter((item) => item._id !== _id)),
                   });
                 }}
               >
-                <AllText title=" الوظيفة:" data={job} />
-                <AllText title=" رقم البطاقة:" data={civil_id} />
-                <AllText title=" تاريخ الاضافة:" data={added_date} />
-                <AllText title=" رقم الجواز :" data={passport_number} />
-                <AllText title=" تاريخ التوظيف:" data={empl_date} />
+              
+                <AllText title=" الراتب الاساسي:" data={basic_salary} />
+                <AllText title=" المكافأة:" data={bonus} />
+                <AllText title=" القروض:" data={loans} />
+                <AllText title=" المجموع:" data={total_salary} />
+                <AllText title=" تاريخ الاستحقاق:" data={salary_date} />
+
+
+               
                 <AllText title=" الملاحظات:" data={remarks} />
               </SingleCard>
             </Wrap>
