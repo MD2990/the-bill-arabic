@@ -314,8 +314,8 @@ const NAV_ITEMS = [
   },
 
   {
-    label: "المصاريف",
-    href: "/trans/d_f/add",
+    label: "جميع الرواتب",
+    href: "/showAllSalPage",
     icon: <AddIcon color="blue.300" w="5" h="5" />,
   },
 ];

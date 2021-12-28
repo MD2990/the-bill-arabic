@@ -11,7 +11,7 @@ import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
 import {  getItem, handleFormDelete } from "../../lib/funcs";
 
-export default function SalCards() {
+export default function AllSalCards() {
   const snap = useSnapshot(state);
 
 
@@ -25,7 +25,7 @@ export default function SalCards() {
     rs();
   }, [rs]);
 
-  if (!snap.sal) return <MySkeletons />;
+  if (!snap.allSal) return <MySkeletons />;
   return (
     <>
       {rs()?.map(
@@ -54,7 +54,7 @@ export default function SalCards() {
                     handleDelete,
 
                     secondDelete: () =>
-                      (state.sal = snap.sal.filter((item) => item._id !== _id)),
+                      (state.allSal = snap.allSal.filter((item) => item._id !== _id)),
                   });
                 }}
               >

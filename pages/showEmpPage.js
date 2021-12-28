@@ -2,11 +2,16 @@ import useSWR from 'swr';
 import ShowEmp from "../components/emp/ShowEmp";
 import { dbConnect, jsonify } from '../utils/dbConnect';
 import Emp from '../models/Emp';
-import { Hd, Spans, Title } from '../components/comUtil/ComUtil';
+import { Btn, Hd, Spans, Title } from '../components/comUtil/ComUtil';
 import state from "../stor";
+import { Center, Text } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
+import { useRouter } from 'next/router';
 
 export default function ShowEmpPage({ emp }) {
 	
+
+	const router = useRouter();
 	const { data, error } = useSWR('/api/emp', {
 		initialData: { emp },
 		revalidateOnMount: true,
@@ -18,15 +23,33 @@ export default function ShowEmpPage({ emp }) {
 		);
 	if (!data) return <Spans />;
 
-	 state.emp = data.emp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
+	
 
-	 console.log(state.emp);
+
+  if (data.emp?.length < 1)
+    return (
+      <>
+        <Title title="لم يتم إضافة موظفين إلى الآن ..." color={"green.400"}>
+       
+        </Title>
+        <Center my={["1%", "2%", "3%", "4%"]}>
+          <Btn
+            fontSize={["1rem", "1.5rem", "2rem", "2.5rem"]}
+            p={["1rem", "1.5rem", "2rem", "2.5rem"]}
+            click={() => router.replace(`/addNewEmpPage`)}
+            title="  إضافة موظف جديد"
+            icon={<AddIcon />}
+            color={"green.400"}
+          ></Btn>
+        </Center>
+      </>
+    );
 
 	return (
     <>
       <Hd title="عرض بيانات الموظفين" />
 
-      <ShowEmp  />
+      <ShowEmp emp={data.emp}  />
     </>
   );
 }

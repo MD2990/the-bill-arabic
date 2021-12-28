@@ -16,7 +16,6 @@ export default function AddEmp() {
   const router = useRouter();
 
   async function addEmp(values) {
-    // values.empl_Date = moment(values.empl_Date).format("YYYY-MM-DD");
     await post("emp", values);
   }
 

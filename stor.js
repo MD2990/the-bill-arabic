@@ -1,3 +1,5 @@
+import { m } from "framer-motion";
+import moment from "moment";
 import { proxy } from "valtio";
 
 const state = proxy({
@@ -13,10 +15,14 @@ const state = proxy({
   offset: 0,
   emp: [],
   sal: [],
+  allSal: [],
   emp_id: null,
   empName: null,
   exp: [],
   empName: [],
-  isFiltered:false,
+  isFiltered: false,
+  title: '',
+  fromDate: '', 
+  toDate:'',
 });
 export default state;

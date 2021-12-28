@@ -24,7 +24,7 @@ export default function EmpCards() {
   }, [rs]);
 
   if (!snap.emp) return <MySkeletons />;
-  if (!snap.emp.length) return <Title title="   لا توجد فواتير للعرض !!!" />;
+  
   return (
     <>
       {rs()?.map(
@@ -41,6 +41,8 @@ export default function EmpCards() {
           return (
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
+                color={"green.100"}
+                HD_color={"green.600"}
                 _id={_id}
                 showSalary
                 addSalary
@@ -58,12 +60,32 @@ export default function EmpCards() {
                   });
                 }}
               >
-                <AllText title=" الوظيفة:" data={job} />
-                <AllText title=" رقم البطاقة:" data={civil_id} />
-                <AllText title=" تاريخ الاضافة:" data={added_date} />
-                <AllText title=" رقم الجواز :" data={passport_number} />
-                <AllText title=" تاريخ التوظيف:" data={empl_date} />
-                <AllText title=" الملاحظات:" data={remarks} />
+                <AllText title=" الوظيفة:" data={job} color={"green.600"} />
+                <AllText
+                  title=" رقم البطاقة:"
+                  data={civil_id}
+                  color={"green.600"}
+                />
+                <AllText
+                  title=" تاريخ الاضافة:"
+                  data={added_date}
+                  color={"green.600"}
+                />
+                <AllText
+                  title=" رقم الجواز :"
+                  data={passport_number}
+                  color={"green.600"}
+                />
+                <AllText
+                  title=" تاريخ التوظيف:"
+                  data={empl_date}
+                  color={"green.600"}
+                />
+                <AllText
+                  title=" الملاحظات:"
+                  data={remarks}
+                  color={"green.600"}
+                />
               </SingleCard>
             </Wrap>
           );

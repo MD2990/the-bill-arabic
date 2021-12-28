@@ -4,13 +4,14 @@ import { Button, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { CalendarIcon } from "@chakra-ui/icons";
 
-export function Title({ title, children }) {
+export function Title({ title, children, color }) {
+  
   return (
     <Center  mx="2" userSelect="none" mt={"5%"}>
       <Box
         isTruncated
         fontSize={[20, 25, 35, 50]}
-        color={"teal.500"}
+        color={ color || "teal.500"}
         fontWeight={"extrabold"}
       >
         {title}
@@ -38,18 +39,19 @@ export function PrintBtn({ click }) {
   );
 }
 
-export function Btn({ click, title, icon, color = "blackAlpha" }) {
+export function Btn({ click, title, icon, color = "blackAlpha" ,p,fontSize }) {
   return (
     <Button
-      _hover={{ boxShadow: "none" }}
+     fontSize={fontSize}
+      _hover={{ boxShadow: "none", transform: "scale(1.1) ", transition: "all 0.2s ease-in-out" }}
       _focus={{ boxShadow: "none" }}
       color={color}
       leftIcon={icon}
-      className="hvr-grow"
       size="lg"
       colorScheme="gray"
       variant="outline"
       onClick={() => click()}
+      p={p}
     >
       {title}
     </Button>

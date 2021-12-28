@@ -58,11 +58,7 @@ export const EmpButtons = () => {
     );
   }
 
-  function getCurrentMonth() {
-    state.searchResults = state.searchResults.filter((b) => {
-      return moment(b.bill_date.toString()).isSame(moment(), "month");
-    });
-  }
+
   return (
     <Wrap
       spacing="4"
@@ -102,12 +98,7 @@ export const EmpButtons = () => {
         />
       </WrapItem>
 
-      <Btn
-        color="blue.400"
-        icon={<CalendarIcon />}
-        title={"فواتير الشهر الحالي"}
-        click={getCurrentMonth}
-      />
+  
 
       {snap.searchResults.length < 1 && (
         <>

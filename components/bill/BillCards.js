@@ -42,6 +42,7 @@ export default function BillCards() {
           return (
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
+                color={'green.100'}
                 link={`/${_id}/billEdit`}
                 header={`رقم الفاتورة ${cutString(_id, 18, 24)}`}
                 deleteFunction={async () => {

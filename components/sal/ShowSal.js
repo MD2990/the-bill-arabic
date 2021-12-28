@@ -11,8 +11,8 @@ import { getItem } from "../../lib/funcs";
 export default function ShowSal() {
   return (
     <>
-      <Title title="رواتب الموظف: ">
-        <Text  fontWeight={"hairline"} color={"teal.200"} as="span">
+      <Title title="رواتب الموظف: " color={"blue.500"}>
+        <Text fontWeight={"hairline"} color={"blue.200"} as="span">
           {getItem("emp")}
         </Text>
       </Title>

@@ -33,7 +33,8 @@ export const BackButton = ({ ml = "0", mr = "0", mt = "0", mb = "0" }) => {
   );
 };
 
-export   const MainInterface = ({ children }) => (
+export const MainInterface = ({ children }) => (
+  
   <Center>
     <Wrap
       shadow="base"

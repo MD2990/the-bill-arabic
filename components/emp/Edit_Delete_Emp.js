@@ -14,7 +14,7 @@ import {
 import { handlePut, handleDelete } from "../../utils/dbConnect";
 import { handleFormDelete } from "../../lib/funcs";
 
-export default function Edit_Delete_Bill({ emp }) {
+export default function Edit_Delete_Emp({ emp }) {
   const router = useRouter();
 
   const {
@@ -37,7 +37,7 @@ export default function Edit_Delete_Bill({ emp }) {
 
   async function FormDeleteFunc() {
     await handleFormDelete({
-      deleteUrl: "bill",
+      deleteUrl: "emp",
       id: _id,
       handleDelete,
       router,

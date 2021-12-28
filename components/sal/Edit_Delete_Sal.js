@@ -5,37 +5,38 @@ import { Wrap, Center, Divider, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
   CustomField,
+  CustomFieldWithValue,
   CustomTextArea,
   FormBottomButton,
 } from "../../comUtil/ComUtil";
 import {
-  EMP_validationSchema,
+  EMP_validationSchema, SAL_validationSchema,
 } from "../../lib/constants";
-import { handlePut, handleDelete } from "../../utils/dbConnect";
-import { handleFormDelete } from "../../lib/funcs";
+import { handlePut, handleDelete, getSumToNum } from "../../utils/dbConnect";
+import { getItem, handleFormDelete } from "../../lib/funcs";
 
-export default function Edit_Delete_Sal({ emp }) {
+export default function Edit_Delete_Sal({ sal }) {
   const router = useRouter();
 
   const {
-    emp_name,
-    job,
-    civil_id,
-    passport_number,
-    empl_date,
-    added_date,
+      basic_salary,
+        bonus,
+        loans,
+        total_salary,
+        emp_id,
+        salary_date,
     remarks,
-    _id,
-  } = emp;
+        _id,
+  } = sal;
 
   async function put(values) {
-    handlePut({ values, url: "emp", router });
-    router.replace("/showEmpPage");
+    handlePut({ values, url: "sal", router });
+    router.replace(`/${emp_id}/showSalPage`);
   }
 
   async function FormDeleteFunc() {
     await handleFormDelete({
-      deleteUrl: "bill",
+      deleteUrl: "sal",
       id: _id,
       handleDelete,
       router,
@@ -44,50 +45,71 @@ export default function Edit_Delete_Sal({ emp }) {
   return (
     <Formik
       initialValues={{
-        emp_name,
-        job,
-        civil_id,
-        passport_number,
-        empl_date,
-        added_date,
+        _id,
+        basic_salary,
+        bonus,
+        loans,
+        total_salary,
+        emp_id,
+        salary_date,
         remarks,
       }}
       onSubmit={async (values, actions) => {
         await put(values);
         actions.setSubmitting(false);
       }}
-      validationSchema={EMP_validationSchema}
+      validationSchema={SAL_validationSchema}
     >
       {(props) => {
         return (
           <Form>
-            <Title title={`تحديث بيانات  الموظف:   `}>
-              <Text as="span" color={"blue.500"}>
+            <Title title={`تحديث راتب الموظف:   `} color={"blue.600"}>
+              <Text as="span" color={"blue.300"}>
                 {" "}
-                {emp_name.toUpperCase()}{" "}
+                {getItem("emp")?.toUpperCase()}{" "}
               </Text>
             </Title>
             <Center m="2" p="2">
               <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8">
-                <CustomField fieldName="emp_name" labelName="اسم العامل" />
-                <CustomField fieldName="job" labelName="المهنة" />
-                <CustomField fieldName="civil_id" labelName="الرقم المدني" />
                 <CustomField
-                  fieldName="passport_number"
-                  labelName="رقم الجواز"
+                  fieldName="basic_salary"
+                  labelName="الراتب الأساسي"
+                  type="number"
                 />
                 <CustomField
-                  fieldName="empl_date"
-                  labelName="تاريخ التعيين"
+                  fieldName="bonus"
+                  labelName="العلاوات"
+                  type="number"
+                />
+                <CustomField
+                  fieldName="loans"
+                  labelName="القروض"
+                  type="number"
+                />
+                <CustomFieldWithValue
+                  forSalary
+                  fieldName="total_salary"
+                  labelName="الراتب الإجمالي"
+                  values={getSumToNum(
+                    props.values.basic_salary,
+                    props.values.bonus,
+                    props.values.loans
+                    )}
+                />
+                <CustomField
+                  fieldName="salary_date"
+                  labelName="تاريخ الراتب"
                   type="date"
                 />
-                <CustomField
-                  fieldName="added_date"
-                  labelName="تاريخ الاضافة"
-                  type="date"
-                />
+
                 <CustomTextArea fieldName="remarks" labelName="ملاحظات" />
 
+                    <CustomField
+                      fieldName="_id"
+                  labelName="الرمز التعريفي"
+                  disabled
+                     
+                    />
                 <Divider />
 
                 <FormBottomButton

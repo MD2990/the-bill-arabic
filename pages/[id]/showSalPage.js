@@ -1,22 +1,23 @@
-import useSWR from "swr";
 import ShowSal from "../../components/sal/ShowSal";
 import { dbConnect, jsonify } from "../../utils/dbConnect";
 import Sal from "../../models/Sal";
 import { useRouter } from "next/router";
-import { Hd, Spans } from "../../components/comUtil/ComUtil";
-import { Button, Center } from "@chakra-ui/react";
+import { Btn, Hd, Spans, Title } from "../../components/comUtil/ComUtil";
+import { Center, Stack, Text } from "@chakra-ui/react";
 import state from "../../stor";
 import { useEffect } from "react";
 
+import { getItem } from "../../lib/funcs";
+import { AddIcon } from "@chakra-ui/icons";
+import { BackButton } from "../../sharedComponents/BackButton";
+
 export default function ShowSalPage({ sal }) {
+  useEffect(
+    () => (state.sal = sal),
 
+    [sal]
+  );
 
-	  useEffect(
-      () => (state.sal = sal),
-
-      [sal]
-    );
- 
   const router = useRouter();
   if (router.isFallback) {
     return <Spans />;
@@ -25,21 +26,28 @@ export default function ShowSalPage({ sal }) {
 
   if (sal?.length < 1)
     return (
-      <Center>
-        <Button
-          variant="outline"
-          colorScheme="teal"
-          size="lg"
-          fontSize="5xl"
-          padding="10"
-          margin="32"
-          onClick={() => router.replace(`/${id}/empAddSal`)}
-        >
-          إضافة راتب
-        </Button>
-      </Center>
+      <>
+        <Stack ml="5%" align={"flex-end"}>
+          <BackButton mb="-4%" />
+        </Stack>
+        <Title title="لا توجد رواتب للموظف  " color={"green.400"}>
+          <Text as="span" color={"green.200"}>
+            {getItem("emp")}
+          </Text>
+        </Title>
+
+        <Center my={["1%", "2%", "3%", "4%"]}>
+          <Btn
+            fontSize={["1rem", "1.5rem", "2rem", "2.5rem"]}
+            p={["1rem", "1.5rem", "2rem", "2.5rem"]}
+            click={() => router.replace(`/${id}/addSalaryPage`)}
+            title="  إضافة راتب"
+            icon={<AddIcon />}
+            color={"green.400"}
+          ></Btn>
+        </Center>
+      </>
     );
-	
 
   return (
     <>

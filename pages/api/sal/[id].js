@@ -1,4 +1,4 @@
-import dbConnect from "../../../utils/dbConnect";
+import dbConnect, { getSumToNum } from "../../../utils/dbConnect";
 import Sal from "../../../models/Sal";
 
 export default async function handler(req, res) {
@@ -24,6 +24,11 @@ export default async function handler(req, res) {
 
     case "PUT" /* Edit a model by its ID */:
       try {
+               req.body.total_salary = getSumToNum(
+                 req.body.basic_salary,
+                 req.body.bonus,
+                 req.body.loans
+               );
         const sal = await Sal.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true,
@@ -39,7 +44,7 @@ export default async function handler(req, res) {
 
     case "DELETE" /* Delete a model by its ID */:
       try {
-		  console.log(` ${id}`);
+	
         const sal = await Sal.findByIdAndDelete(id);
         if (!sal) return res.status(400).json({ success: false });
        else{ res.status(200).json({ sal });console.log(res);}

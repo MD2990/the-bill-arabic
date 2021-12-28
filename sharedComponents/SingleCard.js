@@ -16,11 +16,12 @@ import { Tooltip } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
 import { AiOutlineEdit } from "react-icons/ai";
+import { FaMoneyBillWave } from "react-icons/fa";
 import { IconButton } from "@chakra-ui/react";
 import { setItem } from "../lib/funcs";
-export const AllText = ({ color = " blackAlpha.50", title, data }) => (
+export const AllText = ({ color , title, data }) => (
   <Text pb="0.5" color={color} fontSize={["xs", "sm", "md", "lg"]}>
-    <Text pl="2" as="span" fontWeight="black" color="blackAlpha.800">
+    <Text pl="2" as="span" fontWeight="black" >
       {title}
     </Text>
     {data}
@@ -36,6 +37,8 @@ export default function SingleCard({
   children,
   _id,
   header,
+  color,
+  HD_color,
 }) {
   const router = useRouter();
 
@@ -43,14 +46,14 @@ export default function SingleCard({
     <WrapItem
       alignItems="center"
       whiteSpace="nowrap"
-      background="blackAlpha.200"
       boxShadow="dark-lg"
-      rounded="2xl"
+      rounded="xl"
+      bg={color}
     >
       <Center m={[1, 1.5, 2]} p={[1, 1.5, 2]} cursor="pointer" mr="-1">
-        <HStack spacing="2">
+        <HStack spacing={[1, 2, 3]} align={"flex-end"}>
           <Tooltip
-            label="Edit"
+            label="تعديل"
             color="black"
             placement="bottom-start"
             hasArrow
@@ -67,7 +70,7 @@ export default function SingleCard({
 
           {addSalary && (
             <Tooltip
-              label="Add Salary"
+              label="إضافة راتب"
               color="black"
               placement="bottom-start"
               hasArrow
@@ -77,21 +80,20 @@ export default function SingleCard({
                 variant="unstyled"
                 aria-label="Add Salary"
                 icon={<AddIcon />}
-                color="green.300"
+                color="green.500"
                 size="1.5rem"
                 onClick={() => {
                   setItem("id", _id);
                   setItem("emp", header);
-                
 
-                 router.push(`/${_id}/addSalaryPage`);
+                  router.push(`/${_id}/addSalaryPage`);
                 }}
               />
             </Tooltip>
           )}
           {showSalary && (
             <Tooltip
-              label="Show Salaries"
+              label="عرض الرواتب"
               color="black"
               placement="bottom-start"
               hasArrow
@@ -100,9 +102,9 @@ export default function SingleCard({
               <IconButton
                 variant="unstyled"
                 aria-label="Show Salaries"
-                icon={<ViewIcon />}
-                color="blue.300"
-                size="1.5rem"
+                icon={<FaMoneyBillWave />}
+                color="blue.400"
+                size="1.8rem"
                 onClick={() => {
                   setItem("id", _id);
                   setItem("emp", header);
@@ -114,7 +116,7 @@ export default function SingleCard({
 
           {deleteObject && (
             <Tooltip
-              label="Delete"
+              label="حذف"
               color="black"
               placement="bottom-start"
               hasArrow
@@ -122,7 +124,7 @@ export default function SingleCard({
             >
               <IconButton
                 variant="unstyled"
-                aria-label="Search database"
+                aria-label="DELETE"
                 icon={<DeleteIcon />}
                 color="red.300"
                 size="1.5rem"
@@ -141,10 +143,11 @@ export default function SingleCard({
             >
               <Box flex="1" textAlign="right">
                 <Text
-                  p="4"
+                  isTruncated
+                  p={[0.5, 1, 1.5,2]}
                   textAlign="right"
-                  fontSize="xl"
-                  color="blackAlpha.800"
+                  fontSize={["sm", "md", "lg", "xl"]}
+                  color={HD_color}
                   fontWeight="bold"
                 >
                   {header}
