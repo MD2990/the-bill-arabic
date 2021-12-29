@@ -21,8 +21,10 @@ const state = proxy({
   exp: [],
   empName: [],
   isFiltered: false,
-  title: '',
-  fromDate: '', 
-  toDate:'',
+  title: "",
+  billTitle: "",
+  fromDate: moment().format("YYYY-MM-DD"),
+  toDate: moment().format("YYYY-MM-DD"),
 });
 export default state;
+

@@ -11,6 +11,7 @@ import SearchInput from "../../sharedComponents/SearchInput";
 import { Button } from "@chakra-ui/react";
 import moment from "moment";
 import { cutString } from "../../lib/funcs";
+import BillDateFilter from "./BillDateFilter";
 
 export const BillButtons = () => {
   const snap = useSnapshot(state);
@@ -54,16 +55,13 @@ export const BillButtons = () => {
     return toPDF(
       rows,
       columns,
-      `تفاصيل الفواتير                      العدد ${rows.length} `
+      `${snap.title}                          العدد:${rows.length} `
     );
   }
 
-  function getCurrentMonth() {
-    state.searchResults = state.searchResults.filter((b) => {
-      return moment(b.bill_date.toString()).isSame(moment(), "month");
-    });
-  }
+
   return (
+    <>
     <Wrap
       spacing="4"
       justify="center"
@@ -71,7 +69,7 @@ export const BillButtons = () => {
       m="2"
       p="2"
       direction="row-reverse"
-    >
+      >
       <WrapItem>
         <BackButton ml="0" />
       </WrapItem>
@@ -79,7 +77,7 @@ export const BillButtons = () => {
         <SearchInput data={snap.bill} />
       </WrapItem>
       <WrapItem>
-        <Btn icon={<RepeatIcon />} click={() => clear()} title="عرض الجميع" />
+        <Btn color="green.400"  icon={<RepeatIcon />} click={() => clear()} title="عرض الجميع" />
       </WrapItem>
       <WrapItem>
         <Btn
@@ -87,27 +85,21 @@ export const BillButtons = () => {
           icon={<AddIcon />}
           click={() => router.push("/addNewBillPage")}
           title="إضافة"
-        />
+          />
       </WrapItem>
 
       {snap.searchResults.length > 0 && (
         <WrapItem>
-          <PrintBtn click={() => printPdf()} />
+          <PrintBtn click={() => printPdf()}  color={'green.200'} />
         </WrapItem>
       )}
 
       <WrapItem>
         <TotalText
           text={`الإجمالي:  ${snap.bill && snap.searchResults.length}`}
-        />
+          />
       </WrapItem>
 
-      <Btn
-        color="blue.400"
-        icon={<CalendarIcon />}
-        title={"فواتير الشهر الحالي"}
-        click={getCurrentMonth}
-      />
 
       {snap.searchResults.length < 1 && (
         <>
@@ -117,5 +109,7 @@ export const BillButtons = () => {
         </>
       )}
     </Wrap>
+      <BillDateFilter/> 
+      </>
   );
 };

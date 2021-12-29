@@ -1,5 +1,6 @@
 import dbConnect, { getSum, toCurrency } from "../../../utils/dbConnect";
 import Bill from "../../../models/Bill";
+import moment from "moment";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -27,7 +28,7 @@ export default async function handler(req, res) {
         balance = getSum(total_price, advance);
         balance = toCurrency(balance);
 
-        bill_date = bill_date.replace(/T/, " ");
+        bill_date = moment(bill_date).format("YYYY-MM-DD");
 
         const bill = await Bill.create({
           details,

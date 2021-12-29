@@ -30,6 +30,7 @@ export default function AddSal({ empName }) {
   return (
     <Formik
       initialValues={{
+        emp_name: empName,
         basic_salary: getItem("bSal") || "",
         bonus: getItem("bonus") || 0,
         loans: getItem("loans") || 0,
@@ -41,7 +42,6 @@ export default function AddSal({ empName }) {
       onSubmit={async (values, actions) => {
         await addEmp(values);
         actions.setSubmitting(false);
-          
       }}
       validationSchema={SAL_validationSchema}
     >
@@ -70,15 +70,11 @@ export default function AddSal({ empName }) {
                   forSalary
                   fieldName="total_salary"
                   labelName="الراتب الإجمالي"
-                  values={
-                    getSumToNum(
-                      props.values.basic_salary,
-                      props.values.bonus,
-                      props.values.loans
-                    )
-
-                 
-                  }
+                  values={getSumToNum(
+                    props.values.basic_salary,
+                    props.values.bonus,
+                    props.values.loans
+                  )}
                 />
                 <CustomField
                   fieldName="salary_date"

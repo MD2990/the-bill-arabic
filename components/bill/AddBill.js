@@ -27,7 +27,7 @@ export default function AddBill() {
     <Formik
       initialValues={{
         details: "",
-        bill_date: getCurrentDateTime(),
+        bill_date: moment().format("YYYY-MM-DD"),
         advance: "",
         total_price: "",
         balance: 0,
@@ -49,7 +49,7 @@ export default function AddBill() {
                 <CustomField
                   fieldName="bill_date"
                   labelName="التاريخ"
-                  type="datetime-local"
+                  type="date"
                 />
                 <CustomTextArea fieldName="details" labelName="التفاصيل" />
 

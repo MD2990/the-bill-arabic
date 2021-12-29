@@ -18,7 +18,7 @@ export const SalButtons = () => {
 
   const clear = () => {
     state.searchTerm = "";
-    state.isFiltered = false;
+    state.isSalFiltered = false;
     state.searchResults = snap.sal;
   };
 

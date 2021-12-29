@@ -17,28 +17,19 @@ export default function ShowAllSal({ sal }) {
   const snap= useSnapshot(state);
 
   useEffect(() => {
-    state.allSal =  sal.sort((a, b) =>
-      a.salary_date < b.salary_date ? 1 : -1
-    );
-
+    state.allSal = sal.sort((a, b) => (a.salary_date > b.salary_date ? -1 : 1));
   }, [sal]);
 
   useEffect(() => {
-    state.title = "رواتب جميع الموظفين";
-  }, [sal]);
-
-
-
-
- 
+    state.title = " جميع الرواتب";
+  }, [sal]);  
 
   return (
     <>
       <Title title={snap.title} color={"blue.500"}></Title>
-     
 
       <MainInterface>
-        <SalButtons sal={sal} />
+        <SalButtons />
 
         <Divider mt="-8" />
 

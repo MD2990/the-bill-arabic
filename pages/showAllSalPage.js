@@ -3,7 +3,6 @@ import Sal from "../models/Sal";
 import { useRouter } from "next/router";
 import { Hd, Spans, Title } from "../components/comUtil/ComUtil";
 import { Stack } from "@chakra-ui/react";
-
 import { BackButton } from "../sharedComponents/BackButton";
 import ShowAllSal from "../components/allSal/ShowAllSal";
 import useSWR from "swr";
@@ -47,7 +46,9 @@ export default function ShowSalPage({ sal }) {
   return (
     <>
       <Hd title={`عرض جميع الرواتب`} />
-      <ShowAllSal sal={ data.sal}/>
+      <ShowAllSal
+        sal={data.sal}
+      />
     </>
   );
 }

@@ -3,15 +3,15 @@ import { Box, Center } from "@chakra-ui/layout";
 import { Button, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { CalendarIcon } from "@chakra-ui/icons";
+import { FcPrint } from "react-icons/fc";
 
 export function Title({ title, children, color }) {
-  
   return (
-    <Center  mx="2" userSelect="none" mt={"5%"}>
+    <Center mx="2" userSelect="none" mt={"5%"}>
       <Box
         isTruncated
         fontSize={[20, 25, 35, 50]}
-        color={ color || "teal.500"}
+        color={color || "teal.500"}
         fontWeight={"extrabold"}
       >
         {title}
@@ -21,17 +21,22 @@ export function Title({ title, children, color }) {
   );
 }
 
-export function PrintBtn({ click }) {
+export function PrintBtn({ click, color }) {
   return (
     <>
       <Button
-        variant="outline"
+        variant="ghost"
         size="lg"
-        _hover={{ boxShadow: "none" }}
+        _hover={{
+          boxShadow: "none",
+          transform: "scale(1.5) ",
+          transition: "all 0.2s ease-in-out",
+        }}
         _focus={{ boxShadow: "none" }}
-        leftIcon={<CalendarIcon />}
+     
+        leftIcon={<FcPrint size={"1.8rem"} />}
         onClick={() => click()}
-        colorScheme="whatsapp"
+        color={color || "teal.400"}
       >
         طباعة
       </Button>

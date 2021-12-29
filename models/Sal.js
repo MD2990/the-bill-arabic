@@ -3,6 +3,10 @@ import mongoose, { Schema } from "mongoose";
 const MODEL_NAME = "Sal";
 const schema = new Schema({
 
+  emp_name: {
+    type: String,
+    required: [true, "Please add employee name"],
+  },
   basic_salary: {
     type: String,
     required: [true, "Please add a basic salary"],

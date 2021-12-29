@@ -67,7 +67,7 @@ export default function Edit_Delete_Bill({ bill }) {
                 <CustomField
                   fieldName="bill_date"
                   labelName="التاريخ"
-                  type="datetime-local"
+                  type="date"
                 />
                 <CustomTextArea fieldName="details" labelName="التفاصيل" />
 

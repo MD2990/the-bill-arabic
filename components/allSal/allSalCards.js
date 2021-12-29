@@ -3,13 +3,11 @@ import React from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import { useSnapshot } from "valtio";
-import { Title } from "../comUtil/ComUtil";
 import MySkeletons from "../../sharedComponents/MySkeletons";
 import { handleDelete } from "../../utils/dbConnect";
-
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
-import {  getItem, handleFormDelete } from "../../lib/funcs";
+import {  cutString, getItem, handleFormDelete, reverseString } from "../../lib/funcs";
 
 export default function AllSalCards() {
   const snap = useSnapshot(state);
@@ -31,6 +29,7 @@ export default function AllSalCards() {
       {rs()?.map(
         ({
           _id,
+          emp_name,
           basic_salary,
           bonus,
           loans,
@@ -45,7 +44,7 @@ export default function AllSalCards() {
                 color={"blue.100"}
                 _id={_id}
                 link={`/${_id}/salEdit`}
-                header={getItem("emp")?.toUpperCase()}
+                header={emp_name.toUpperCase()}
                 deleteFunction={async () => {
                   await handleFormDelete({
                     deleteUrl: "sal",
@@ -54,7 +53,9 @@ export default function AllSalCards() {
                     handleDelete,
 
                     secondDelete: () =>
-                      (state.allSal = snap.allSal.filter((item) => item._id !== _id)),
+                      (state.allSal = snap.allSal.filter(
+                        (item) => item._id !== _id
+                      )),
                   });
                 }}
               >
@@ -72,7 +73,7 @@ export default function AllSalCards() {
                 />
                 <AllText
                   title=" تاريخ الاستحقاق:"
-                  data={salary_date}
+                  data={salary_date && reverseString(salary_date)}
                   color="blue.500"
                 />
 

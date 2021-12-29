@@ -37,8 +37,7 @@ export async function getServerSideProps({ params }) {
 	}
 	const bill = await jsonify(data);
 
-	//convert to Date and time
-   bill.bill_date = setCurrentDateTime(bill.bill_date);
+ 
    // remove all non-numeric characters except for decimal point
 
    bill.total_price = convertToNumber(bill.total_price)      
@@ -50,7 +49,7 @@ export async function getServerSideProps({ params }) {
     props: {
       bill,
     },
-    revalidate: 1,
+
   };
 }
 

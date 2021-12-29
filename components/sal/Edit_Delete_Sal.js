@@ -31,7 +31,7 @@ export default function Edit_Delete_Sal({ sal }) {
 
   async function put(values) {
     handlePut({ values, url: "sal", router });
-    router.replace(`/${emp_id}/showSalPage`);
+    router.back();
   }
 
   async function FormDeleteFunc() {

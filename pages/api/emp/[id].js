@@ -25,14 +25,21 @@ export default async function handler(req, res) {
 
     case "PUT" /* Edit a model by its ID */:
       try {
+      
         const emp = await Emp.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true,
         });
         if (!emp) {
           return res.status(400).json({ success: false });
+        } else {
+          res.status(200).json({ emp });
+          await Sal.updateMany(
+            { emp_id: id },
+            { $set: { emp_name: req.body.emp_name } }
+          );
+
         }
-        res.status(200).json({ emp });
       } catch (error) {
         res.status(400).json({ success: false });
       }

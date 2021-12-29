@@ -5,13 +5,19 @@ import { BillButtons } from "./BillButtons";
 import BillCards from "./BillCards";
 import { MainInterface } from "../../sharedComponents/MainInterface";
 import Paginate from "../../sharedComponents/Paginate";
+import { useSnapshot } from "valtio";
+import state from "../../stor";
 
 export default function ShowBills() {
-  
+
+  const snap = useSnapshot(state);
+    useEffect(() => {
+      state.title = " الفواتير";
+    }, []);
 
   return (
     <>
-      <Title title="الفواتير" />
+      <Title title={ snap.title}/>
 
       <MainInterface>
         <BillButtons />

@@ -1,5 +1,6 @@
-import dbConnect, { getSumToNum } from "../../../utils/dbConnect";
+import dbConnect, { getSumToNum, toCurrency } from "../../../utils/dbConnect";
 import Sal from "../../../models/Sal";
+import { convertDate } from "../../../lib/funcs";
 
 export default async function handler(req, res) {
   const {
@@ -28,7 +29,15 @@ export default async function handler(req, res) {
                  req.body.basic_salary,
                  req.body.bonus,
                  req.body.loans
-               );
+        );
+        
+         
+           req.body.salary_date = convertDate(req.body.salary_date);
+           req.body.basic_salary = toCurrency(req.body.basic_salary);
+           req.body.bonus = toCurrency(req.body.bonus);
+        req.body.loans = toCurrency(req.body.loans);
+        
+
         const sal = await Sal.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true,
