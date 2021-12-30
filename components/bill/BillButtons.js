@@ -21,6 +21,7 @@ export const BillButtons = () => {
     state.searchTerm = "";
     state.isFiltered = false;
     state.searchResults = snap.bill;
+    state.title = "  الفواتير";
   };
 
   function printPdf() {
@@ -61,54 +62,59 @@ export const BillButtons = () => {
 
   return (
     <>
-    <Wrap
-      spacing="4"
-      justify="center"
-      align="center"
-      m="2"
-      p="2"
-      direction="row-reverse"
+      <Wrap
+        spacing="4"
+        justify="center"
+        align="center"
+        m="2"
+        p="2"
+        direction="row-reverse"
       >
-      <WrapItem>
-        <BackButton ml="0" />
-      </WrapItem>
-      <WrapItem>
-        <SearchInput data={snap.bill} />
-      </WrapItem>
-      <WrapItem>
-        <Btn color="green.400"  icon={<RepeatIcon />} click={() => clear()} title="عرض الجميع" />
-      </WrapItem>
-      <WrapItem>
-        <Btn
-          color="green.400"
-          icon={<AddIcon />}
-          click={() => router.push("/addNewBillPage")}
-          title="إضافة"
-          />
-      </WrapItem>
-
-      {snap.searchResults.length > 0 && (
         <WrapItem>
-          <PrintBtn click={() => printPdf()}  color={'green.200'} />
+          <BackButton ml="0" />
         </WrapItem>
-      )}
-
-      <WrapItem>
-        <TotalText
-          text={`الإجمالي:  ${snap.bill && snap.searchResults.length}`}
+        <WrapItem>
+          <SearchInput data={snap.bill} />
+        </WrapItem>
+        <WrapItem>
+          <Btn
+            color="orange.400"
+            icon={<RepeatIcon />}
+            click={() => clear()}
+            title="عرض الجميع"
           />
-      </WrapItem>
+        </WrapItem>
+        <WrapItem>
+          <Btn
+            color="orange.400"
+            icon={<AddIcon />}
+            click={() => router.push("/addNewBillPage")}
+            title="إضافة"
+          />
+        </WrapItem>
 
+        {snap.searchResults.length > 0 && (
+          <WrapItem>
+            <PrintBtn click={() => printPdf()} color={"orange.300"} />
+          </WrapItem>
+        )}
 
-      {snap.searchResults.length < 1 && (
-        <>
-          <Divider />
+        <WrapItem>
+          <TotalText
+            color={"orange.400"}
+            text={`الإجمالي:  ${snap.bill && snap.searchResults.length}`}
+          />
+        </WrapItem>
 
-          <Title title="لا توجد نتائج للعرض ..."></Title>
-        </>
-      )}
-    </Wrap>
-      <BillDateFilter/> 
-      </>
+        {snap.searchResults.length < 1 && (
+          <>
+            <Divider />
+
+            <Title title="لا توجد نتائج للعرض ..."></Title>
+          </>
+        )}
+      </Wrap>
+      <BillDateFilter />
+    </>
   );
 };

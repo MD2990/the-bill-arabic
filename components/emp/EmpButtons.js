@@ -21,6 +21,7 @@ export const EmpButtons = () => {
     state.searchTerm = "";
     state.isFiltered = false;
     state.searchResults = snap.emp;
+   
   };
 
   function printPdf() {
@@ -94,11 +95,10 @@ export const EmpButtons = () => {
 
       <WrapItem>
         <TotalText
+          color={"green.400"}
           text={`الإجمالي:  ${snap.emp && snap.searchResults.length}`}
         />
       </WrapItem>
-
-  
 
       {snap.searchResults.length < 1 && (
         <>

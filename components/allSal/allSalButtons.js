@@ -11,6 +11,7 @@ import { cutString } from "../../lib/funcs";
 
 import "react-datepicker/dist/react-datepicker.css";
 import AllSalDateFilter from "./AllSalDateFilter";
+import { color } from "@chakra-ui/react";
 
 export const SalButtons = () => {
   const snap = useSnapshot(state);
@@ -105,8 +106,8 @@ export const SalButtons = () => {
         )}
 
         <WrapItem>
-          <TotalText
-            text={`الإجمالي:  ${snap.allSal && snap.searchResults.length}`}
+          <TotalText color={'blue.400'} 
+            text={`الإجمالي:  ${snap.allSal && snap.searchResults.length}` }
           />
         </WrapItem>
 

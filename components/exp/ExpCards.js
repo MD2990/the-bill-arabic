@@ -1,4 +1,4 @@
-import { Wrap } from "@chakra-ui/react";
+import { Box, Wrap } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -43,6 +43,8 @@ export default function BillCards() {
           return (
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
+                HD_color={"gray.600"}
+                
                 color={"gray.100"}
                 link={`/${_id}/expEdit`}
                 header={`الرمز ${cutString(_id, 18, 24)}`}
@@ -57,18 +59,20 @@ export default function BillCards() {
                   });
                 }}
               >
-                <AllText
-                  title="تاريخ الفاتورة:"
-                  data={added_date && reverseString(added_date)}
-                />
-                <AllText title="قيمة الخدمة:" data={workPrice} />
-                <AllText title=" الكهرباء:" data={elc} />
-                <AllText title="الإيجار:" data={rent} />
-                <AllText title="مصاريف الكراج:" data={g_exp} />
-                <AllText title="مصاريف أخرى:" data={other_exp} />
-                <AllText title="الخسائر:" data={total_loss} />
-                <AllText title="صافي الربح:" data={total_profit} />
-                <AllText title="الملاحظات:" data={remarks} />
+                <Box color="gray.500">
+                  <AllText
+                    title="تاريخ الفاتورة:"
+                    data={added_date && reverseString(added_date)}
+                  />
+                  <AllText title="قيمة الخدمة:" data={workPrice} />
+                  <AllText title=" الكهرباء:" data={elc} />
+                  <AllText title="الإيجار:" data={rent} />
+                  <AllText title="مصاريف الكراج:" data={g_exp} />
+                  <AllText title="مصاريف أخرى:" data={other_exp} />
+                  <AllText title="الخسائر:" data={total_loss} />
+                  <AllText title="صافي الربح:" data={total_profit} />
+                  <AllText title="الملاحظات:" data={remarks} />
+                </Box>
               </SingleCard>
             </Wrap>
           );

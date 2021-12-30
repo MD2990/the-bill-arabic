@@ -17,7 +17,7 @@ export default function ShowBills() {
 
   return (
     <>
-      <Title title={ snap.title}/>
+      <Title title={ snap.title} color={'orange.400'}   />
 
       <MainInterface>
         <BillButtons />

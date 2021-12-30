@@ -1,4 +1,4 @@
-import { Wrap } from "@chakra-ui/react";
+import { Box, Wrap } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -60,32 +60,36 @@ export default function EmpCards() {
                   });
                 }}
               >
+                 <Box color='green.700' >
+
+
                 <AllText title=" الوظيفة:" data={job} color={"green.600"} />
                 <AllText
                   title=" رقم البطاقة:"
                   data={civil_id}
-                  color={"green.600"}
-                />
+                  
+                  />
                 <AllText
                   title=" تاريخ الاضافة:"
                   data={added_date}
-                  color={"green.600"}
-                />
+                  
+                  />
                 <AllText
                   title=" رقم الجواز :"
                   data={passport_number}
-                  color={"green.600"}
-                />
+                  
+                  />
                 <AllText
                   title=" تاريخ التوظيف:"
                   data={empl_date}
-                  color={"green.600"}
-                />
+                  
+                  />
                 <AllText
                   title=" الملاحظات:"
                   data={remarks}
-                  color={"green.600"}
-                />
+                  
+                  />
+                  </Box>
               </SingleCard>
             </Wrap>
           );

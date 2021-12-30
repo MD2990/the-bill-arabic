@@ -21,6 +21,7 @@ export const ExpButtons = () => {
     state.searchTerm = "";
     state.isFiltered = false;
     state.searchResults = snap.exp;
+     state.title = "المصروفات";
   };
 
   function printPdf() {

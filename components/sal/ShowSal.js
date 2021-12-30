@@ -11,19 +11,19 @@ import { useSnapshot } from "valtio";
 
 export default function ShowSal() {
   const snap = useSnapshot(state);
-/*   useEffect(() => {
+ useEffect(() => {
     state.title = snap.isFiltered
-      ? `جميع الرواتب    ${getItem("emp")}`
-      : "جميع الرواتب";
-  }, [snap.isFiltered]); */
+      ? `رواتب الموظف    ${getItem("emp")}`
+      : "رواتب الموظف";
+  }, [snap.isFiltered]); 
   return (
     <>
       <VStack>
 
-        <Text fontWeight={"black"} color={"blue.300"} fontSize={[12,15,18,25]} >
+      <Title title={snap.title} color={"blue.500"}>
+        <Text fontWeight={"black"} color={"blue.300"} fontSize={[12,15,18,25]}  textAlign={'center'} >
           {getItem("emp")}
         </Text>
-      <Title title={snap.title} color={"blue.500"}>
       </Title>
       </VStack>
 

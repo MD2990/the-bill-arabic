@@ -14,12 +14,18 @@ a:active {
 }
 
 details[open] summary ~ * {
-  animation: sweep .3s ease-in-out;
+  animation: sweep 0.3s ease-in-out;
 }
 
 @keyframes sweep {
-  0%    {opacity: 0; transform: translateX(-10px)}
-  100%  {opacity: 1; transform: translateX(0)}
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 /* paganate: css */
 
@@ -61,7 +67,6 @@ details[open] summary ~ * {
   cursor: not-allowed;
 }
 
-
-button{
+button {
   box-shadow: none !important;
 }

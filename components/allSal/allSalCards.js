@@ -1,4 +1,4 @@
-import { Wrap } from "@chakra-ui/react";
+import { Box, Wrap } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -59,25 +59,28 @@ export default function AllSalCards() {
                   });
                 }}
               >
+                 <Box color='blue.700' >
+
                 <AllText
                   title=" الراتب الاساسي:"
                   data={basic_salary}
-                  color="blue.500"
-                />
-                <AllText title=" المكافأة:" data={bonus} color="blue.500" />
-                <AllText title=" القروض:" data={loans} color="blue.500" />
+                  color="sal"
+                  />
+                <AllText title=" المكافأة:" data={bonus}  />
+                <AllText title=" القروض:" data={loans}  />
                 <AllText
                   title=" المجموع:"
                   data={total_salary}
-                  color="blue.500"
-                />
+                  
+                  />
                 <AllText
                   title=" تاريخ الاستحقاق:"
                   data={salary_date && reverseString(salary_date)}
-                  color="blue.500"
-                />
+                  
+                  />
 
-                <AllText title=" الملاحظات:" data={remarks} color="blue.500" />
+                <AllText title=" الملاحظات:" data={remarks}/>
+      </Box>
               </SingleCard>
             </Wrap>
           );

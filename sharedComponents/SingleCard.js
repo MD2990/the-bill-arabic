@@ -18,15 +18,17 @@ import React from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { IconButton } from "@chakra-ui/react";
-import { setItem } from "../lib/funcs";
-export const AllText = ({ color , title, data }) => (
-  <Text pb="0.5" color={color} fontSize={["xs", "sm", "md", "lg"]}>
-    <Text pl="2" as="span" fontWeight="black" >
-      {title}
+import { cutString, setItem } from "../lib/funcs";
+export const AllText = ({ title, data }) => {
+  return (
+    <Text pb="0.5" fontSize={["xs", "sm", "md", "lg"]}>
+      <Text pl="2" as="span" fontWeight="black">
+        {title}
+      </Text>
+      {data}
     </Text>
-    {data}
-  </Text>
-);
+  );
+};
 
 export default function SingleCard({
   addSalary = false,
@@ -54,14 +56,14 @@ export default function SingleCard({
         <HStack spacing={[1, 2, 3]} align={"flex-end"}>
           <Tooltip
             label="تعديل"
-            color="black"
+            color={`${color.substring(color.length - 4, 0)}`}
             placement="bottom-start"
             hasArrow
             bg="gray.100"
           >
             <Text as="span">
               <AiOutlineEdit
-                color="gray"
+                color={`${color.substring(color.length - 4, 0)}`}
                 size="1.5rem"
                 onClick={() => router.push(link)}
               />
@@ -71,7 +73,7 @@ export default function SingleCard({
           {addSalary && (
             <Tooltip
               label="إضافة راتب"
-              color="black"
+              color={`${color.substring(color.length - 4, 0)}`}
               placement="bottom-start"
               hasArrow
               bg="gray.100"
@@ -80,7 +82,7 @@ export default function SingleCard({
                 variant="unstyled"
                 aria-label="Add Salary"
                 icon={<AddIcon />}
-                color="green.500"
+                color={`${color.substring(color.length - 4, 0)}`}
                 size="1.5rem"
                 onClick={() => {
                   setItem("id", _id);
@@ -94,7 +96,7 @@ export default function SingleCard({
           {showSalary && (
             <Tooltip
               label="عرض الرواتب"
-              color="black"
+              color={`${color.substring(color.length - 4, 0)}`}
               placement="bottom-start"
               hasArrow
               bg="gray.100"
@@ -103,7 +105,7 @@ export default function SingleCard({
                 variant="unstyled"
                 aria-label="Show Salaries"
                 icon={<FaMoneyBillWave />}
-                color="blue.400"
+                color={`${color.substring(color.length - 4, 0)}`}
                 size="1.8rem"
                 onClick={() => {
                   setItem("id", _id);
@@ -117,7 +119,7 @@ export default function SingleCard({
           {deleteObject && (
             <Tooltip
               label="حذف"
-              color="black"
+              color={`${color.substring(color.length - 4, 0)}`}
               placement="bottom-start"
               hasArrow
               bg="gray.100"
@@ -144,7 +146,7 @@ export default function SingleCard({
               <Box flex="1" textAlign="right">
                 <Text
                   isTruncated
-                  p={[0.5, 1, 1.5,2]}
+                  p={[0.5, 1, 1.5, 2]}
                   textAlign="right"
                   fontSize={["sm", "md", "lg", "xl"]}
                   color={HD_color}
@@ -153,7 +155,10 @@ export default function SingleCard({
                   {header}
                 </Text>
               </Box>
-              <AccordionIcon color={"turquoise"} fontSize="3xl" />
+              <AccordionIcon
+                color={`${color.substring(color.length - 4, 0)}`}
+                fontSize="3xl"
+              />
             </AccordionButton>
           </Heading>
 

@@ -21,7 +21,7 @@ export const SalButtons = () => {
    state.searchTerm = "";
    state.isFiltered = false;
    state.searchResults = snap.sal;
-   state.title = " جميع الرواتب";
+   state.title = " رواتب الموظف";
    
   };
 
@@ -85,11 +85,16 @@ export const SalButtons = () => {
         <SearchInput data={snap.sal} />
       </WrapItem>
       <WrapItem>
-        <Btn icon={<RepeatIcon />} click={() => clear()} title="عرض الجميع" />
+        <Btn
+          icon={<RepeatIcon />}
+          click={() => clear()}
+          title="عرض الجميع"
+          color="blue.400"
+        />
       </WrapItem>
       <WrapItem>
         <Btn
-          color="green.400"
+          color="blue.400"
           icon={<AddIcon />}
           click={() => router.push(`/${getItem("id")}/addSalaryPage`)}
           title="إضافة"
@@ -98,17 +103,16 @@ export const SalButtons = () => {
 
       {snap.searchResults.length > 0 && (
         <WrapItem>
-          <PrintBtn click={() => printPdf()} />
+          <PrintBtn click={() => printPdf()} color="blue.300" />
         </WrapItem>
       )}
 
       <WrapItem>
         <TotalText
+          color="blue.400"
           text={`الإجمالي:  ${snap.sal && snap.searchResults.length}`}
         />
       </WrapItem>
-
-   
 
       {snap.searchResults.length < 1 && (
         <>
@@ -117,7 +121,7 @@ export const SalButtons = () => {
           <Title title="لا توجد نتائج للعرض ..."></Title>
         </>
       )}
-      <SalDateFilter/>
+      <SalDateFilter />
     </Wrap>
   );
 };
