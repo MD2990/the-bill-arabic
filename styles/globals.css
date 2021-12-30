@@ -13,7 +13,14 @@ a:active {
   box-shadow: none !important;
 }
 
+details[open] summary ~ * {
+  animation: sweep .3s ease-in-out;
+}
 
+@keyframes sweep {
+  0%    {opacity: 0; transform: translateX(-10px)}
+  100%  {opacity: 1; transform: translateX(0)}
+}
 /* paganate: css */
 
 .pagination {

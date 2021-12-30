@@ -4,12 +4,14 @@ import { useSnapshot } from "valtio";
 import DateFilterUI from "../../sharedComponents/DateFilterUI";
 import state from "../../stor";
 
-export default function AllDateFilter() {
+export default function AllSalDateFilter() {
   const snap = useSnapshot(state);
 
   useEffect(() => {
     state.isFiltered = false;
   }, [snap.isFiltered]);
+
+
   useEffect(() => {
     snap.isFiltered && getDateFromTo();
   }, [getDateFromTo, snap.fromDate, snap.isFiltered, snap.toDate]);

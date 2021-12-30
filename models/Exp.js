@@ -1,40 +1,47 @@
 import mongoose, { Schema } from 'mongoose';
 
-const MODEL_NAME = 'Exp';
+const MODEL_NAME = "EXP";
 const schema = new Schema({
-	company_name: {
-		type: String,
-		required: [true, 'Please add a company name'],
-	},
-	bill_number: {
-		type: String,
-		required: [true, 'Please add a bill number'],
-	},
-	bill_date: {
-		type: String,
-		required: [true, 'Please add a bill date'],
-	},
-	bill_type: {
-		type: String,
-		required: [true, 'Please add a bill type'],
-	},
-	bill_amount: {
-		type: String,
-		required: [true, 'Please add a bill amount'],
-	},
-	payment_status: {
-		type: Boolean,
-		default: false,
-		required: [true, 'Please add a payment status'],
-	},
-	check_date: {
-		type: String,
-	},
+  elc: {
+    type: String,
+    required: [true, "Please add a electricity value"],
+  },
+  rent: {
+    type: String,
+    required: [true, "Please add a rent value"],
+  },
+  g_exp: {
+    type: String,
+    required: [true, "Please add a garage expenses value"],
+  },
+  workPrice: {
+    type: String,
+    required: [true, "Please add a  work price value"],
+  },
+  other_exp: {
+    type: String,
+    required: [true, "Please add a other expenses value"],
+  },
+  total_profit: {
+    type: String,
 
-	notes: {
-		type: String,
-	},
+    required: [true, "Please add a total profit value"],
+  },
+  total_loss: {
+    type: String,
+
+    required: [true, "Please add a total loss value"],
+  },
+  added_date: {
+    type: String,
+    required: [true, "Please add a added date value"],
+  },
+
+  remarks: {
+    type: String,
+    default: " لا يوجد ملاحظات",
+  },
 });
 
 export default mongoose.models[MODEL_NAME] ||
-	mongoose.model(MODEL_NAME, schema, 'exp');
+  mongoose.model(MODEL_NAME, schema, "EXP");

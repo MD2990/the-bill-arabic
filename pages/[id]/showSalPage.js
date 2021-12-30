@@ -13,7 +13,10 @@ import { BackButton } from "../../sharedComponents/BackButton";
 
 export default function ShowSalPage({ sal }) {
   useEffect(
-    () => (state.sal = sal),
+    () =>
+      (state.sal = sal.sort((a, b) =>
+        a.salary_date < b.salary_date ? 1 : -1
+      )),
 
     [sal]
   );

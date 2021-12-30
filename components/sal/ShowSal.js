@@ -1,21 +1,31 @@
 import { Title } from "../comUtil/ComUtil";
-import { HStack, Divider, Text, Box } from "@chakra-ui/react";
-import React from "react";
+import { HStack, Divider, Text, Box, VStack } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import { SalButtons } from "./SalButtons";
 import SalCards from "./SalCards";
 import { MainInterface } from "../../sharedComponents/MainInterface";
 import Paginate from "../../sharedComponents/Paginate";
 import state from "../../stor";
 import { getItem } from "../../lib/funcs";
+import { useSnapshot } from "valtio";
 
 export default function ShowSal() {
+  const snap = useSnapshot(state);
+/*   useEffect(() => {
+    state.title = snap.isFiltered
+      ? `جميع الرواتب    ${getItem("emp")}`
+      : "جميع الرواتب";
+  }, [snap.isFiltered]); */
   return (
     <>
-      <Title title="رواتب الموظف: " color={"blue.500"}>
-        <Text fontWeight={"hairline"} color={"blue.200"} as="span">
+      <VStack>
+
+        <Text fontWeight={"black"} color={"blue.300"} fontSize={[12,15,18,25]} >
           {getItem("emp")}
         </Text>
+      <Title title={snap.title} color={"blue.500"}>
       </Title>
+      </VStack>
 
       <MainInterface>
         <SalButtons />

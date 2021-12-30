@@ -25,7 +25,7 @@ export default function Edit_Delete_Sal({ sal }) {
         total_salary,
         emp_id,
         salary_date,
-    remarks,
+      remarks,
         _id,
   } = sal;
 

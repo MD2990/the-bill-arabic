@@ -10,17 +10,14 @@ import SearchInput from "../../sharedComponents/SearchInput";
 import { cutString } from "../../lib/funcs";
 
 import "react-datepicker/dist/react-datepicker.css";
-import AllDateFilter from "./AllDateFilter";
+import AllSalDateFilter from "./AllSalDateFilter";
 
 export const SalButtons = () => {
-
-
   const snap = useSnapshot(state);
-
 
   const clear = () => {
     state.searchTerm = "";
-    state.isSalFiltered = false;
+    state.isFiltered = false;
     state.searchResults = snap.allSal;
     state.title = " جميع الرواتب";
   };
@@ -28,13 +25,22 @@ export const SalButtons = () => {
   function printPdf() {
     const rows = snap.searchResults.map(
       (
-        { _id,emp_name, basic_salary, bonus, loans, total_salary, salary_date, remarks },
+        {
+          _id,
+          emp_name,
+          basic_salary,
+          bonus,
+          loans,
+          total_salary,
+          salary_date,
+          remarks,
+        },
         index
       ) => {
         index += 1;
         const data = {
           basic_salary,
-          emp_name:emp_name.toUpperCase(),
+          emp_name: emp_name.toUpperCase(),
           bonus,
           loans,
           total_salary,
@@ -67,10 +73,8 @@ export const SalButtons = () => {
     );
   }
 
-
-
   return (
-    <>
+    
       <Wrap
         spacing="4"
         justify="center"
@@ -114,8 +118,8 @@ export const SalButtons = () => {
           </>
         )}
 
-        <AllDateFilter />
+        <AllSalDateFilter />
       </Wrap>
-    </>
+    
   );
 };

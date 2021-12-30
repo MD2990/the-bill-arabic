@@ -9,7 +9,7 @@ import { handleDelete } from "../../utils/dbConnect";
 
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
-import {  getItem, handleFormDelete } from "../../lib/funcs";
+import {  getItem, handleFormDelete, reverseString } from "../../lib/funcs";
 
 export default function SalCards() {
   const snap = useSnapshot(state);
@@ -72,7 +72,7 @@ export default function SalCards() {
                 />
                 <AllText
                   title=" تاريخ الاستحقاق:"
-                  data={salary_date}
+                  data={salary_date && reverseString(salary_date) }
                   color="blue.500"
                 />
 

@@ -26,7 +26,11 @@ export default async function handler(req, res) {
           req.body.bonus,
           req.body.loans
         );
-        req.body.salary_date = moment(req.body.salary_date).format("YYYY-MM-DD");
+
+       
+        req.body.salary_date = moment(req.body.salary_date).format(
+          "YYYY-MM-DD"
+        );
         req.body.basic_salary = toCurrency(req.body.basic_salary);
         req.body.bonus = toCurrency(req.body.bonus);
         req.body.loans = toCurrency(req.body.loans);

@@ -8,8 +8,7 @@ import { toPDF } from "../../utils/dbConnect";
 import TotalText from "../../sharedComponents/TotalText";
 import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
-import { Button } from "@chakra-ui/react";
-import moment from "moment";
+
 import { cutString } from "../../lib/funcs";
 import BillDateFilter from "./BillDateFilter";
 

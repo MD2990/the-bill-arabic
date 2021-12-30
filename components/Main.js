@@ -70,11 +70,11 @@ export default function Main() {
           <FcInspection />
         </CustomCol>
 
-        <CustomCol path="/showSellPage" text={"عرض الدخل اليومي"}>
+        <CustomCol path="/showExpPage" text={"عرض المصروفات"}>
           <FcBullish />
         </CustomCol>
 
-        <CustomCol path="/addNewSellPage" text={"إضافة الدخل اليومي"}>
+        <CustomCol path="/addNewExpPage" text={"إضافة مصروفات"}>
           <FcAcceptDatabase />
         </CustomCol>
 

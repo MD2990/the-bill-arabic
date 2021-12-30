@@ -283,16 +283,16 @@ const NAV_ITEMS = [
   },
 
   {
-    label: "5المصاريف",
+    label: "المصاريف",
     children: [
       {
-        label: "5إضافة ",
+        label: "إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
-        href: "/trans/cx/devices/add",
+        href: "/addNewExpPage",
       },
       {
         label: "عرض",
-        href: "/trans/cx/devices",
+        href: "/showExpPage",
         icon: <ExternalLinkIcon color="blue.300" w="5" h="5" />,
       },
     ],

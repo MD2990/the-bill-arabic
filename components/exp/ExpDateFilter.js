@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import DateFilterUI from "../../sharedComponents/DateFilterUI";
 import state from "../../stor";
 
-export default function BillDateFilter() {
+export default function ExpDateFilter() {
   const snap = useSnapshot(state);
 
   useEffect(() => {
@@ -16,8 +16,8 @@ export default function BillDateFilter() {
 
   function getCurrentMonth() {
     state.title = `فواتير الشهر الحالي ${moment().format("YYYY/DD")}`;
-    state.searchResults = state.bill.filter((b) => {
-      return moment(b.bill_date).isSame(moment(), "month");
+    state.searchResults = state.exp.filter((b) => {
+      return moment(b.added_date).isSame(moment(), "month");
     });
   }
 
@@ -25,8 +25,8 @@ export default function BillDateFilter() {
     state.title = `فواتير آخر 3 أشهر من ${moment()
       .subtract(3, "M")
       .format("MM")} إلى ${moment().subtract(1, "M").format("MM")}`;
-    state.searchResults = state.bill.filter((b) => {
-      return moment(b.bill_date).isBetween(
+    state.searchResults = state.exp.filter((b) => {
+      return moment(b.added_date).isBetween(
         moment().subtract(4, "M"),
         moment(),
         "M"
@@ -34,11 +34,9 @@ export default function BillDateFilter() {
     });
   }
   function getLastMonth() {
-    state.title = ` فواتير شهر  ${moment()
-      .subtract(1, "M")
-      .format("YYYY/MM")}`;
-    state.searchResults = state.bill.filter((b) => {
-      return moment(b.bill_date).isBetween(
+    state.title = ` فواتير شهر  ${moment().subtract(1, "M").format("YYYY/MM")}`;
+    state.searchResults = state.exp.filter((b) => {
+      return moment(b.added_date).isBetween(
         moment().subtract(2, "M"),
         moment(),
         "M"
@@ -47,8 +45,8 @@ export default function BillDateFilter() {
   }
   function getCurrentYear() {
     state.title = `فواتير السنة الحالية ${moment().format("YYYY")}`;
-    state.searchResults = state.bill.filter((b) => {
-      return moment(b.bill_date).isSame(moment(), "Y");
+    state.searchResults = state.exp.filter((b) => {
+      return moment(b.added_date).isSame(moment(), "Y");
     });
   }
 
@@ -57,14 +55,14 @@ export default function BillDateFilter() {
       "YYYY/MM/DD"
     )} إلى ${moment(snap.toDate).format("YYYY/MM/DD")}`;
 
-    state.searchResults = state.bill.filter((b) => {
-      return b.bill_date >= snap.fromDate && b.bill_date <= snap.toDate;
+    state.searchResults = state.exp.filter((b) => {
+      return b.added_date >= snap.fromDate && b.added_date <= snap.toDate;
     });
   }, [snap.fromDate, snap.toDate]);
 
   return (
     <DateFilterUI
-      color="green.400"
+      color="gray.500"
       getCurrentMonth={getCurrentMonth}
       getLastMonth={getLastMonth}
       getLast3Month={getLast3Month}

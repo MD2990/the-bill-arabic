@@ -8,38 +8,30 @@ import { toPDF } from "../../utils/dbConnect";
 import TotalText from "../../sharedComponents/TotalText";
 import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
-import moment from "moment";
-import { cutString, getItem } from "../../lib/funcs";
-import SalDateFilter from "./SalDateFilter";
 
-export const SalButtons = () => {
+import { cutString } from "../../lib/funcs";
+import ExpDateFilter from "./ExpDateFilter";
+
+export const ExpButtons = () => {
   const snap = useSnapshot(state);
 
   const router = useRouter();
 
   const clear = () => {
-   state.searchTerm = "";
-   state.isFiltered = false;
-   state.searchResults = snap.sal;
-   state.title = " جميع الرواتب";
-   
+    state.searchTerm = "";
+    state.isFiltered = false;
+    state.searchResults = snap.exp;
   };
 
   function printPdf() {
     const rows = snap.searchResults.map(
       (
-        { _id, basic_salary, bonus, loans, total_salary, salary_date, remarks },
+        { details, exp_date, advance, total_price, balance, remarks,_id },
         index
       ) => {
         index += 1;
         const data = {
-          basic_salary,
-          bonus,
-          loans,
-          total_salary,
-          salary_date,
-          remarks,
-          id: cutString(_id, 18, 24),
+      details, exp_date, advance, total_price, balance, remarks,id: cutString(_id, 18, 24),
           index,
         };
 
@@ -47,29 +39,28 @@ export const SalButtons = () => {
       }
     );
 
-    // const id = cutString(rows._id, 18, 24);
+ // const id = cutString(rows._id, 18, 24);
     const columns = [
       { title: "الملاحظات", key: "remarks" },
-
-      { title: "تاريخ الاستلام", key: "salary_date" },
-      { title: "الراتب الاجمالي", key: "total_salary" },
-      { title: "القروض", key: "loans" },
-      { title: "العلاوات", key: "bonus" },
-      { title: "الراتب الأساسي", key: "basic_salary" },
-      { title: "الرمز", key: "id" },
+      { title: "تاريخ الفاتورة", key: "exp_date" },
+      { title: "المبلغ المتبقي", key: "balance" },
+      { title: "المبلغ المدفوع", key: "advance" },
+      { title: "الإجمالي", key: "total_price" },
+      { title: "تفاصيل الفاتورة", key: "details" },
+      { title: "رقم الفاتورة", key: "id" },
       { title: "ت", key: "index" },
     ];
 
     return toPDF(
       rows,
       columns,
-      `تفاصيل الرواتب                              العدد ${rows.length} `
+      `${snap.title}                          العدد:${rows.length} `
     );
   }
 
 
-  
   return (
+    <>
     <Wrap
       spacing="4"
       justify="center"
@@ -77,38 +68,37 @@ export const SalButtons = () => {
       m="2"
       p="2"
       direction="row-reverse"
-    >
+      >
       <WrapItem>
         <BackButton ml="0" />
       </WrapItem>
       <WrapItem>
-        <SearchInput data={snap.sal} />
+        <SearchInput data={snap.exp} />
       </WrapItem>
       <WrapItem>
-        <Btn icon={<RepeatIcon />} click={() => clear()} title="عرض الجميع" />
+        <Btn color="gray.500"  icon={<RepeatIcon />} click={() => clear()} title="عرض الجميع" />
       </WrapItem>
       <WrapItem>
         <Btn
-          color="green.400"
+          color="gray.500"
           icon={<AddIcon />}
-          click={() => router.push(`/${getItem("id")}/addSalaryPage`)}
+          click={() => router.push("/addNewExpPage")}
           title="إضافة"
-        />
+          />
       </WrapItem>
 
       {snap.searchResults.length > 0 && (
-        <WrapItem>
-          <PrintBtn click={() => printPdf()} />
+        <WrapItem  >
+          <PrintBtn click={() => printPdf()}  color={'gray.700'} />
         </WrapItem>
       )}
 
       <WrapItem>
         <TotalText
-          text={`الإجمالي:  ${snap.sal && snap.searchResults.length}`}
-        />
+          text={`الإجمالي:  ${snap.exp && snap.searchResults.length}`}
+          />
       </WrapItem>
 
-   
 
       {snap.searchResults.length < 1 && (
         <>
@@ -117,7 +107,8 @@ export const SalButtons = () => {
           <Title title="لا توجد نتائج للعرض ..."></Title>
         </>
       )}
-      <SalDateFilter/>
     </Wrap>
+      <ExpDateFilter/> 
+      </>
   );
 };

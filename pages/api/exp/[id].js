@@ -1,5 +1,6 @@
-import dbConnect from '../../../utils/dbConnect';
+import dbConnect, { toCurrency } from '../../../utils/dbConnect';
 import Exp from '../../../models/Exp';
+import moment from 'moment';
 
 export default async function handler(req, res) {
 	const {
@@ -24,6 +25,28 @@ export default async function handler(req, res) {
 
 		case 'PUT' /* Edit a model by its ID */:
 			try {
+
+
+				   req.body.total_profit = toCurrency(
+             req.body.workPrice -
+               (req.body.elc +
+                 req.body.rent +
+                 req.body.g_exp +
+                 req.body.other_exp)
+           );
+           req.body.total_loss = toCurrency(
+             req.body.elc + req.body.rent + req.body.g_exp + req.body.other_exp
+           );
+
+           req.body.elc = toCurrency(req.body.elc);
+           req.body.rent = toCurrency(req.body.rent);
+           req.body.g_exp = toCurrency(req.body.g_exp);
+           req.body.other_exp = toCurrency(req.body.other_exp);
+           req.body.workPrice = toCurrency(req.body.workPrice);
+
+           req.body.added_date = moment(req.body.added_date).format(
+             "YYYY-MM-DD"
+           );
 				const exp = await Exp.findByIdAndUpdate(id, req.body, {
 					new: true,
 					runValidators: true,

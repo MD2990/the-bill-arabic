@@ -1,4 +1,4 @@
-import { HStack, Input, Text, Wrap, WrapItem } from '@chakra-ui/react';
+import { Box, HStack, Input, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import React from 'react'
 import { FcCalendar, FcFilledFilter } from 'react-icons/fc';
 import { useSnapshot } from 'valtio';
@@ -25,16 +25,21 @@ export default function DateFilterUI({
   };
   return (
     <HStack w="100%" p="2">
-      <details
-        style={{ cursor: "pointer", fontWeight: "bold", color: "darkgrey" }}
-      >
-        <summary>تصفية الفواتير</summary>
+      <Box as="details" cursor={"pointer"} color={color} fontWeight={"bold"}>
+        <Text
+          as="summary"
+  
+          fontSize={["sm", "md", "lg", "xl"]}
+        >
+          تصفية النتائج
+        </Text>
+
         <Wrap>
           <WrapItem>
             <Btn
               color={color}
               icon={<FcCalendar />}
-              title={"فواتير الشهر الحالي"}
+              title={"الشهر الحالي"}
               click={getCurrentMonth}
             />
           </WrapItem>
@@ -43,7 +48,7 @@ export default function DateFilterUI({
             <Btn
               color={color}
               icon={<FcCalendar />}
-              title={"فواتير الشهر الماضي"}
+              title={"الشهر الماضي"}
               click={getLastMonth}
             />
           </WrapItem>
@@ -51,7 +56,7 @@ export default function DateFilterUI({
             <Btn
               color={color}
               icon={<FcCalendar />}
-              title={"فواتير آخر 3 أشهر"}
+              title={" آخر 3 أشهر"}
               click={getLast3Month}
             />
           </WrapItem>
@@ -59,7 +64,7 @@ export default function DateFilterUI({
             <Btn
               color={color}
               icon={<FcCalendar />}
-              title={"فواتير السنة الحالية"}
+              title={"السنة الحالية"}
               click={getCurrentYear}
             />
           </WrapItem>
@@ -87,7 +92,7 @@ export default function DateFilterUI({
             </HStack>
           </WrapItem>
         </Wrap>
-      </details>
+      </Box>
     </HStack>
   );
 }
