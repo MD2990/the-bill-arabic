@@ -8,6 +8,7 @@ import Paginate from "../../sharedComponents/Paginate";
 import state from "../../stor";
 import { getItem } from "../../lib/funcs";
 import { useSnapshot } from "valtio";
+import { colors } from "../../lib/constants";
 
 export default function ShowSal() {
   const snap = useSnapshot(state);
@@ -19,12 +20,16 @@ export default function ShowSal() {
   return (
     <>
       <VStack>
-
-      <Title title={snap.title} color={"blue.500"}>
-        <Text fontWeight={"black"} color={"blue.300"} fontSize={[12,15,18,25]}  textAlign={'center'} >
-          {getItem("emp")}
-        </Text>
-      </Title>
+        <Title title={snap.title} color={colors().salDark}>
+          <Text
+            fontWeight={"black"}
+            color={colors().salLight}
+            fontSize={[12, 15, 18, 25]}
+            textAlign={"center"}
+          >
+            {getItem("emp")}
+          </Text>
+        </Title>
       </VStack>
 
       <MainInterface>

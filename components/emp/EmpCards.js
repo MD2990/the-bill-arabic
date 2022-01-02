@@ -10,6 +10,7 @@ import { handleDelete } from "../../utils/dbConnect";
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
 import { cutString, handleFormDelete } from "../../lib/funcs";
+import { colors } from "../../lib/constants";
 
 export default function EmpCards() {
   const snap = useSnapshot(state);
@@ -24,7 +25,7 @@ export default function EmpCards() {
   }, [rs]);
 
   if (!snap.emp) return <MySkeletons />;
-  
+
   return (
     <>
       {rs()?.map(
@@ -42,7 +43,7 @@ export default function EmpCards() {
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
                 color={"green.100"}
-                HD_color={"green.600"}
+                HD_color={colors().empLight}
                 _id={_id}
                 showSalary
                 addSalary
@@ -60,36 +61,14 @@ export default function EmpCards() {
                   });
                 }}
               >
-                 <Box color='green.700' >
-
-
-                <AllText title=" الوظيفة:" data={job} color={"green.600"} />
-                <AllText
-                  title=" رقم البطاقة:"
-                  data={civil_id}
-                  
-                  />
-                <AllText
-                  title=" تاريخ الاضافة:"
-                  data={added_date}
-                  
-                  />
-                <AllText
-                  title=" رقم الجواز :"
-                  data={passport_number}
-                  
-                  />
-                <AllText
-                  title=" تاريخ التوظيف:"
-                  data={empl_date}
-                  
-                  />
-                <AllText
-                  title=" الملاحظات:"
-                  data={remarks}
-                  
-                  />
-                  </Box>
+                <Box color={colors().empDark}>
+                  <AllText title=" الوظيفة:" data={job}  />
+                  <AllText title=" رقم البطاقة:" data={civil_id} />
+                  <AllText title=" تاريخ الاضافة:" data={added_date} />
+                  <AllText title=" رقم الجواز :" data={passport_number} />
+                  <AllText title=" تاريخ التوظيف:" data={empl_date} />
+                  <AllText title=" الملاحظات:" data={remarks} />
+                </Box>
               </SingleCard>
             </Wrap>
           );

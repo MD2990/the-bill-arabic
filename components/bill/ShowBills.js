@@ -7,6 +7,7 @@ import { MainInterface } from "../../sharedComponents/MainInterface";
 import Paginate from "../../sharedComponents/Paginate";
 import { useSnapshot } from "valtio";
 import state from "../../stor";
+import { colors } from "../../lib/constants";
 
 export default function ShowBills() {
 
@@ -17,7 +18,7 @@ export default function ShowBills() {
 
   return (
     <>
-      <Title title={ snap.title} color={'orange.400'}   />
+      <Title title={snap.title} color={colors().billLight} />
 
       <MainInterface>
         <BillButtons />

@@ -1,5 +1,5 @@
-import { AddIcon, CalendarIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Wrap, WrapItem, Divider, Text } from "@chakra-ui/layout";
+import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Wrap, WrapItem, Divider } from "@chakra-ui/layout";
 import { useRouter } from "next/dist/client/router";
 import { useSnapshot } from "valtio";
 import { Btn, PrintBtn, Title } from "../comUtil/ComUtil";
@@ -8,12 +8,14 @@ import { toPDF } from "../../utils/dbConnect";
 import TotalText from "../../sharedComponents/TotalText";
 import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
-import { Button } from "@chakra-ui/react";
-import moment from "moment";
 import { cutString } from "../../lib/funcs";
+import { colors } from "../../lib/constants";
 
 export const EmpButtons = () => {
   const snap = useSnapshot(state);
+  
+
+  
 
   const router = useRouter();
 
@@ -76,11 +78,16 @@ export const EmpButtons = () => {
         <SearchInput data={snap.emp} />
       </WrapItem>
       <WrapItem>
-        <Btn icon={<RepeatIcon />} click={() => clear()} title="عرض الجميع" />
+        <Btn
+          icon={<RepeatIcon />}
+          click={() => clear()}
+          title="عرض الجميع"
+          color={colors().empLight}
+        />
       </WrapItem>
       <WrapItem>
         <Btn
-          color="green.400"
+          color={colors().empLight}
           icon={<AddIcon />}
           click={() => router.push("/addNewEmpPage")}
           title="إضافة"
@@ -95,7 +102,7 @@ export const EmpButtons = () => {
 
       <WrapItem>
         <TotalText
-          color={"green.400"}
+          color={colors().empLight}
           text={`الإجمالي:  ${snap.emp && snap.searchResults.length}`}
         />
       </WrapItem>
@@ -104,7 +111,7 @@ export const EmpButtons = () => {
         <>
           <Divider />
 
-          <Title title="لا توجد نتائج للعرض ..."></Title>
+          <Title title="لا توجد نتائج للعرض ..." color={colors().empLight}  ></Title>
         </>
       )}
     </Wrap>

@@ -11,7 +11,7 @@ import { cutString } from "../../lib/funcs";
 
 import "react-datepicker/dist/react-datepicker.css";
 import AllSalDateFilter from "./AllSalDateFilter";
-import { color } from "@chakra-ui/react";
+import { colors } from "../../lib/constants";
 
 export const SalButtons = () => {
   const snap = useSnapshot(state);
@@ -75,52 +75,54 @@ export const SalButtons = () => {
   }
 
   return (
-    
-      <Wrap
-        spacing="4"
-        justify="center"
-        align="center"
-        m="2"
-        p="2"
-        direction="row-reverse"
-      >
+    <Wrap
+      spacing="4"
+      justify="center"
+      align="center"
+      m="2"
+      p="2"
+      direction="row-reverse"
+    >
+      <WrapItem>
+        <BackButton ml="0" />
+      </WrapItem>
+      <WrapItem>
+        <SearchInput data={snap.allSal} />
+      </WrapItem>
+      <WrapItem>
+        <Btn
+          color={colors().salDark}
+          icon={<RepeatIcon />}
+          click={() => clear()}
+          title="عرض الجميع"
+        />
+      </WrapItem>
+
+      {snap.searchResults.length > 0 && (
         <WrapItem>
-          <BackButton ml="0" />
+          <PrintBtn color={colors().salLight} click={() => printPdf()} />
         </WrapItem>
-        <WrapItem>
-          <SearchInput data={snap.allSal} />
-        </WrapItem>
-        <WrapItem>
-          <Btn
-            color="blue.400"
-            icon={<RepeatIcon />}
-            click={() => clear()}
-            title="عرض الجميع"
-          />
-        </WrapItem>
+      )}
 
-        {snap.searchResults.length > 0 && (
-          <WrapItem>
-            <PrintBtn color="blue.200" click={() => printPdf()} />
-          </WrapItem>
-        )}
+      <WrapItem>
+        <TotalText
+          color={colors().salDark}
+          text={`الإجمالي:  ${snap.allSal && snap.searchResults.length}`}
+        />
+      </WrapItem>
 
-        <WrapItem>
-          <TotalText color={'blue.400'} 
-            text={`الإجمالي:  ${snap.allSal && snap.searchResults.length}` }
-          />
-        </WrapItem>
+      {snap.searchResults.length < 1 && (
+        <>
+          <Divider />
 
-        {snap.searchResults.length < 1 && (
-          <>
-            <Divider />
+          <Title
+            title="لا توجد نتائج للعرض ..."
+            color={colors().salLight}
+          ></Title>
+        </>
+      )}
 
-            <Title title="لا توجد نتائج للعرض ..."></Title>
-          </>
-        )}
-
-        <AllSalDateFilter />
-      </Wrap>
-    
+      <AllSalDateFilter />
+    </Wrap>
   );
 };

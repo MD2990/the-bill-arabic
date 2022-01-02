@@ -7,31 +7,28 @@ import state from "../stor";
 import { Center, Text } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/router';
+import { colors } from "../lib/constants";
 
 export default function ShowEmpPage({ emp }) {
-	
+  const router = useRouter();
+  const { data, error } = useSWR("/api/emp", {
+    initialData: { emp },
+    revalidateOnMount: true,
+  });
 
-	const router = useRouter();
-	const { data, error } = useSWR('/api/emp', {
-		initialData: { emp },
-		revalidateOnMount: true,
-	});
-
-	if (error)
-		return (
-			<Title title='حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى' />
-		);
-	if (!data) return <Spans />;
-
-	
-
+  if (error)
+    return (
+      <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
+    );
+  if (!data) return <Spans />;
 
   if (data.emp?.length < 1)
     return (
       <>
-        <Title title="لم يتم إضافة موظفين إلى الآن ..." color={"green.400"}>
-       
-        </Title>
+        <Title
+          title="لم يتم إضافة موظفين إلى الآن ..."
+          color={colors().empLight}
+        ></Title>
         <Center my={["1%", "2%", "3%", "4%"]}>
           <Btn
             fontSize={["1rem", "1.5rem", "2rem", "2.5rem"]}
@@ -39,17 +36,17 @@ export default function ShowEmpPage({ emp }) {
             click={() => router.replace(`/addNewEmpPage`)}
             title="  إضافة موظف جديد"
             icon={<AddIcon />}
-            color={"green.400"}
+            color={colors().empLight}
           ></Btn>
         </Center>
       </>
     );
 
-	return (
+  return (
     <>
       <Hd title="عرض بيانات الموظفين" />
 
-      <ShowEmp emp={data.emp}  />
+      <ShowEmp emp={data.emp} />
     </>
   );
 }

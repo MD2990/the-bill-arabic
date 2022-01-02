@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 import { post } from "../../utils/dbConnect";
 import moment from "moment";
 import { Wrap, Center, Divider } from "@chakra-ui/react";
-import { EMP_validationSchema } from "../../lib/constants";
+import { colors, EMP_validationSchema } from "../../lib/constants";
 import {
   CustomField,
   CustomTextArea,
@@ -40,9 +40,15 @@ export default function AddEmp() {
       {(props) => {
         return (
           <Form className="wr">
-            <Title title="إضافة موظف جديد" />
+            <Title title="إضافة موظف جديد" color={colors().empDark} />
             <Center m="2" p="2">
-              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8">
+              <Wrap
+                justify="center"
+                borderWidth="1px"
+                borderRadius="lg"
+                p="8"
+                color={colors().empLight}
+              >
                 <CustomField fieldName="emp_name" labelName="اسم العامل" />
                 <CustomField fieldName="job" labelName="المهنة" />
                 <CustomField fieldName="civil_id" labelName="الرقم المدني" />

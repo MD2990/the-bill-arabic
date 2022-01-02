@@ -9,6 +9,7 @@ import state from "../stor";
 import { Center } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import { colors } from "../lib/constants";
 
 export default function ShowBillPage({ bills }) {
 
@@ -32,7 +33,8 @@ export default function ShowBillPage({ bills }) {
 
           <Title
             title="لم يتم إضافة فواتير إلى الآن ..."
-            color={"orange.400"}
+            color={colors().billLight}
+
           ></Title>
           <Center my={["1%", "2%", "3%", "4%"]}>
             <Btn

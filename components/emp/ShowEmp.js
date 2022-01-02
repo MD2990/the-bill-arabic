@@ -6,6 +6,7 @@ import EmpCards from "./EmpCards";
 import { MainInterface } from "../../sharedComponents/MainInterface";
 import Paginate from "../../sharedComponents/Paginate";
 import state from "../../stor";
+import { colors } from "../../lib/constants";
 
 export default function ShowBills({ emp }) {
   useEffect(() => {
@@ -14,7 +15,7 @@ export default function ShowBills({ emp }) {
 
   return (
     <>
-      <Title title="سجل الموظفين" color={"green.300"} />
+      <Title title="سجل الموظفين" color={colors().empLight} />
 
       <MainInterface>
         <EmpButtons />

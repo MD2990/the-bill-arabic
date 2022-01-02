@@ -1,5 +1,5 @@
-import { AddIcon, CalendarIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Wrap, WrapItem, Divider, Text } from "@chakra-ui/layout";
+import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Wrap, WrapItem, Divider } from "@chakra-ui/layout";
 import { useRouter } from "next/dist/client/router";
 import { useSnapshot } from "valtio";
 import { Btn, PrintBtn, Title } from "../comUtil/ComUtil";
@@ -11,6 +11,7 @@ import SearchInput from "../../sharedComponents/SearchInput";
 
 import { cutString } from "../../lib/funcs";
 import ExpDateFilter from "./ExpDateFilter";
+import { colors } from "../../lib/constants";
 
 export const ExpButtons = () => {
   const snap = useSnapshot(state);
@@ -62,54 +63,62 @@ export const ExpButtons = () => {
 
   return (
     <>
-    <Wrap
-      spacing="4"
-      justify="center"
-      align="center"
-      m="2"
-      p="2"
-      direction="row-reverse"
+      <Wrap
+        spacing="4"
+        justify="center"
+        align="center"
+        m="2"
+        p="2"
+        direction="row-reverse"
       >
-      <WrapItem>
-        <BackButton ml="0" />
-      </WrapItem>
-      <WrapItem>
-        <SearchInput data={snap.exp} />
-      </WrapItem>
-      <WrapItem>
-        <Btn color="gray.500"  icon={<RepeatIcon />} click={() => clear()} title="عرض الجميع" />
-      </WrapItem>
-      <WrapItem>
-        <Btn
-          color="gray.500"
-          icon={<AddIcon />}
-          click={() => router.push("/addNewExpPage")}
-          title="إضافة"
-          />
-      </WrapItem>
-
-      {snap.searchResults.length > 0 && (
-        <WrapItem  >
-          <PrintBtn click={() => printPdf()}  color={'gray.700'} />
+        <WrapItem>
+          <BackButton ml="0" />
         </WrapItem>
-      )}
-
-      <WrapItem>
-        <TotalText
-          text={`الإجمالي:  ${snap.exp && snap.searchResults.length}`}
+        <WrapItem>
+          <SearchInput data={snap.exp} />
+        </WrapItem>
+        <WrapItem>
+          <Btn
+            color={colors().expDark}
+            icon={<RepeatIcon />}
+            click={() => clear()}
+            title="عرض الجميع"
           />
-      </WrapItem>
+        </WrapItem>
+        <WrapItem>
+          <Btn
+            color={colors().expDark}
+            icon={<AddIcon />}
+            click={() => router.push("/addNewExpPage")}
+            title="إضافة"
+          />
+        </WrapItem>
 
+        {snap.searchResults.length > 0 && (
+          <WrapItem>
+            <PrintBtn click={() => printPdf()} color={colors().expLight} />
+          </WrapItem>
+        )}
 
-      {snap.searchResults.length < 1 && (
-        <>
-          <Divider />
+        <WrapItem>
+          <TotalText
+            color={colors().expDark}
+            text={`الإجمالي:  ${snap.exp && snap.searchResults.length}`}
+          />
+        </WrapItem>
 
-          <Title title="لا توجد نتائج للعرض ..."></Title>
-        </>
-      )}
-    </Wrap>
-      <ExpDateFilter/> 
-      </>
+        {snap.searchResults.length < 1 && (
+          <>
+            <Divider />
+
+            <Title
+              title="لا توجد نتائج للعرض ..."
+              color={colors().expDark}
+            ></Title>
+          </>
+        )}
+      </Wrap>
+      <ExpDateFilter />
+    </>
   );
 };

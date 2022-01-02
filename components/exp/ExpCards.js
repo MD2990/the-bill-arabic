@@ -10,6 +10,7 @@ import { handleDelete } from "../../utils/dbConnect";
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
 import { cutString, handleFormDelete, reverseString } from "../../lib/funcs";
+import { colors } from "../../lib/constants";
 
 export default function BillCards() {
   const snap = useSnapshot(state);
@@ -31,20 +32,19 @@ export default function BillCards() {
         ({
           _id,
           elc,
-        rent,
-        g_exp,
-        workPrice,
-        other_exp,
-        total_profit,
-        total_loss,
-        added_date,
-        remarks,
+          rent,
+          g_exp,
+          workPrice,
+          other_exp,
+          total_profit,
+          total_loss,
+          added_date,
+          remarks,
         }) => {
           return (
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
-                HD_color={"gray.600"}
-                
+                HD_color={colors().expDark}
                 color={"gray.100"}
                 link={`/${_id}/expEdit`}
                 header={`الرمز ${cutString(_id, 18, 24)}`}
@@ -59,7 +59,7 @@ export default function BillCards() {
                   });
                 }}
               >
-                <Box color="gray.500">
+                <Box color={colors().expDark}>
                   <AllText
                     title="تاريخ الفاتورة:"
                     data={added_date && reverseString(added_date)}

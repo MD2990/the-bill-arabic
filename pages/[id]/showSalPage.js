@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { getItem } from "../../lib/funcs";
 import { AddIcon } from "@chakra-ui/icons";
 import { BackButton } from "../../sharedComponents/BackButton";
+import { colors } from "../../lib/constants";
 
 export default function ShowSalPage({ sal }) {
   useEffect(
@@ -33,8 +34,8 @@ export default function ShowSalPage({ sal }) {
         <Stack ml="5%" align={"flex-end"}>
           <BackButton mb="-4%" />
         </Stack>
-        <Title title="لا توجد رواتب للموظف  " color={"green.400"}>
-          <Text as="span" color={"green.200"}>
+        <Title title="لا توجد رواتب للموظف  " color={colors().empLight}>
+          <Text as="span" color={colors().empLight}>
             {getItem("emp")}
           </Text>
         </Title>
@@ -46,7 +47,7 @@ export default function ShowSalPage({ sal }) {
             click={() => router.replace(`/${id}/addSalaryPage`)}
             title="  إضافة راتب"
             icon={<AddIcon />}
-            color={"green.400"}
+            color={colors().empLight}
           ></Btn>
         </Center>
       </>
