@@ -1,5 +1,5 @@
-import { AddIcon, CalendarIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Wrap, WrapItem, Divider, Text } from "@chakra-ui/layout";
+import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Wrap, WrapItem, Divider } from "@chakra-ui/layout";
 import { useRouter } from "next/dist/client/router";
 import { useSnapshot } from "valtio";
 import { Btn, PrintBtn, Title } from "../comUtil/ComUtil";
@@ -8,7 +8,6 @@ import { toPDF } from "../../utils/dbConnect";
 import TotalText from "../../sharedComponents/TotalText";
 import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
-import moment from "moment";
 import { cutString, getItem } from "../../lib/funcs";
 import SalDateFilter from "./SalDateFilter";
 import { colors } from "../../lib/constants";

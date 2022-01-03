@@ -14,9 +14,14 @@ import { colors } from "../../lib/constants";
 
 export default function EmpCards() {
   const snap = useSnapshot(state);
+  useEffect(() => {
+      state.searchTerm = "";
+      state.isFiltered = false;
+      state.emp = snap.emp;
+  }, [snap.emp])
 
   const rs = useCallback(
-    () => state.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
+    () => snap.emp.slice(snap.offset, snap.offset + snap.PER_PAGE),
     [snap.PER_PAGE, snap.offset, snap.searchResults]
   );
 

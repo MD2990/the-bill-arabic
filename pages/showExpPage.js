@@ -47,7 +47,7 @@ export default function ShowExpPage({ exp }) {
     <>
       <Hd title=" المصروفات" />
 
-      <ShowExp exp={exp} />
+      <ShowExp exp={data.exp} />
     </>
   );
 }

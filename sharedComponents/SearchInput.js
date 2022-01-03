@@ -28,9 +28,9 @@ export default function SearchInput({ data }) {
   const snap = useSnapshot(state);
 
   useEffect(() => {
-    state.searchResults = myFilter({
+    myFilter({
       arr: data,
-      searchTerm: state.searchTerm,
+      searchTerm: snap.searchTerm,
     });
   }, [data, snap.searchTerm]);
 

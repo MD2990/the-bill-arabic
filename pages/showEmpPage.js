@@ -8,11 +8,12 @@ import { Center, Text } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/router';
 import { colors } from "../lib/constants";
+import { useEffect } from 'react';
 
 export default function ShowEmpPage({ emp }) {
   const router = useRouter();
   const { data, error } = useSWR("/api/emp", {
-    initialData: { emp },
+   
     revalidateOnMount: true,
   });
 
@@ -41,6 +42,10 @@ export default function ShowEmpPage({ emp }) {
         </Center>
       </>
     );
+
+
+  
+
 
   return (
     <>

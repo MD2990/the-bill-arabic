@@ -22,18 +22,38 @@ export const ExpButtons = () => {
     state.searchTerm = "";
     state.isFiltered = false;
     state.searchResults = snap.exp;
-     state.title = "المصروفات";
+    state.title = "المصروفات";
   };
 
   function printPdf() {
     const rows = snap.searchResults.map(
       (
-        { details, exp_date, advance, total_price, balance, remarks,_id },
+        {
+          elc,
+          rent,
+          g_exp,
+          workPrice,
+          other_exp,
+          total_profit,
+          total_loss,
+          added_date,
+          remarks,
+          _id,
+        },
         index
       ) => {
         index += 1;
         const data = {
-      details, exp_date, advance, total_price, balance, remarks,id: cutString(_id, 18, 24),
+          elc,
+          rent,
+          g_exp,
+          workPrice,
+          other_exp,
+          total_profit,
+          total_loss,
+          added_date,
+          remarks,
+          id: cutString(_id, 18, 24),
           index,
         };
 
@@ -41,25 +61,29 @@ export const ExpButtons = () => {
       }
     );
 
- // const id = cutString(rows._id, 18, 24);
+    // const id = cutString(rows._id, 18, 24);
+
     const columns = [
       { title: "الملاحظات", key: "remarks" },
-      { title: "تاريخ الفاتورة", key: "exp_date" },
-      { title: "المبلغ المتبقي", key: "balance" },
-      { title: "المبلغ المدفوع", key: "advance" },
-      { title: "الإجمالي", key: "total_price" },
-      { title: "تفاصيل الفاتورة", key: "details" },
-      { title: "رقم الفاتورة", key: "id" },
+      { title: "االتاريخ", key: "added_date" },
+      { title: "إجمالي الخسارة", key: "total_loss" },
+      { title: "إجمالي الربح", key: "total_profit" },
+      { title: "مصروفات أخرى", key: "other_exp" },
+      { title: "مصروفات الكراج", key: "g_exp" },
+      { title: "الإيجار", key: "rent" },
+      { title: "الكهرباء", key: "elc" },
+      { title: "قيمة الخدمة", key: "workPrice" },
+      { title: "الرمز", key: "id" },
       { title: "ت", key: "index" },
     ];
 
     return toPDF(
       rows,
       columns,
-      `${snap.title}                          العدد:${rows.length} `
+      ` ${snap.title}                                    العدد:${rows.length}                       `,
+      "l"
     );
   }
-
 
   return (
     <>

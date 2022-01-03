@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import * as currency from "currency.js";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import Swal from "sweetalert2";
+import moment from "moment";
 
 import font from "../public/Amiri-Regular-normal";
 import { errorMsg, successMsg } from "../lib/funcs";
@@ -40,15 +40,14 @@ export function toCurrency(number) {
   return OMR(number).format();
 }
 
- export function getSumToNum(sum1, sum2, sub) {
-  let total= currency(sum1).add(sum2).subtract(sub); 
+export function getSumToNum(sum1, sum2, sub) {
+  let total = currency(sum1).add(sum2).subtract(sub);
   return toCurrency(total);
-} 
+}
 
- export function getSum(sum1, sub) {
-  return currency(sum1).subtract(sub); 
-} 
-
+export function getSum(sum1, sub) {
+  return currency(sum1).subtract(sub);
+}
 
 export async function post(url, values) {
   url = "http://localhost:3000/api/" + url;
@@ -149,8 +148,10 @@ export const handleDelete = async ({ deleteUrl, id }) => {
   }
 };
 
-export const toPDF = (rows, columns, title) => {
-  var doc = new jsPDF("p", "pt"); // l or p
+export const toPDF = (rows, columns, title, view = "p") => {
+
+  const dateTimeNow =  moment().format("YYYY/MM/DD  HH:mm:ss");
+  var doc = new jsPDF(view, "pt"); // l or p
 
   doc.addFileToVFS("Amiri.ttf", font);
   doc.addFont("Amiri.ttf", "Amiri", "normal");
@@ -216,10 +217,16 @@ export const toPDF = (rows, columns, title) => {
       halign: "center",
       fontStyle: "normal", // normal, bold, italic, bolditalic
     },
+ 
+  
     didDrawPage: (data) => {
       if (doc.internal.getNumberOfPages() === 1) {
         doc.setFontSize(12);
-        doc.text(title, 350, 30, "right");
+        view === "p"
+          ? doc.text(title  , 350, 30, "right")
+          : doc.text( title, 550, 30, "right");
+
+          doc.text(`${dateTimeNow}`, doc.internal.pageSize.width - 100, 30, "right" );
       }
 
       let footerStr = "Page " + doc.internal.getNumberOfPages();

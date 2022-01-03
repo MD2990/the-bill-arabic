@@ -8,9 +8,10 @@ import Paginate from "../../sharedComponents/Paginate";
 import state from "../../stor";
 import { colors } from "../../lib/constants";
 
-export default function ShowBills({ emp }) {
+export default function ShowEmp({ emp }) {
   useEffect(() => {
     state.emp = emp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
+
   }, [emp]);
 
   return (
@@ -18,7 +19,7 @@ export default function ShowBills({ emp }) {
       <Title title="سجل الموظفين" color={colors().empLight} />
 
       <MainInterface>
-        <EmpButtons />
+        <EmpButtons emp={emp} />
 
         <Divider mt="-8" />
 

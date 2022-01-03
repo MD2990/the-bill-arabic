@@ -10,31 +10,45 @@ import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
 import { cutString } from "../../lib/funcs";
 import { colors } from "../../lib/constants";
+import { useEffect } from "react";
 
-export const EmpButtons = () => {
+export const EmpButtons = ({ emp }) => {
   const snap = useSnapshot(state);
-  
 
-  
+
 
   const router = useRouter();
 
   const clear = () => {
     state.searchTerm = "";
-    state.isFiltered = false;
-    state.searchResults = snap.emp;
-   
+ 
   };
 
   function printPdf() {
-    const rows = snap.searchResults.map(
+    const rows = snap.emp.map(
       (
-        { details, bill_date, advance, total_price, balance, remarks,_id },
+        {
+          emp_name,
+          job,
+          civil_id,
+          passport_number,
+          empl_date,
+          added_date,
+          remarks,
+          _id,
+        },
         index
       ) => {
         index += 1;
         const data = {
-      details, bill_date, advance, total_price, balance, remarks,id: cutString(_id, 18, 24),
+          emp_name,
+          job,
+          civil_id,
+          passport_number,
+          empl_date,
+          added_date,
+          remarks,
+          id: cutString(_id, 18, 24),
           index,
         };
 
@@ -42,25 +56,26 @@ export const EmpButtons = () => {
       }
     );
 
- // const id = cutString(rows._id, 18, 24);
+    // const id = cutString(rows._id, 18, 24);
     const columns = [
       { title: "الملاحظات", key: "remarks" },
-      { title: "تاريخ الفاتورة", key: "bill_date" },
-      { title: "المبلغ المتبقي", key: "balance" },
-      { title: "المبلغ المدفوع", key: "advance" },
-      { title: "الإجمالي", key: "total_price" },
-      { title: "تفاصيل الفاتورة", key: "details" },
-      { title: "رقم الفاتورة", key: "id" },
+      { title: "تاريخ الإضافة", key: "added_date" },
+      { title: "تاريخ التعيين", key: "empl_date" },
+      { title: "رقم الجواز", key: "passport_number" },
+      { title: "رقم البطاقة", key: "civil_id" },
+      { title: "الوظيفة", key: "job" },
+      { title: "اسم الموظف", key: "emp_name" },
+      { title: "الرمز", key: "id" },
       { title: "ت", key: "index" },
     ];
 
     return toPDF(
       rows,
       columns,
-      `تفاصيل الفواتير                      العدد ${rows.length} `
+      `تفاصيل الموظفين                      العدد ${rows.length} `,
+      "l"
     );
   }
-
 
   return (
     <Wrap
@@ -75,7 +90,7 @@ export const EmpButtons = () => {
         <BackButton ml="0" />
       </WrapItem>
       <WrapItem>
-        <SearchInput data={snap.emp} />
+        <SearchInput data={snap.emp}  />
       </WrapItem>
       <WrapItem>
         <Btn
@@ -94,9 +109,9 @@ export const EmpButtons = () => {
         />
       </WrapItem>
 
-      {snap.searchResults.length > 0 && (
+      {snap.emp.length > 0 && (
         <WrapItem>
-          <PrintBtn click={() => printPdf()} />
+          <PrintBtn click={ printPdf} />
         </WrapItem>
       )}
 
@@ -107,11 +122,14 @@ export const EmpButtons = () => {
         />
       </WrapItem>
 
-      {snap.searchResults.length < 1 && (
+      {snap.emp.length < 1 && (
         <>
           <Divider />
 
-          <Title title="لا توجد نتائج للعرض ..." color={colors().empLight}  ></Title>
+          <Title
+            title="لا توجد نتائج للعرض ..."
+            color={colors().empLight}
+          ></Title>
         </>
       )}
     </Wrap>
