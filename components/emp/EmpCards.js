@@ -14,26 +14,22 @@ import { colors } from "../../lib/constants";
 
 export default function EmpCards() {
   const snap = useSnapshot(state);
-  useEffect(() => {
-      state.searchTerm = "";
-      state.isFiltered = false;
-      state.emp = snap.emp;
-  }, [snap.emp])
 
-  const rs = useCallback(
-    () => snap.emp.slice(snap.offset, snap.offset + snap.PER_PAGE),
+
+/*   const rs = useCallback(
+    () => state.emp.slice(snap.offset, snap.offset + snap.PER_PAGE),
     [snap.PER_PAGE, snap.offset, snap.searchResults]
-  );
+  ); */
 
   useEffect(() => {
-    rs();
-  }, [rs]);
+   state.emp.slice(snap.offset, snap.offset + snap.PER_PAGE);
+  }, [snap.PER_PAGE, snap.offset,snap.searchResults]);
 
   if (!snap.emp) return <MySkeletons />;
 
   return (
     <>
-      {rs()?.map(
+      {snap.emp.map(
         ({
           _id,
           emp_name,

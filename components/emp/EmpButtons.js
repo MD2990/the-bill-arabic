@@ -12,16 +12,20 @@ import { cutString } from "../../lib/funcs";
 import { colors } from "../../lib/constants";
 import { useEffect } from "react";
 
-export const EmpButtons = ({ emp }) => {
+export const EmpButtons = ({emp}) => {
   const snap = useSnapshot(state);
 
-
+  useEffect(() => {
+    state.emp = emp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
+   
+  }, [emp]);
 
   const router = useRouter();
-
   const clear = () => {
     state.searchTerm = "";
- 
+    state.isFiltered = false;
+    state.searchResults = snap.emp;
+  
   };
 
   function printPdf() {
@@ -90,12 +94,12 @@ export const EmpButtons = ({ emp }) => {
         <BackButton ml="0" />
       </WrapItem>
       <WrapItem>
-        <SearchInput data={snap.emp}  />
+        <SearchInput arr={snap.emp} search={snap.searchTerm}/>
       </WrapItem>
       <WrapItem>
         <Btn
           icon={<RepeatIcon />}
-          click={() => clear()}
+          click={ clear}
           title="عرض الجميع"
           color={colors().empLight}
         />

@@ -1,8 +1,8 @@
 import useSWR from 'swr';
 import ShowEmp from "../components/emp/ShowEmp";
 import { dbConnect, jsonify } from '../utils/dbConnect';
-import Emp from '../models/Emp';
-import { Btn, Hd, Spans, Title } from '../components/comUtil/ComUtil';
+/* import Emp from '../models/Emp';
+ */import { Btn, Hd, Spans, Title } from '../components/comUtil/ComUtil';
 import state from "../stor";
 import { Center, Text } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { colors } from "../lib/constants";
 import { useEffect } from 'react';
 
-export default function ShowEmpPage({ emp }) {
+export default function ShowEmpPage() {
   const router = useRouter();
   const { data, error } = useSWR("/api/emp", {
    
@@ -55,7 +55,7 @@ export default function ShowEmpPage({ emp }) {
     </>
   );
 }
-export const getStaticProps = async () => {
+/* export const getStaticProps = async () => {
 	await dbConnect();
 	const data = await Emp.find({});
 	if (!data) {
@@ -74,4 +74,4 @@ export const getStaticProps = async () => {
 		},
 		revalidate: 1,
 	};
-};
+}; */
