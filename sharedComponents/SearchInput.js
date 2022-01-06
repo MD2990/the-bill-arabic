@@ -7,7 +7,11 @@ import { myFilter } from "../lib/funcs";
 
 
 
-export function SearchInputField({ theValue, onChange }) {
+export function SearchInputField() {
+  const snap = useSnapshot(state);
+    const handleChange = (e) => {
+      state.searchTerm = e.target.value;
+    };
   return (
     <Input
       focusBorderColor="gray.400"
@@ -18,29 +22,26 @@ export function SearchInputField({ theValue, onChange }) {
       size="lg"
       rounded="full"
       placeholder="Search by any field"
-      value={theValue}
-      onChange={onChange}
+      value={snap.searchTerm}
+      onChange={handleChange}
     />
   );
 }
 
-export default function SearchInput({ data }) {
-  const snap = useSnapshot(state);
+export default function SearchInput({ arr,search }) {
 
   useEffect(() => {
-    state.searchResults = myFilter({
-      arr: data,
-      searchTerm: state.searchTerm,
+    myFilter({
+      arr: arr,
+      searchTerm: search,
     });
-  }, [data, snap.searchTerm]);
+  }, [arr, search]);
 
-  const handleChange = (e) => {
-    state.searchTerm = e.target.value;
-  };
+
 
   return (
     <>
-      <SearchInputField theValue={snap.searchTerm} onChange={handleChange} />
+      <SearchInputField/>
     </>
   );
 }

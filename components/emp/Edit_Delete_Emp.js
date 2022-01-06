@@ -8,9 +8,7 @@ import {
   CustomTextArea,
   FormBottomButton,
 } from "../../comUtil/ComUtil";
-import {
-  EMP_validationSchema,
-} from "../../lib/constants";
+import { colors, EMP_validationSchema } from "../../lib/constants";
 import { handlePut, handleDelete } from "../../utils/dbConnect";
 import { handleFormDelete } from "../../lib/funcs";
 
@@ -29,10 +27,8 @@ export default function Edit_Delete_Emp({ emp }) {
   } = emp;
 
   async function put(values) {
-
-
     handlePut({ values, url: "emp", router });
-    router.replace('/showEmpPage');
+    router.replace("/showEmpPage");
   }
 
   async function FormDeleteFunc() {
@@ -63,11 +59,20 @@ export default function Edit_Delete_Emp({ emp }) {
       {(props) => {
         return (
           <Form>
-            <Title title={`تحديث بيانات  الموظف:   `}>
-              <Text as="span" color={'blue.500'} > {emp_name.toUpperCase()} </Text>
+            <Title title={`تحديث بيانات  الموظف:   `} color={colors().empDark}>
+              <Text as="span" color={colors().empLight}>
+                {" "}
+                {emp_name.toUpperCase()}{" "}
+              </Text>
             </Title>
             <Center m="2" p="2">
-              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8">
+              <Wrap
+                justify="center"
+                borderWidth="1px"
+                borderRadius="lg"
+                p="8"
+                color={colors().empLight}
+              >
                 <CustomField fieldName="emp_name" labelName="اسم العامل" />
                 <CustomField fieldName="job" labelName="المهنة" />
                 <CustomField fieldName="civil_id" labelName="الرقم المدني" />

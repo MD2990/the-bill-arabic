@@ -3,10 +3,10 @@ import ShowExp from "../components/exp/ShowExp";
 import { dbConnect, jsonify } from "../utils/dbConnect";
 import Exp from "../models/Exp";
 import { Btn, Hd, Spans, Title } from "../components/comUtil/ComUtil";
-import state from "../stor";
-import { Center, Text } from "@chakra-ui/react";
+import { Center } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import { colors } from "../lib/constants";
 
 export default function ShowExpPage({ exp }) {
   const router = useRouter();
@@ -24,18 +24,20 @@ export default function ShowExpPage({ exp }) {
   if (data.exp?.length < 1)
     return (
       <>
+        <Hd title=" المصروفات" />
+
         <Title
-          title="لم يتم إضافة موظفين إلى الآن ..."
-          color={"green.400"}
+          title="لم يتم إضافة مصروفات إلى الآن ..."
+          color={colors().expLight}
         ></Title>
         <Center my={["1%", "2%", "3%", "4%"]}>
           <Btn
             fontSize={["1rem", "1.5rem", "2rem", "2.5rem"]}
             p={["1rem", "1.5rem", "2rem", "2.5rem"]}
             click={() => router.replace(`/addNewExpPage`)}
-            title="  إضافة موظف جديد"
+            title="  إضافة مصروف جديد"
             icon={<AddIcon />}
-            color={"green.400"}
+            color={colors().expLight}
           ></Btn>
         </Center>
       </>
@@ -43,9 +45,9 @@ export default function ShowExpPage({ exp }) {
 
   return (
     <>
-      <Hd title="عرض بيانات الموظفين" />
+      <Hd title=" المصروفات" />
 
-      <ShowExp exp={exp} />
+      <ShowExp exp={data.exp} />
     </>
   );
 }

@@ -64,7 +64,7 @@ export default function BillDateFilter() {
 
   return (
     <DateFilterUI
-      color="green.400"
+      color="orange.400"
       getCurrentMonth={getCurrentMonth}
       getLastMonth={getLastMonth}
       getLast3Month={getLast3Month}

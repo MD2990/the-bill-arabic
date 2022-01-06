@@ -30,12 +30,7 @@ export default function WithSubnavigation() {
 
   return (
     <Box>
-      <Flex
-        minH={"80px"}
-        py={[2, 4, 8, 10]}
-        px={[2, 4, 8, 10]}
-        align={"center"}
-      >
+      <Flex minH={"80px"} p={[2, 4, 8, 10]} align={"center"}>
         <Flex
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
@@ -50,14 +45,19 @@ export default function WithSubnavigation() {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "center" }}>
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: "center", md: "center" }}
+          className="btn"
+        >
           <Text
+            className="rotate"
             textAlign={useBreakpointValue({ base: "center", md: "center" })}
             color="blue.600"
           >
             <Link href="/">
               <a>
-                <FaCar size="3rem" />
+                <FaCar size="4.5rem" />
               </a>
             </Link>
           </Text>
@@ -109,9 +109,9 @@ const DesktopNav = () => {
 
   return (
     <Stack
+      align={"center"}
       direction={"row"}
       spacing={[4, 6, 8, 10]}
-      mt="3"
       zIndex="dropdown"
       mr="8"
     >
@@ -126,7 +126,6 @@ const DesktopNav = () => {
                 fontWeight={700}
                 color="blue.700"
                 _hover={{
-                  textDecoration: "none",
                   color: linkHoverColor,
                   boxShadow: "none",
                 }}
@@ -138,7 +137,7 @@ const DesktopNav = () => {
             {navItem.children && (
               <PopoverContent
                 color="blue.500"
-                fontSize={["xs", "sm", "md", "lg"]}
+                fontSize={["sm", "md", "lg", "2xl"]}
                 fontWeight="black"
                 border={0}
                 boxShadow={"xl"}
