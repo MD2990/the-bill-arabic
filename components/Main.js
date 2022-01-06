@@ -9,17 +9,20 @@ import {
   FcKindle,
 } from "react-icons/fc";
 
-import {
-  Center,
-  Text,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Center, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import React from "react";
 
 export function CustomCol({ path, children, text, size = "8em" }) {
   return (
-    <WrapItem shadow="inner" textShadow="0px 0px 15px gray" rounded="2xl" p="2">
+    <WrapItem
+      className="main"
+      size={size}
+      shadow="inner"
+      textShadow="0px 0px 15px gray"
+      rounded="2xl"
+      p="2"
+      color={'teal.600'}
+    >
       <Link href={path}>
         <a className="text-center">
           {React.cloneElement(children, { size })}
@@ -41,28 +44,25 @@ export default function Main() {
     <>
       <Center p="4" m="4">
         <Text
+          userSelect={"none"}
           border="1px"
           borderRadius="40"
-          p="4"
+          p={[2, 3, 4, 5]}
           fontSize={["md", "lg", "3xl", "5xl"]}
           textAlign="center"
           fontWeight="extrabold"
-          color="teal.200"
+          color={["teal.200", "teal.300", "teal.400", "teal.500"]}
         >
-          مشاركة الأصول الإنسانية
+          مشاريع الأنهار المتكاملة
         </Text>
       </Center>
       <Wrap
         justify="center"
         spacing={[4, 6, 8, 12]}
-        mx="2%"
-        my="3%"
+        m={["1%", "2%", "3%", "4%"]}
         shadow="dark-lg"
         rounded="2xl"
-
-    
       >
-
         <CustomCol path="/addNewBillPage" text={"إضافة فاتورة جديدة"}>
           <FcKindle />
         </CustomCol>

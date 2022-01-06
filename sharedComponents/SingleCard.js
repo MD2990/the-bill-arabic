@@ -1,4 +1,4 @@
-import { AddIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -18,7 +18,7 @@ import React from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { IconButton } from "@chakra-ui/react";
-import { cutString, setItem } from "../lib/funcs";
+import {  setItem } from "../lib/funcs";
 export const AllText = ({ title, data }) => {
   return (
     <Text pb="0.5" fontSize={["xs", "sm", "md", "lg"]}>

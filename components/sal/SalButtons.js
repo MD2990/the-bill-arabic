@@ -1,5 +1,5 @@
-import { AddIcon, CalendarIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Wrap, WrapItem, Divider, Text } from "@chakra-ui/layout";
+import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Wrap, WrapItem, Divider } from "@chakra-ui/layout";
 import { useRouter } from "next/dist/client/router";
 import { useSnapshot } from "valtio";
 import { Btn, PrintBtn, Title } from "../comUtil/ComUtil";
@@ -8,9 +8,9 @@ import { toPDF } from "../../utils/dbConnect";
 import TotalText from "../../sharedComponents/TotalText";
 import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
-import moment from "moment";
 import { cutString, getItem } from "../../lib/funcs";
 import SalDateFilter from "./SalDateFilter";
+import { colors } from "../../lib/constants";
 
 export const SalButtons = () => {
   const snap = useSnapshot(state);
@@ -89,12 +89,12 @@ export const SalButtons = () => {
           icon={<RepeatIcon />}
           click={() => clear()}
           title="عرض الجميع"
-          color="blue.400"
+          color={colors().salLight}
         />
       </WrapItem>
       <WrapItem>
         <Btn
-          color="blue.400"
+          color={colors().salLight}
           icon={<AddIcon />}
           click={() => router.push(`/${getItem("id")}/addSalaryPage`)}
           title="إضافة"
@@ -103,13 +103,13 @@ export const SalButtons = () => {
 
       {snap.searchResults.length > 0 && (
         <WrapItem>
-          <PrintBtn click={() => printPdf()} color="blue.300" />
+          <PrintBtn click={() => printPdf()} color={colors().salDark} />
         </WrapItem>
       )}
 
       <WrapItem>
         <TotalText
-          color="blue.400"
+          color={colors().salLight}
           text={`الإجمالي:  ${snap.sal && snap.searchResults.length}`}
         />
       </WrapItem>

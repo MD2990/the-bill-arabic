@@ -7,6 +7,7 @@ import { MainInterface } from "../../sharedComponents/MainInterface";
 import Paginate from "../../sharedComponents/Paginate";
 import { useSnapshot } from "valtio";
 import state from "../../stor";
+import { colors } from "../../lib/constants";
 
 export default function ShowExp({exp}) {
   const snap = useSnapshot(state);
@@ -18,10 +19,8 @@ export default function ShowExp({exp}) {
   }, []);
 
   return (
-
     <>
-    
-      <Title title={snap.title}  color={'gray.500'} />
+      <Title title={snap.title} color={colors().expDark} />
 
       <MainInterface>
         <ExpButtons />
@@ -31,7 +30,7 @@ export default function ShowExp({exp}) {
         <ExpCards />
       </MainInterface>
       <HStack mt="12" justify="center">
-        <Paginate /> 
+        <Paginate />
       </HStack>
     </>
   );

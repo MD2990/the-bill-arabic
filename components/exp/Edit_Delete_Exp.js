@@ -11,7 +11,6 @@ import {
   FormBottomButton,
 } from "../../comUtil/ComUtil";
 import { useRouter } from "next/router";
-import moment from "moment";
 import { handleFormDelete } from "../../lib/funcs";
 
 export default function Edit_Delete_Exp({ exp }) {

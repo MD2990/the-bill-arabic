@@ -9,7 +9,7 @@ import {
   CustomTextArea,
   FormBottomButton,
 } from "../../comUtil/ComUtil";
-import { BILL_validationSchema } from "../../lib/constants";
+import { BILL_validationSchema, colors } from "../../lib/constants";
 import { handlePut,handleDelete, toCurrency } from "../../utils/dbConnect";
 import { cutString, handleFormDelete } from "../../lib/funcs";
 
@@ -61,9 +61,18 @@ export default function Edit_Delete_Bill({ bill }) {
       {(props) => {
         return (
           <Form>
-            <Title title={`تحديث الفاتورة رقم: ${cutString(_id, 18, 24)}`}/>
+            <Title
+              title={`تحديث الفاتورة رقم: ${cutString(_id, 18, 24)}`}
+              color={colors().billDark}
+            />
             <Center m="2" p="2">
-              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8">
+              <Wrap
+                justify="center"
+                borderWidth="1px"
+                borderRadius="lg"
+                p="8"
+                color={colors().billLight}
+              >
                 <CustomField
                   fieldName="bill_date"
                   labelName="التاريخ"

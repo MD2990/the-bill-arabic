@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useCallback, useEffect } from "react";
 import { useSnapshot } from "valtio";
+import { colors } from "../../lib/constants";
 import DateFilterUI from "../../sharedComponents/DateFilterUI";
 import state from "../../stor";
 
@@ -62,7 +63,7 @@ export default function ExpDateFilter() {
 
   return (
     <DateFilterUI
-      color="gray.500"
+      color={colors().expDark}
       getCurrentMonth={getCurrentMonth}
       getLastMonth={getLastMonth}
       getLast3Month={getLast3Month}

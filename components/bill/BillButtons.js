@@ -11,6 +11,7 @@ import SearchInput from "../../sharedComponents/SearchInput";
 
 import { cutString } from "../../lib/funcs";
 import BillDateFilter from "./BillDateFilter";
+import { colors } from "../../lib/constants";
 
 export const BillButtons = () => {
   const snap = useSnapshot(state);
@@ -78,7 +79,7 @@ export const BillButtons = () => {
         </WrapItem>
         <WrapItem>
           <Btn
-            color="orange.400"
+            color={colors().billLight}
             icon={<RepeatIcon />}
             click={() => clear()}
             title="عرض الجميع"
@@ -86,7 +87,7 @@ export const BillButtons = () => {
         </WrapItem>
         <WrapItem>
           <Btn
-            color="orange.400"
+            color={colors().billLight}
             icon={<AddIcon />}
             click={() => router.push("/addNewBillPage")}
             title="إضافة"
@@ -95,13 +96,13 @@ export const BillButtons = () => {
 
         {snap.searchResults.length > 0 && (
           <WrapItem>
-            <PrintBtn click={() => printPdf()} color={"orange.300"} />
+            <PrintBtn click={() => printPdf()} color={colors().billDark} />
           </WrapItem>
         )}
 
         <WrapItem>
           <TotalText
-            color={"orange.400"}
+            color={colors().billLight}
             text={`الإجمالي:  ${snap.bill && snap.searchResults.length}`}
           />
         </WrapItem>
@@ -110,7 +111,10 @@ export const BillButtons = () => {
           <>
             <Divider />
 
-            <Title title="لا توجد نتائج للعرض ..."></Title>
+            <Title
+              color={colors().billLight}
+              title="لا توجد نتائج للعرض ..."
+            ></Title>
           </>
         )}
       </Wrap>

@@ -8,6 +8,7 @@ import { handleDelete } from "../../utils/dbConnect";
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
 import {  cutString, getItem, handleFormDelete, reverseString } from "../../lib/funcs";
+import { colors } from "../../lib/constants";
 
 export default function AllSalCards() {
   const snap = useSnapshot(state);
@@ -59,28 +60,22 @@ export default function AllSalCards() {
                   });
                 }}
               >
-                 <Box color='blue.700' >
-
-                <AllText
-                  title=" الراتب الاساسي:"
-                  data={basic_salary}
-                  color="sal"
+                <Box color={colors().salDark}>
+                  <AllText
+                    title=" الراتب الاساسي:"
+                    data={basic_salary}
+                 
                   />
-                <AllText title=" المكافأة:" data={bonus}  />
-                <AllText title=" القروض:" data={loans}  />
-                <AllText
-                  title=" المجموع:"
-                  data={total_salary}
-                  
-                  />
-                <AllText
-                  title=" تاريخ الاستحقاق:"
-                  data={salary_date && reverseString(salary_date)}
-                  
+                  <AllText title=" المكافأة:" data={bonus} />
+                  <AllText title=" القروض:" data={loans} />
+                  <AllText title=" المجموع:" data={total_salary} />
+                  <AllText
+                    title=" تاريخ الاستحقاق:"
+                    data={salary_date && reverseString(salary_date)}
                   />
 
-                <AllText title=" الملاحظات:" data={remarks}/>
-      </Box>
+                  <AllText title=" الملاحظات:" data={remarks} />
+                </Box>
               </SingleCard>
             </Wrap>
           );

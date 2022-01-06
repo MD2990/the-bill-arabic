@@ -6,6 +6,7 @@ import { Btn, Hd, Spans, Title } from "../components/comUtil/ComUtil";
 import { Center } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import { colors } from "../lib/constants";
 
 export default function ShowExpPage({ exp }) {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function ShowExpPage({ exp }) {
 
         <Title
           title="لم يتم إضافة مصروفات إلى الآن ..."
-          color={"gray.400"}
+          color={colors().expLight}
         ></Title>
         <Center my={["1%", "2%", "3%", "4%"]}>
           <Btn
@@ -36,7 +37,7 @@ export default function ShowExpPage({ exp }) {
             click={() => router.replace(`/addNewExpPage`)}
             title="  إضافة مصروف جديد"
             icon={<AddIcon />}
-            color={"gray.400"}
+            color={colors().expLight}
           ></Btn>
         </Center>
       </>
@@ -46,7 +47,7 @@ export default function ShowExpPage({ exp }) {
     <>
       <Hd title=" المصروفات" />
 
-      <ShowExp exp={exp} />
+      <ShowExp exp={data.exp} />
     </>
   );
 }
