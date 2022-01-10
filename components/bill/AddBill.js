@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 import { post, toCurrency } from "../../utils/dbConnect";
 
 import { Wrap, Divider, Center } from "@chakra-ui/react";
-import { BILL_validationSchema } from "../../lib/constants";
+import { BILL_validationSchema, colors } from "../../lib/constants";
 import {
   CustomField,
   CustomFieldWithValue,
@@ -19,7 +19,6 @@ export default function AddBill() {
   const router = useRouter();
 
   async function add(values) {
-    // values.advance = toCurrency(values.advance);
     await post("bill", values);
   }
 
@@ -43,9 +42,15 @@ export default function AddBill() {
       {(props) => {
         return (
           <Form>
-            <Title title="إضافة فاتورة" />
+            <Title title="إضافة فاتورة" color={colors().billDark} />
             <Center m="2" p="2">
-              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8">
+              <Wrap
+                color={colors().billLight}
+                justify="center"
+                borderWidth="1px"
+                borderRadius="lg"
+                p="8"
+              >
                 <CustomField
                   fieldName="bill_date"
                   labelName="التاريخ"

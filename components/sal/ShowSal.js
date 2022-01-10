@@ -8,23 +8,28 @@ import Paginate from "../../sharedComponents/Paginate";
 import state from "../../stor";
 import { getItem } from "../../lib/funcs";
 import { useSnapshot } from "valtio";
+import { colors } from "../../lib/constants";
 
 export default function ShowSal() {
   const snap = useSnapshot(state);
-/*   useEffect(() => {
+ useEffect(() => {
     state.title = snap.isFiltered
-      ? `جميع الرواتب    ${getItem("emp")}`
-      : "جميع الرواتب";
-  }, [snap.isFiltered]); */
+      ? `رواتب الموظف    ${getItem("emp")}`
+      : "رواتب الموظف";
+  }, [snap.isFiltered]); 
   return (
     <>
       <VStack>
-
-        <Text fontWeight={"black"} color={"blue.300"} fontSize={[12,15,18,25]} >
-          {getItem("emp")}
-        </Text>
-      <Title title={snap.title} color={"blue.500"}>
-      </Title>
+        <Title title={snap.title} color={colors().salDark}>
+          <Text
+            fontWeight={"black"}
+            color={colors().salLight}
+            fontSize={[12, 15, 18, 25]}
+            textAlign={"center"}
+          >
+            {getItem("emp")}
+          </Text>
+        </Title>
       </VStack>
 
       <MainInterface>

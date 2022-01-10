@@ -1,5 +1,5 @@
-import { AddIcon, CalendarIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Wrap, WrapItem, Divider, Text } from "@chakra-ui/layout";
+import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Wrap, WrapItem, Divider } from "@chakra-ui/layout";
 import { useRouter } from "next/dist/client/router";
 import { useSnapshot } from "valtio";
 import { Btn, PrintBtn, Title } from "../comUtil/ComUtil";
@@ -8,9 +8,9 @@ import { toPDF } from "../../utils/dbConnect";
 import TotalText from "../../sharedComponents/TotalText";
 import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
-import moment from "moment";
 import { cutString, getItem } from "../../lib/funcs";
 import SalDateFilter from "./SalDateFilter";
+import { colors } from "../../lib/constants";
 
 export const SalButtons = () => {
   const snap = useSnapshot(state);
@@ -21,7 +21,7 @@ export const SalButtons = () => {
    state.searchTerm = "";
    state.isFiltered = false;
    state.searchResults = snap.sal;
-   state.title = " جميع الرواتب";
+   state.title = " رواتب الموظف";
    
   };
 
@@ -85,11 +85,16 @@ export const SalButtons = () => {
         <SearchInput data={snap.sal} />
       </WrapItem>
       <WrapItem>
-        <Btn icon={<RepeatIcon />} click={() => clear()} title="عرض الجميع" />
+        <Btn
+          icon={<RepeatIcon />}
+          click={() => clear()}
+          title="عرض الجميع"
+          color={colors().salLight}
+        />
       </WrapItem>
       <WrapItem>
         <Btn
-          color="green.400"
+          color={colors().salLight}
           icon={<AddIcon />}
           click={() => router.push(`/${getItem("id")}/addSalaryPage`)}
           title="إضافة"
@@ -98,17 +103,16 @@ export const SalButtons = () => {
 
       {snap.searchResults.length > 0 && (
         <WrapItem>
-          <PrintBtn click={() => printPdf()} />
+          <PrintBtn click={() => printPdf()} color={colors().salDark} />
         </WrapItem>
       )}
 
       <WrapItem>
         <TotalText
+          color={colors().salLight}
           text={`الإجمالي:  ${snap.sal && snap.searchResults.length}`}
         />
       </WrapItem>
-
-   
 
       {snap.searchResults.length < 1 && (
         <>
@@ -117,7 +121,7 @@ export const SalButtons = () => {
           <Title title="لا توجد نتائج للعرض ..."></Title>
         </>
       )}
-      <SalDateFilter/>
+      <SalDateFilter />
     </Wrap>
   );
 };

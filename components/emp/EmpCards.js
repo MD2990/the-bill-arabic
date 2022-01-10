@@ -1,4 +1,4 @@
-import { Wrap } from "@chakra-ui/react";
+import { Box, Wrap } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -10,24 +10,26 @@ import { handleDelete } from "../../utils/dbConnect";
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
 import { cutString, handleFormDelete } from "../../lib/funcs";
+import { colors } from "../../lib/constants";
 
 export default function EmpCards() {
   const snap = useSnapshot(state);
 
-  const rs = useCallback(
-    () => state.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
+
+/*   const rs = useCallback(
+    () => state.emp.slice(snap.offset, snap.offset + snap.PER_PAGE),
     [snap.PER_PAGE, snap.offset, snap.searchResults]
-  );
+  ); */
 
   useEffect(() => {
-    rs();
-  }, [rs]);
+   state.emp.slice(snap.offset, snap.offset + snap.PER_PAGE);
+  }, [snap.PER_PAGE, snap.offset,snap.searchResults]);
 
   if (!snap.emp) return <MySkeletons />;
-  
+
   return (
     <>
-      {rs()?.map(
+      {snap.emp.map(
         ({
           _id,
           emp_name,
@@ -42,7 +44,7 @@ export default function EmpCards() {
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
                 color={"green.100"}
-                HD_color={"green.600"}
+                HD_color={colors().empLight}
                 _id={_id}
                 showSalary
                 addSalary
@@ -60,32 +62,14 @@ export default function EmpCards() {
                   });
                 }}
               >
-                <AllText title=" الوظيفة:" data={job} color={"green.600"} />
-                <AllText
-                  title=" رقم البطاقة:"
-                  data={civil_id}
-                  color={"green.600"}
-                />
-                <AllText
-                  title=" تاريخ الاضافة:"
-                  data={added_date}
-                  color={"green.600"}
-                />
-                <AllText
-                  title=" رقم الجواز :"
-                  data={passport_number}
-                  color={"green.600"}
-                />
-                <AllText
-                  title=" تاريخ التوظيف:"
-                  data={empl_date}
-                  color={"green.600"}
-                />
-                <AllText
-                  title=" الملاحظات:"
-                  data={remarks}
-                  color={"green.600"}
-                />
+                <Box color={colors().empDark}>
+                  <AllText title=" الوظيفة:" data={job}  />
+                  <AllText title=" رقم البطاقة:" data={civil_id} />
+                  <AllText title=" تاريخ الاضافة:" data={added_date} />
+                  <AllText title=" رقم الجواز :" data={passport_number} />
+                  <AllText title=" تاريخ التوظيف:" data={empl_date} />
+                  <AllText title=" الملاحظات:" data={remarks} />
+                </Box>
               </SingleCard>
             </Wrap>
           );

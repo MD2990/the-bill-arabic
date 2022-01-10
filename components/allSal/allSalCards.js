@@ -1,4 +1,4 @@
-import { Wrap } from "@chakra-ui/react";
+import { Box, Wrap } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -8,6 +8,7 @@ import { handleDelete } from "../../utils/dbConnect";
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
 import {  cutString, getItem, handleFormDelete, reverseString } from "../../lib/funcs";
+import { colors } from "../../lib/constants";
 
 export default function AllSalCards() {
   const snap = useSnapshot(state);
@@ -59,25 +60,22 @@ export default function AllSalCards() {
                   });
                 }}
               >
-                <AllText
-                  title=" الراتب الاساسي:"
-                  data={basic_salary}
-                  color="blue.500"
-                />
-                <AllText title=" المكافأة:" data={bonus} color="blue.500" />
-                <AllText title=" القروض:" data={loans} color="blue.500" />
-                <AllText
-                  title=" المجموع:"
-                  data={total_salary}
-                  color="blue.500"
-                />
-                <AllText
-                  title=" تاريخ الاستحقاق:"
-                  data={salary_date && reverseString(salary_date)}
-                  color="blue.500"
-                />
+                <Box color={colors().salDark}>
+                  <AllText
+                    title=" الراتب الاساسي:"
+                    data={basic_salary}
+                 
+                  />
+                  <AllText title=" المكافأة:" data={bonus} />
+                  <AllText title=" القروض:" data={loans} />
+                  <AllText title=" المجموع:" data={total_salary} />
+                  <AllText
+                    title=" تاريخ الاستحقاق:"
+                    data={salary_date && reverseString(salary_date)}
+                  />
 
-                <AllText title=" الملاحظات:" data={remarks} color="blue.500" />
+                  <AllText title=" الملاحظات:" data={remarks} />
+                </Box>
               </SingleCard>
             </Wrap>
           );

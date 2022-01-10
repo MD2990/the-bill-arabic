@@ -54,31 +54,7 @@ export const Confirm = ({
   });
 };
 
-export function Title({ title, children }) {
-  return (
-    <Center mt="8%" mb="0%">
-      <Text
-        style={{ textShadow: "2px 2px 14px white" }}
-        textAlign="center"
-        textOverflow="ellipsis"
-        fontSize={60}
-        fontFamily="initial"
-        color={"twitter.400"}
-        fontWeight={"black"}
-        letterSpacing="1.0px"
-        textTransform="capitalize"
-        borderTopRadius="3xl"
-        pl="4"
-        pr="4"
-        userSelect="none"
-        bgGradient="linear(to-t, white,blue.100)"
-      >
-        {title}
-      </Text>
-      {children}
-    </Center>
-  );
-}
+
 
 export function Loaders({ type = "Puff" }) {
   return (

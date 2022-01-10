@@ -10,6 +10,7 @@ import { snapshot, useSnapshot } from "valtio";
 import { today } from "../../lib/funcs";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { colors } from "../../lib/constants";
 
 
 export default function ShowAllSal({ sal }) {
@@ -26,7 +27,7 @@ export default function ShowAllSal({ sal }) {
 
   return (
     <>
-      <Title title={snap.title} color={"blue.500"}></Title>
+      <Title title={snap.title} color={ colors().salDark }></Title>
 
       <MainInterface>
         <SalButtons />

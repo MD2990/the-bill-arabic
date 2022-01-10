@@ -6,6 +6,7 @@ import { Stack } from "@chakra-ui/react";
 import { BackButton } from "../sharedComponents/BackButton";
 import ShowAllSal from "../components/allSal/ShowAllSal";
 import useSWR from "swr";
+import { colors } from "../lib/constants";
 
 export default function ShowSalPage({ sal }) {
  
@@ -35,7 +36,8 @@ export default function ShowSalPage({ sal }) {
         </Stack>
         <Title
           title="لم يتم إضافة رواتب إلى الآن ... "
-          color={"green.400"}
+          
+          color={colors().salLight}
         ></Title>
 
    

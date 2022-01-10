@@ -3,10 +3,8 @@ import { Title } from "../comUtil/ComUtil";
 import { Form, Formik } from "formik";
 import { getSumToNum, post } from "../../utils/dbConnect";
 import moment from "moment";
-import { Wrap, Center, Divider } from "@chakra-ui/react";
-import {
-  SAL_validationSchema,
-} from "../../lib/constants";
+import { Wrap, Center, Divider, Text } from "@chakra-ui/react";
+import { colors, SAL_validationSchema } from "../../lib/constants";
 import {
   CustomField,
   CustomFieldWithValue,
@@ -48,9 +46,13 @@ export default function AddSal({ empName }) {
       {(props) => {
         return (
           <Form>
-            <Title title={`إضافة راتب للموظف ${empName}`} />
+            <Title title={`إضافة راتب للموظف `} color={colors().salDark}>
+              <Text color={colors().salLight} as="span">
+                {empName}
+              </Text>
+            </Title>
             <Center m="2" p="2">
-              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8">
+              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8" color={colors().salDark} >
                 <CustomField
                   fieldName="basic_salary"
                   labelName="الراتب الأساسي"
