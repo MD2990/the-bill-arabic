@@ -8,28 +8,21 @@ import { toPDF } from "../../utils/dbConnect";
 import TotalText from "../../sharedComponents/TotalText";
 import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
-import { cutString } from "../../lib/funcs";
+import { cutString, myFilter } from "../../lib/funcs";
 import { colors } from "../../lib/constants";
 import { useEffect } from "react";
 
-export const EmpButtons = ({emp}) => {
+export const EmpButtons = () => {
   const snap = useSnapshot(state);
 
-  useEffect(() => {
-    state.emp = emp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
-   
-  }, [emp]);
 
   const router = useRouter();
   const clear = () => {
     state.searchTerm = "";
-    state.isFiltered = false;
-    state.searchResults = snap.emp;
-  
   };
 
   function printPdf() {
-    const rows = snap.emp.map(
+    const rows = snap.searchResults.map(
       (
         {
           emp_name,
@@ -60,7 +53,6 @@ export const EmpButtons = ({emp}) => {
       }
     );
 
-    // const id = cutString(rows._id, 18, 24);
     const columns = [
       { title: "الملاحظات", key: "remarks" },
       { title: "تاريخ الإضافة", key: "added_date" },
@@ -94,12 +86,12 @@ export const EmpButtons = ({emp}) => {
         <BackButton ml="0" />
       </WrapItem>
       <WrapItem>
-        <SearchInput arr={snap.emp} search={snap.searchTerm}/>
+        <SearchInput data={snap.emp} />
       </WrapItem>
       <WrapItem>
         <Btn
           icon={<RepeatIcon />}
-          click={ clear}
+          click={clear}
           title="عرض الجميع"
           color={colors().empLight}
         />
@@ -113,20 +105,20 @@ export const EmpButtons = ({emp}) => {
         />
       </WrapItem>
 
-      {snap.emp.length > 0 && (
+      {snap.searchResults.length > 0 && (
         <WrapItem>
-          <PrintBtn click={ printPdf} />
+          <PrintBtn click={printPdf} />
         </WrapItem>
       )}
 
       <WrapItem>
         <TotalText
           color={colors().empLight}
-          text={`الإجمالي:  ${snap.emp && snap.searchResults.length}`}
+          text={`الإجمالي:  ${snap.searchResults.length || 0}`}
         />
       </WrapItem>
 
-      {snap.emp.length < 1 && (
+      {snap.searchResults.length < 1 && (
         <>
           <Divider />
 

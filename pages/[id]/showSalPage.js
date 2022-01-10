@@ -11,24 +11,28 @@ import { getItem } from "../../lib/funcs";
 import { AddIcon } from "@chakra-ui/icons";
 import { BackButton } from "../../sharedComponents/BackButton";
 import { colors } from "../../lib/constants";
+import useSWR from "swr";
 
 export default function ShowSalPage({ sal }) {
-  useEffect(
-    () =>
-      (state.sal = sal.sort((a, b) =>
-        a.salary_date < b.salary_date ? 1 : -1
-      )),
-
-    [sal]
-  );
-
   const router = useRouter();
+
+  const { id } = router.query;
+
+  const { data, error } = useSWR(`/api/sal/${id}`, {
+    initialData: { sal },
+    revalidateOnMount: true,
+  });
   if (router.isFallback) {
     return <Spans />;
   }
-  const { id } = router.query;
 
-  if (sal?.length < 1)
+  if (error)
+    return (
+      <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
+    );
+  if (!data) return <Spans />;
+
+  if (!data.sal.length)
     return (
       <>
         <Stack ml="5%" align={"flex-end"}>
@@ -36,7 +40,7 @@ export default function ShowSalPage({ sal }) {
         </Stack>
         <Title title="لا توجد رواتب للموظف  " color={colors().empLight}>
           <Text as="span" color={colors().empLight}>
-            {getItem("emp")}
+            {data.sal[0]?.emp_name}
           </Text>
         </Title>
 
@@ -55,14 +59,13 @@ export default function ShowSalPage({ sal }) {
 
   return (
     <>
-      <Hd title={`إضافة راتب للموظف`} />
-      <ShowSal />
+      <Hd title={`${data.sal[0]?.emp_name} إضافة راتب للموظف`} />
+      <ShowSal sal={data.sal} />
     </>
   );
 }
 // This function gets called at build time
 export async function getServerSideProps({ params }) {
-  
   dbConnect();
   const data = await Sal.find({ emp_id: params.id });
 
@@ -80,6 +83,5 @@ export async function getServerSideProps({ params }) {
     props: {
       sal,
     },
-    
   };
 }

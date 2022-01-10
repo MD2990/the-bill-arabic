@@ -18,11 +18,8 @@ export const SalButtons = () => {
   const router = useRouter();
 
   const clear = () => {
-   state.searchTerm = "";
-   state.isFiltered = false;
-   state.searchResults = snap.sal;
-   state.title = " رواتب الموظف";
-   
+    state.searchTerm = "";
+    state.title = " رواتب الموظف";
   };
 
   function printPdf() {
@@ -34,6 +31,7 @@ export const SalButtons = () => {
         index += 1;
         const data = {
           basic_salary,
+
           bonus,
           loans,
           total_salary,
@@ -47,10 +45,8 @@ export const SalButtons = () => {
       }
     );
 
-    // const id = cutString(rows._id, 18, 24);
     const columns = [
       { title: "الملاحظات", key: "remarks" },
-
       { title: "تاريخ الاستلام", key: "salary_date" },
       { title: "الراتب الاجمالي", key: "total_salary" },
       { title: "القروض", key: "loans" },
@@ -63,12 +59,10 @@ export const SalButtons = () => {
     return toPDF(
       rows,
       columns,
-      `تفاصيل الرواتب                              العدد ${rows.length} `
+      `${snap.sal[0]?.emp_name}                                           ${rows.length}`
     );
   }
 
-
-  
   return (
     <Wrap
       spacing="4"
@@ -103,7 +97,7 @@ export const SalButtons = () => {
 
       {snap.searchResults.length > 0 && (
         <WrapItem>
-          <PrintBtn click={() => printPdf()} color={colors().salDark} />
+          <PrintBtn click={ printPdf} color={colors().salDark} />
         </WrapItem>
       )}
 

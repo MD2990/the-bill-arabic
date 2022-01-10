@@ -13,23 +13,27 @@ import { cutString, handleFormDelete } from "../../lib/funcs";
 import { colors } from "../../lib/constants";
 
 export default function EmpCards() {
+  
   const snap = useSnapshot(state);
 
 
-/*   const rs = useCallback(
-    () => state.emp.slice(snap.offset, snap.offset + snap.PER_PAGE),
+
+
+  const rs = useCallback(
+    () => snap.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
     [snap.PER_PAGE, snap.offset, snap.searchResults]
-  ); */
+  );
+
 
   useEffect(() => {
-   state.emp.slice(snap.offset, snap.offset + snap.PER_PAGE);
-  }, [snap.PER_PAGE, snap.offset,snap.searchResults]);
+    rs();
+  }, [rs]);
 
   if (!snap.emp) return <MySkeletons />;
 
   return (
     <>
-      {snap.emp.map(
+      {rs().map(
         ({
           _id,
           emp_name,

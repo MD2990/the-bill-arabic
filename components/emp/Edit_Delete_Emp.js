@@ -15,6 +15,9 @@ import { handleFormDelete } from "../../lib/funcs";
 export default function Edit_Delete_Emp({ emp }) {
   const router = useRouter();
 
+
+
+
   const {
     emp_name,
     job,

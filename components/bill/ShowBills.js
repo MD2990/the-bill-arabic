@@ -9,9 +9,14 @@ import { useSnapshot } from "valtio";
 import state from "../../stor";
 import { colors } from "../../lib/constants";
 
-export default function ShowBills() {
+export default function ShowBills({bill}) {
 
   const snap = useSnapshot(state);
+  useEffect(() => {
+    state.bill = bill.sort((a, b) => (a.bill_date < b.bill_date ? 1 : -1));
+  }, [snap.bill, bill]);
+
+
     useEffect(() => {
       state.title = " الفواتير";
     }, []);

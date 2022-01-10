@@ -25,7 +25,6 @@ export default function BillCards() {
   }, [rs]);
 
   if (!snap.exp) return <MySkeletons />;
-  if (!snap.exp.length) return <Title title="   لا توجد فواتير للعرض !!!" />;
   return (
     <>
       {rs()?.map(

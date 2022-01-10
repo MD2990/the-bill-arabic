@@ -9,7 +9,7 @@ import { handleDelete } from "../../utils/dbConnect";
 
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
-import {  getItem, handleFormDelete, reverseString } from "../../lib/funcs";
+import {   handleFormDelete, reverseString } from "../../lib/funcs";
 
 export default function SalCards() {
   const snap = useSnapshot(state);
@@ -17,7 +17,7 @@ export default function SalCards() {
 
   
   const rs = useCallback(
-    () => state.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
+    () => snap.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
     [snap.PER_PAGE, snap.offset, snap.searchResults]
   );
 
@@ -36,6 +36,7 @@ export default function SalCards() {
           loans,
           total_salary,
           salary_date,
+          emp_name,
           remarks,
         }) => {
           return (
@@ -45,7 +46,7 @@ export default function SalCards() {
                 color={"blue.100"}
                 _id={_id}
                 link={`/${_id}/salEdit`}
-                header={getItem("emp")?.toUpperCase()}
+                header={emp_name.toUpperCase()}
                 deleteFunction={async () => {
                   await handleFormDelete({
                     deleteUrl: "sal",
@@ -58,29 +59,18 @@ export default function SalCards() {
                   });
                 }}
               >
-                                 <Box color='blue.700' >
-
-
-                <AllText
-                  title=" الراتب الاساسي:"
-                  data={basic_salary}
-                  
-                  />
-                <AllText title=" المكافأة:" data={bonus}  />
-                <AllText title=" القروض:" data={loans}  />
-                <AllText
-                  title=" المجموع:"
-                  data={total_salary}
-                  
-                />
-                <AllText
-                  title=" تاريخ الاستحقاق:"
-                  data={salary_date && reverseString(salary_date) }
-                  
+                <Box color="blue.700">
+                  <AllText title=" الراتب الاساسي:" data={basic_salary} />
+                  <AllText title=" المكافأة:" data={bonus} />
+                  <AllText title=" القروض:" data={loans} />
+                  <AllText title=" المجموع:" data={total_salary} />
+                  <AllText
+                    title=" تاريخ الاستحقاق:"
+                    data={salary_date && reverseString(salary_date)}
                   />
 
-                <AllText title=" الملاحظات:" data={remarks}  />
-      </Box>
+                  <AllText title=" الملاحظات:" data={remarks} />
+                </Box>
               </SingleCard>
             </Wrap>
           );

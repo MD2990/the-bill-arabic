@@ -5,20 +5,22 @@ import { useSnapshot } from "valtio";
 import state from "../stor";
 
 
-export default function Paginate({res}) {
+export default function Paginate() {
+
+ 
   const snap = useSnapshot(state);
 
   state.offset = snap.currentPage * snap.PER_PAGE;
-  const pageCount = Math.ceil(res.length / snap.PER_PAGE);
+  const pageCount = Math.ceil(snap.searchResults.length / snap.PER_PAGE);
   function handlePageClick({ selected: selectedPage }) {
     state.currentPage = selectedPage;
   }
 
   
-  useEffect(() => (state.currentPage = 0), [res]);
+  useEffect(() => (state.currentPage = 0), [snap.searchResults]);
 
   return (
-    res?.length > 0 && (
+    snap.searchResults?.length > 0 && (
       <Center mt="7">
         <ReactPaginate
           previousLabel={"السابق →"}

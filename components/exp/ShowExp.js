@@ -13,7 +13,10 @@ export default function ShowExp({exp}) {
   const snap = useSnapshot(state);
   useEffect(() => {
     state.exp = exp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
-  }, [exp]);
+  }, [ snap.exp, exp]);
+
+
+
   useEffect(() => {
     state.title = "المصروفات";
   }, []);

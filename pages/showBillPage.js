@@ -24,9 +24,9 @@ export default function ShowBillPage({ bills }) {
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
   if (!data) return <Spans />;
-  state.bill = data.bill.sort((a, b) => (a._id < b._id ? 1 : -1));
 
-    if (state.bill?.length < 1)
+
+    if (data.bill?.length < 1)
       return (
         <>
           <Hd title=" الفواتير" />
@@ -52,7 +52,7 @@ export default function ShowBillPage({ bills }) {
   return (
     <>
       <Hd title="الفواتير" />
-      <ShowBills />
+      <ShowBills bill={data.bill}/>
     </>
   );
 }

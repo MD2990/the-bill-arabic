@@ -6,17 +6,22 @@ import SalCards from "./SalCards";
 import { MainInterface } from "../../sharedComponents/MainInterface";
 import Paginate from "../../sharedComponents/Paginate";
 import state from "../../stor";
-import { getItem } from "../../lib/funcs";
 import { useSnapshot } from "valtio";
 import { colors } from "../../lib/constants";
 
-export default function ShowSal() {
+export default function ShowSal({ sal }) {
   const snap = useSnapshot(state);
- useEffect(() => {
-    state.title = snap.isFiltered
-      ? `رواتب الموظف    ${getItem("emp")}`
-      : "رواتب الموظف";
-  }, [snap.isFiltered]); 
+
+  useEffect(() => {
+    state.sal = sal.sort((a, b) => (a.salary_date < b.salary_date ? 1 : -1));
+  }, [ sal]);
+
+
+
+  useEffect(() => {
+    state.title = "رواتب الموظف";
+  }, []);
+
   return (
     <>
       <VStack>
@@ -27,7 +32,7 @@ export default function ShowSal() {
             fontSize={[12, 15, 18, 25]}
             textAlign={"center"}
           >
-            {getItem("emp")}
+            {snap.sal[0]?.emp_name || ""}
           </Text>
         </Title>
       </VStack>

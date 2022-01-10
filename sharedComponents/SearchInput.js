@@ -28,16 +28,17 @@ export function SearchInputField() {
   );
 }
 
-export default function SearchInput({ arr,search }) {
+export default function SearchInput({ data }) {
+	const snap = useSnapshot(state);
 
-  useEffect(() => {
-    myFilter({
-      arr: arr,
-      searchTerm: search,
+
+
+	useEffect(() => {
+    state.searchResults = myFilter({
+      arr: data,
+      searchTerm: state.searchTerm,
     });
-  }, [arr, search]);
-
-
+  }, [data, snap.searchTerm]);
 
   return (
     <>

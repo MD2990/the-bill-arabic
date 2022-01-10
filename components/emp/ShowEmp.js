@@ -10,28 +10,29 @@ import { colors } from "../../lib/constants";
 import { useSnapshot } from "valtio";
 
 export default function ShowEmp({ emp }) {
-  const snap= useSnapshot(state);
+  const snap = useSnapshot(state);
+
   useEffect(() => {
-        
-
     state.emp = emp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
-    state.title = "سجل الموظفين";
+  }, [snap.emp, emp]);
 
-  }, [emp]);
+  useEffect(() => {
+    state.title = "سجل الموظفين";
+  }, []);
 
   return (
     <>
       <Title title={snap.title} color={colors().empLight} />
 
       <MainInterface>
-        <EmpButtons emp={emp}  />
+        <EmpButtons />
 
         <Divider mt="-8" />
 
         <EmpCards />
       </MainInterface>
       <HStack mt="12" justify="center">
-        <Paginate res={snap.emp}/>
+        <Paginate />
       </HStack>
     </>
   );
