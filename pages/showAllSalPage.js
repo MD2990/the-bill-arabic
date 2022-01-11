@@ -7,55 +7,54 @@ import { BackButton } from "../sharedComponents/BackButton";
 import ShowAllSal from "../components/allSal/ShowAllSal";
 import useSWR from "swr";
 import { colors } from "../lib/constants";
+import { useEffect } from "react";
+import { useSnapshot } from "valtio";
+import state from "../stor";
 
-export default function ShowSalPage({ sal }) {
- 
-
+export default function ShowSalPage({ allSal }) {
+  const snap = useSnapshot(state);
   const router = useRouter();
-  const { data, error } = useSWR("/api/sal", {
-    initialData: { sal },
-    revalidateOnMount: true,
-  });
 
-  if (error)
+  useEffect(() => {
+    state.allSal = allSal.sort((a, b) =>
+      a.salary_date > b.salary_date ? -1 : 1
+    );
+  }, [allSal]);
+
+  if (!allSal)
     return (
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
-  if (!data) return <Spans />;
- 
+  if (!snap.allSal) return <Spans />;
 
   if (router.isFallback) {
     return <Spans />;
   }
 
-  if (data.sal?.length < 1)
+  if (snap.allSal?.length < 1)
     return (
       <>
         <Stack ml="5%" align={"flex-end"}>
           <BackButton mb="-4%" />
         </Stack>
+        <Hd title={` جميع الرواتب`} />
+
         <Title
           title="لم يتم إضافة رواتب إلى الآن ... "
-          
           color={colors().salLight}
         ></Title>
-
-   
       </>
     );
 
-  
   return (
     <>
       <Hd title={`عرض جميع الرواتب`} />
-      <ShowAllSal
-        sal={data.sal}
-      />
+      <ShowAllSal />
     </>
   );
 }
 // This function gets called at build time
-export async function getStaticProps() {
+export async function getServerSideProps() {
   dbConnect();
   const data = await Sal.find({});
 
@@ -67,11 +66,11 @@ export async function getStaticProps() {
       },
     };
   }
-  const sal = await jsonify(data);
+  const allSal = await jsonify(data);
 
   return {
     props: {
-      sal,
+      allSal,
     },
   };
 }

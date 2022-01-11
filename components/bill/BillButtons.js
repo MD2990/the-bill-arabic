@@ -20,8 +20,6 @@ export const BillButtons = () => {
 
   const clear = () => {
     state.searchTerm = "";
-    state.isFiltered = false;
-    state.searchResults = snap.bill;
     state.title = "  الفواتير";
   };
 

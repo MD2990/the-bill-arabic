@@ -17,9 +17,7 @@ export default function ShowAllSal({ sal }) {
  
   const snap= useSnapshot(state);
 
-  useEffect(() => {
-    state.allSal = sal.sort((a, b) => (a.salary_date > b.salary_date ? -1 : 1));
-  }, [sal]);
+
 
   useEffect(() => {
     state.title = " جميع الرواتب";

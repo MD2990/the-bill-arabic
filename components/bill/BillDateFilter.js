@@ -6,6 +6,15 @@ import state from "../../stor";
 
 export default function BillDateFilter() {
   const snap = useSnapshot(state);
+ const getDateFromTo = useCallback(() => {
+    state.title = `الفواتير من ${moment(snap.fromDate).format(
+      "YYYY/MM/DD"
+    )} إلى ${moment(snap.toDate).format("YYYY/MM/DD")}`;
+
+    state.searchResults = state.bill.filter((b) => {
+      return b.bill_date >= snap.fromDate && b.bill_date <= snap.toDate;
+    });
+  }, [snap.fromDate, snap.toDate]);
 
   useEffect(() => {
     state.isFiltered = false;
@@ -52,16 +61,7 @@ export default function BillDateFilter() {
     });
   }
 
-  const getDateFromTo = useCallback(() => {
-    state.title = `الفواتير من ${moment(snap.fromDate).format(
-      "YYYY/MM/DD"
-    )} إلى ${moment(snap.toDate).format("YYYY/MM/DD")}`;
-
-    state.searchResults = state.bill.filter((b) => {
-      return b.bill_date >= snap.fromDate && b.bill_date <= snap.toDate;
-    });
-  }, [snap.fromDate, snap.toDate]);
-
+ 
   return (
     <DateFilterUI
       color="orange.400"

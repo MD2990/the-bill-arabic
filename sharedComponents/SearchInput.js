@@ -1,17 +1,14 @@
 import React, { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import state from "../stor";
-
 import { Input } from "@chakra-ui/input";
 import { myFilter } from "../lib/funcs";
 
-
-
 export function SearchInputField() {
   const snap = useSnapshot(state);
-    const handleChange = (e) => {
-      state.searchTerm = e.target.value;
-    };
+  const handleChange = (e) => {
+    state.searchTerm = e.target.value;
+  };
   return (
     <Input
       focusBorderColor="gray.400"
@@ -29,11 +26,9 @@ export function SearchInputField() {
 }
 
 export default function SearchInput({ data }) {
-	const snap = useSnapshot(state);
+  const snap = useSnapshot(state);
 
-
-
-	useEffect(() => {
+  useEffect(() => {
     state.searchResults = myFilter({
       arr: data,
       searchTerm: state.searchTerm,
@@ -42,7 +37,7 @@ export default function SearchInput({ data }) {
 
   return (
     <>
-      <SearchInputField/>
+      <SearchInputField />
     </>
   );
 }

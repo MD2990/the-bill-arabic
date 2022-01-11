@@ -9,11 +9,9 @@ import { useSnapshot } from "valtio";
 import state from "../../stor";
 import { colors } from "../../lib/constants";
 
-export default function ShowExp({exp}) {
+export default function ShowExp() {
   const snap = useSnapshot(state);
-  useEffect(() => {
-    state.exp = exp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
-  }, [ snap.exp, exp]);
+
 
 
 

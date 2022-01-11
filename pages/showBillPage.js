@@ -1,62 +1,62 @@
-import React from "react";
-import useSWR from "swr";
+import React, { useEffect } from "react";
 import ShowBills from "../components/bill/ShowBills";
 import { dbConnect, jsonify } from "../utils/dbConnect";
 import Bill from "../models/Bill";
-
-import { Btn, Hd, Spans, Title } from "../components/comUtil/ComUtil";
+import { Btn, Hd, Title } from "../components/comUtil/ComUtil";
 import state from "../stor";
 import { Center } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { colors } from "../lib/constants";
+import { useSnapshot } from "valtio";
+import MySkeletons from "../sharedComponents/MySkeletons";
 
 export default function ShowBillPage({ bills }) {
-
   const router = useRouter();
-  const { data, error } = useSWR("/api/bill", {
-    initialData: { bills },
-    revalidateOnMount: true,
-  });
 
-  if (error)
+  const snap = useSnapshot(state);
+
+  useEffect(() => {
+    state.bill = bills.sort((a, b) => (a.bill_date < b.bill_date ? 1 : -1));
+  }, [bills]);
+
+  if (!bills) return <MySkeletons />;
+
+  if (!snap.bill) {
     return (
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
-  if (!data) return <Spans />;
+  }
 
+  if (snap.bill?.length < 1)
+    return (
+      <>
+        <Hd title=" الفواتير" />
 
-    if (data.bill?.length < 1)
-      return (
-        <>
-          <Hd title=" الفواتير" />
-
-          <Title
-            title="لم يتم إضافة فواتير إلى الآن ..."
-            color={colors().billLight}
-
-          ></Title>
-          <Center my={["1%", "2%", "3%", "4%"]}>
-            <Btn
-              fontSize={["1rem", "1.5rem", "2rem", "2.5rem"]}
-              p={["1rem", "1.5rem", "2rem", "2.5rem"]}
-              click={() => router.replace(`/addNewBillPage`)}
-              title="  إضافة فاتورة جديدة"
-              icon={<AddIcon />}
-              color="orange.300"
-            ></Btn>
-          </Center>
-        </>
-      );
-
+        <Title
+          title="لم يتم إضافة فواتير إلى الآن ..."
+          color={colors().billLight}
+        ></Title>
+        <Center my={["1%", "2%", "3%", "4%"]}>
+          <Btn
+            fontSize={["1rem", "1.5rem", "2rem", "2.5rem"]}
+            p={["1rem", "1.5rem", "2rem", "2.5rem"]}
+            click={() => router.replace(`/addNewBillPage`)}
+            title="  إضافة فاتورة جديدة"
+            icon={<AddIcon />}
+            color="orange.300"
+          ></Btn>
+        </Center>
+      </>
+    );
   return (
     <>
       <Hd title="الفواتير" />
-      <ShowBills bill={data.bill}/>
+      <ShowBills />
     </>
   );
 }
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   await dbConnect();
   const data = await Bill.find({});
   if (!data) {
@@ -73,6 +73,5 @@ export const getStaticProps = async () => {
     props: {
       bills,
     },
-    revalidate: 1,
   };
 };

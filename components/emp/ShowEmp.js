@@ -12,9 +12,7 @@ import { useSnapshot } from "valtio";
 export default function ShowEmp({ emp }) {
   const snap = useSnapshot(state);
 
-  useEffect(() => {
-    state.emp = emp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
-  }, [snap.emp, emp]);
+
 
   useEffect(() => {
     state.title = "سجل الموظفين";

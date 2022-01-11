@@ -7,21 +7,30 @@ import { Center } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { colors } from "../lib/constants";
+import { useEffect } from "react";
+import state from "../stor";
+import { useSnapshot } from "valtio";
+import MySkeletons from "../sharedComponents/MySkeletons";
 
 export default function ShowExpPage({ exp }) {
-  const router = useRouter();
-  const { data, error } = useSWR("/api/exp", {
-    initialData: { exp },
-    revalidateOnMount: true,
-  });
 
-  if (error)
+
+  const snap= useSnapshot(state);
+  const router = useRouter();
+
+  useEffect(() => {
+    state.exp = exp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
+  }, [ exp]);
+  if (!exp )
     return (
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
-  if (!data) return <Spans />;
+    
+    
+    
+  if (!snap.exp) return <MySkeletons/>;
 
-  if (data.exp?.length < 1)
+  if (snap.exp?.length < 1)
     return (
       <>
         <Hd title=" المصروفات" />
@@ -41,17 +50,20 @@ export default function ShowExpPage({ exp }) {
           ></Btn>
         </Center>
       </>
-    );
+    ); 
 
+
+
+    
   return (
     <>
       <Hd title=" المصروفات" />
 
-      <ShowExp exp={data.exp} />
+      <ShowExp  />
     </>
   );
 }
-export const getStaticProps = async () => {
+export async function getServerSideProps()  {
   await dbConnect();
   const data = await Exp.find({});
   if (!data) {
@@ -68,6 +80,6 @@ export const getStaticProps = async () => {
     props: {
       exp,
     },
-    revalidate: 1,
+  
   };
 };

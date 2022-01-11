@@ -12,27 +12,30 @@ import { AddIcon } from "@chakra-ui/icons";
 import { BackButton } from "../../sharedComponents/BackButton";
 import { colors } from "../../lib/constants";
 import useSWR from "swr";
+import MySkeletons from "../../sharedComponents/MySkeletons";
+import { useSnapshot } from "valtio";
 
 export default function ShowSalPage({ sal }) {
   const router = useRouter();
 
   const { id } = router.query;
+  const snap = useSnapshot(state);
 
-  const { data, error } = useSWR(`/api/sal/${id}`, {
-    initialData: { sal },
-    revalidateOnMount: true,
-  });
+  useEffect(() => {
+    state.sal = sal.sort((a, b) => (a.salary_date < b.salary_date ? 1 : -1));
+  }, [sal]);
+
   if (router.isFallback) {
-    return <Spans />;
+    return <MySkeletons />;
   }
 
-  if (error)
+  if (!sal)
     return (
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
-  if (!data) return <Spans />;
+  if (!snap.sal) return <MySkeletons />;
 
-  if (!data.sal.length)
+  if (snap.sal.length < 1)
     return (
       <>
         <Stack ml="5%" align={"flex-end"}>
@@ -40,7 +43,7 @@ export default function ShowSalPage({ sal }) {
         </Stack>
         <Title title="لا توجد رواتب للموظف  " color={colors().empLight}>
           <Text as="span" color={colors().empLight}>
-            {data.sal[0]?.emp_name}
+            {snap.sal[0]?.emp_name || getItem("emp")}
           </Text>
         </Title>
 
@@ -59,8 +62,8 @@ export default function ShowSalPage({ sal }) {
 
   return (
     <>
-      <Hd title={`${data.sal[0]?.emp_name} إضافة راتب للموظف`} />
-      <ShowSal sal={data.sal} />
+      <Hd title={`${snap.sal[0]?.emp_name || getItem("emp")} إضافة راتب للموظف`} />
+      <ShowSal  />
     </>
   );
 }

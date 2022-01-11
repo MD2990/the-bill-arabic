@@ -1,6 +1,7 @@
 import dbConnect from "../../../utils/dbConnect";
 import Emp from "../../../models/Emp";
 import { getDate } from "../../../lib/funcs";
+import moment from "moment";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -18,10 +19,10 @@ export default async function handler(req, res) {
       break;
     case "POST":
       try {
-      
-		  req.body.empl_date = getDate(req.body.empl_date);
-		  req.body.added_date = getDate(req.body.added_date);
-		  const emp = await Emp.create(req.body);
+        req.body.empl_date = moment(req.body.empl_date).format("YYYY-MM-DD");
+        req.body.added_date = moment(req.body.added_date).format("YYYY-MM-DD");
+
+        const emp = await Emp.create(req.body);
         /* create a new model in the database */
         res.status(201).json({ emp });
       } catch (error) {

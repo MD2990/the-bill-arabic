@@ -8,13 +8,12 @@ import Paginate from "../../sharedComponents/Paginate";
 import state from "../../stor";
 import { useSnapshot } from "valtio";
 import { colors } from "../../lib/constants";
+import { getItem } from "../../lib/funcs";
 
-export default function ShowSal({ sal }) {
+export default function ShowSal() {
   const snap = useSnapshot(state);
 
-  useEffect(() => {
-    state.sal = sal.sort((a, b) => (a.salary_date < b.salary_date ? 1 : -1));
-  }, [ sal]);
+
 
 
 
@@ -32,7 +31,7 @@ export default function ShowSal({ sal }) {
             fontSize={[12, 15, 18, 25]}
             textAlign={"center"}
           >
-            {snap.sal[0]?.emp_name || ""}
+            {snap.sal[0]?.emp_name || getItem("emp")}
           </Text>
         </Title>
       </VStack>

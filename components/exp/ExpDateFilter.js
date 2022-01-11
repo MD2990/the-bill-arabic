@@ -7,6 +7,15 @@ import state from "../../stor";
 
 export default function ExpDateFilter() {
   const snap = useSnapshot(state);
+  const getDateFromTo = useCallback(() => {
+    state.title = `الفواتير من ${moment(snap.fromDate).format(
+      "YYYY/MM/DD"
+    )} إلى ${moment(snap.toDate).format("YYYY/MM/DD")}`;
+
+    state.searchResults = state.exp.filter((b) => {
+      return b.added_date >= snap.fromDate && b.added_date <= snap.toDate;
+    });
+  }, [snap.fromDate, snap.toDate]);
 
   useEffect(() => {
     state.isFiltered = false;
@@ -51,15 +60,6 @@ export default function ExpDateFilter() {
     });
   }
 
-  const getDateFromTo = useCallback(() => {
-    state.title = `الفواتير من ${moment(snap.fromDate).format(
-      "YYYY/MM/DD"
-    )} إلى ${moment(snap.toDate).format("YYYY/MM/DD")}`;
-
-    state.searchResults = state.exp.filter((b) => {
-      return b.added_date >= snap.fromDate && b.added_date <= snap.toDate;
-    });
-  }, [snap.fromDate, snap.toDate]);
 
   return (
     <DateFilterUI
