@@ -9,7 +9,7 @@ import {
   FcKindle,
 } from "react-icons/fc";
 
-import { Center, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import { Center, Divider, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import React from "react";
 
 export function CustomCol({ path, children, text, size = "8em" }) {
@@ -56,6 +56,7 @@ export default function Main() {
           مشاريع الأنهار المتكاملة
         </Text>
       </Center>
+
       <Wrap
         justify="center"
         spacing={[4, 6, 8, 12]}
@@ -69,25 +70,26 @@ export default function Main() {
         <CustomCol path="/showBillPage" text={"عرض الفواتير"}>
           <FcInspection />
         </CustomCol>
-
-        <CustomCol path="/showExpPage" text={"عرض المصروفات"}>
-          <FcBullish />
-        </CustomCol>
+        <Divider shadow={"base"} />
 
         <CustomCol path="/addNewExpPage" text={"إضافة مصروفات"}>
           <FcAcceptDatabase />
         </CustomCol>
 
-        <CustomCol path="/showAllSal" text={"عرض جميع الرواتب"}>
-          <FcDonate />
+        <CustomCol path="/showExpPage" text={"عرض المصروفات"}>
+          <FcBullish />
+        </CustomCol>
+        <Divider shadow={"base"} />
+
+        <CustomCol path="/addNewEmpPage" text={"إضافة موظف جديد"}>
+          <FcBusinessman />
         </CustomCol>
 
         <CustomCol path="/showEmpPage" text={"عرض بيانات الموظفين"}>
           <FcCollaboration />
         </CustomCol>
-
-        <CustomCol path="/addNewEmpPage" text={"إضافة موظف جديد"}>
-          <FcBusinessman />
+        <CustomCol path="/showAllSal" text={"عرض جميع الرواتب"}>
+          <FcDonate />
         </CustomCol>
       </Wrap>
     </>
