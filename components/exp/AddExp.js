@@ -43,14 +43,14 @@ export default function AddExp() {
       {(props) => {
         return (
           <Form>
-            <Title title="إضافة مصروفات" color={colors().expDark} />
+            <Title title="إضافة مصروفات" color={colors.expDark} />
             <Center m="2" p="2">
               <Wrap
                 justify="center"
                 borderWidth="1px"
                 borderRadius="lg"
                 p="8"
-                color={colors().expDark}
+                color={colors.expDark}
               >
                 <CustomField
                   fieldName="added_date"

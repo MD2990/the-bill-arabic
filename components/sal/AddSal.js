@@ -46,13 +46,19 @@ export default function AddSal({ empName }) {
       {(props) => {
         return (
           <Form>
-            <Title title={`إضافة راتب للموظف `} color={colors().salDark}>
-              <Text color={colors().salLight} as="span">
+            <Title title={`إضافة راتب للموظف `} color={colors.salDark}>
+              <Text color={colors.salLight} as="span">
                 {empName}
               </Text>
             </Title>
             <Center m="2" p="2">
-              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8" color={colors().salDark} >
+              <Wrap
+                justify="center"
+                borderWidth="1px"
+                borderRadius="lg"
+                p="8"
+                color={colors.salDark}
+              >
                 <CustomField
                   fieldName="basic_salary"
                   labelName="الراتب الأساسي"

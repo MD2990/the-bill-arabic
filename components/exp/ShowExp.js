@@ -21,7 +21,7 @@ export default function ShowExp() {
 
   return (
     <>
-      <Title title={snap.title} color={colors().expDark} />
+      <Title title={snap.title} color={colors.expDark} />
 
       <MainInterface>
         <ExpButtons />

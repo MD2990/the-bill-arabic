@@ -41,8 +41,8 @@ export default function ShowSalPage({ sal }) {
         <Stack ml="5%" align={"flex-end"}>
           <BackButton mb="-4%" />
         </Stack>
-        <Title title="لا توجد رواتب للموظف  " color={colors().empLight}>
-          <Text as="span" color={colors().empLight}>
+        <Title title="لا توجد رواتب للموظف  " color={colors.empLight}>
+          <Text as="span" color={colors.empLight}>
             {snap.sal[0]?.emp_name || getItem("emp")}
           </Text>
         </Title>
@@ -54,7 +54,7 @@ export default function ShowSalPage({ sal }) {
             click={() => router.replace(`/${id}/addSalaryPage`)}
             title="  إضافة راتب"
             icon={<AddIcon />}
-            color={colors().empLight}
+            color={colors.empLight}
           ></Btn>
         </Center>
       </>
@@ -62,8 +62,10 @@ export default function ShowSalPage({ sal }) {
 
   return (
     <>
-      <Hd title={`${snap.sal[0]?.emp_name || getItem("emp")} إضافة راتب للموظف`} />
-      <ShowSal  />
+      <Hd
+        title={`${snap.sal[0]?.emp_name || getItem("emp")} إضافة راتب للموظف`}
+      />
+      <ShowSal />
     </>
   );
 }

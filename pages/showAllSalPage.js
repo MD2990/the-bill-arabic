@@ -41,7 +41,7 @@ export default function ShowSalPage({ allSal }) {
 
         <Title
           title="لم يتم إضافة رواتب إلى الآن ... "
-          color={colors().salLight}
+          color={colors.salLight}
         ></Title>
       </>
     );

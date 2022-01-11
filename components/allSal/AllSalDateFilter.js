@@ -12,7 +12,6 @@ export default function AllSalDateFilter() {
     state.isFiltered = false;
   }, [snap.isFiltered]);
 
-
   useEffect(() => {
     snap.isFiltered && getDateFromTo();
   }, [getDateFromTo, snap.fromDate, snap.isFiltered, snap.toDate]);
@@ -67,7 +66,7 @@ export default function AllSalDateFilter() {
 
   return (
     <DateFilterUI
-      color={colors().salLight}
+      color={colors.salLight}
       getCurrentMonth={getCurrentMonth}
       getLastMonth={getLastMonth}
       getLast3Month={getLast3Month}

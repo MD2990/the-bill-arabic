@@ -12,15 +12,13 @@ import { useSnapshot } from "valtio";
 export default function ShowEmp({ emp }) {
   const snap = useSnapshot(state);
 
-
-
   useEffect(() => {
     state.title = "سجل الموظفين";
   }, []);
 
   return (
     <>
-      <Title title={snap.title} color={colors().empLight} />
+      <Title title={snap.title} color={colors.empLight} />
 
       <MainInterface>
         <EmpButtons />

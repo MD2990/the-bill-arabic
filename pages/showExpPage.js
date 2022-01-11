@@ -13,22 +13,18 @@ import { useSnapshot } from "valtio";
 import MySkeletons from "../sharedComponents/MySkeletons";
 
 export default function ShowExpPage({ exp }) {
-
-
-  const snap= useSnapshot(state);
+  const snap = useSnapshot(state);
   const router = useRouter();
 
   useEffect(() => {
     state.exp = exp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
-  }, [ exp]);
-  if (!exp )
+  }, [exp]);
+  if (!exp)
     return (
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
-    
-    
-    
-  if (!snap.exp) return <MySkeletons/>;
+
+  if (!snap.exp) return <MySkeletons />;
 
   if (snap.exp?.length < 1)
     return (
@@ -37,7 +33,7 @@ export default function ShowExpPage({ exp }) {
 
         <Title
           title="لم يتم إضافة مصروفات إلى الآن ..."
-          color={colors().expLight}
+          color={colors.expLight}
         ></Title>
         <Center my={["1%", "2%", "3%", "4%"]}>
           <Btn
@@ -46,24 +42,21 @@ export default function ShowExpPage({ exp }) {
             click={() => router.replace(`/addNewExpPage`)}
             title="  إضافة مصروف جديد"
             icon={<AddIcon />}
-            color={colors().expLight}
+            color={colors.expLight}
           ></Btn>
         </Center>
       </>
-    ); 
+    );
 
-
-
-    
   return (
     <>
       <Hd title=" المصروفات" />
 
-      <ShowExp  />
+      <ShowExp />
     </>
   );
 }
-export async function getServerSideProps()  {
+export async function getServerSideProps() {
   await dbConnect();
   const data = await Exp.find({});
   if (!data) {
@@ -80,6 +73,5 @@ export async function getServerSideProps()  {
     props: {
       exp,
     },
-  
   };
-};
+}

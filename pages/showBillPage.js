@@ -35,7 +35,7 @@ export default function ShowBillPage({ bills }) {
 
         <Title
           title="لم يتم إضافة فواتير إلى الآن ..."
-          color={colors().billLight}
+          color={colors.billLight}
         ></Title>
         <Center my={["1%", "2%", "3%", "4%"]}>
           <Btn

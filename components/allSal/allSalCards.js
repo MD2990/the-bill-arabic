@@ -7,14 +7,17 @@ import MySkeletons from "../../sharedComponents/MySkeletons";
 import { handleDelete } from "../../utils/dbConnect";
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
-import {  cutString, getItem, handleFormDelete, reverseString } from "../../lib/funcs";
+import {
+  cutString,
+  getItem,
+  handleFormDelete,
+  reverseString,
+} from "../../lib/funcs";
 import { colors } from "../../lib/constants";
 
 export default function AllSalCards() {
   const snap = useSnapshot(state);
 
-
-  
   const rs = useCallback(
     () => state.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
     [snap.PER_PAGE, snap.offset, snap.searchResults]
@@ -60,12 +63,8 @@ export default function AllSalCards() {
                   });
                 }}
               >
-                <Box color={colors().salDark}>
-                  <AllText
-                    title=" الراتب الاساسي:"
-                    data={basic_salary}
-                 
-                  />
+                <Box color={colors.salDark}>
+                  <AllText title=" الراتب الاساسي:" data={basic_salary} />
                   <AllText title=" المكافأة:" data={bonus} />
                   <AllText title=" القروض:" data={loans} />
                   <AllText title=" المجموع:" data={total_salary} />

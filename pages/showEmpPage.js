@@ -30,7 +30,7 @@ export default function ShowEmpPage({ emp }) {
       <>
         <Title
           title="لم يتم إضافة موظفين إلى الآن ..."
-          color={colors().empLight}
+          color={colors.empLight}
         ></Title>
         <Center my={["1%", "2%", "3%", "4%"]}>
           <Btn
@@ -39,7 +39,7 @@ export default function ShowEmpPage({ emp }) {
             click={() => router.replace(`/addNewEmpPage`)}
             title="  إضافة موظف جديد"
             icon={<AddIcon />}
-            color={colors().empLight}
+            color={colors.empLight}
           ></Btn>
         </Center>
       </>

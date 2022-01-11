@@ -40,14 +40,14 @@ export default function AddEmp() {
       {(props) => {
         return (
           <Form className="wr">
-            <Title title="إضافة موظف جديد" color={colors().empDark} />
+            <Title title="إضافة موظف جديد" color={colors.empDark} />
             <Center m="2" p="2">
               <Wrap
                 justify="center"
                 borderWidth="1px"
                 borderRadius="lg"
                 p="8"
-                color={colors().empLight}
+                color={colors.empLight}
               >
                 <CustomField fieldName="emp_name" labelName="اسم العامل" />
                 <CustomField fieldName="job" labelName="المهنة" />

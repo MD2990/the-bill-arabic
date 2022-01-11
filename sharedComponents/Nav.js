@@ -57,7 +57,7 @@ export default function WithSubnavigation() {
           >
             <Link href="/">
               <a>
-                <FaCar size="4.5rem" />
+                <FaCar size="6.5rem" />
               </a>
             </Link>
           </Text>

@@ -6,6 +6,44 @@ html,
 
 }
 
+
+.blob {
+
+
+	box-shadow: 0 0 0 0 rgb(37, 172, 120);
+	transform: scale(1);
+	animation: pulse 4s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+    color: #10dbc0;
+		box-shadow: 0 0 0 0 rgba(8, 179, 122, 0.658);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 65px rgba(5, 189, 149, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(19, 207, 198, 0.808);
+	}
+}
+
+.rotate {
+  animation: rotation 60s infinite linear;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
 .btn {
     background: #e6eff8;
     border-radius: 6px;

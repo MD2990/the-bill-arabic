@@ -25,7 +25,7 @@ import {
   Text,
   Wrap,
 } from "@chakra-ui/react";
-import Loader from "react-loader-spinner";
+
 import { ArrowBackIcon, CalendarIcon } from "@chakra-ui/icons";
 
 export const Confirm = ({
@@ -56,19 +56,7 @@ export const Confirm = ({
 
 
 
-export function Loaders({ type = "Puff" }) {
-  return (
-    <Center marginTop="15%">
-      <Loader
-        type={type}
-        color="#1e81b0"
-        height={100}
-        width={100}
-        timeout={10000} //3 secs
-      />
-    </Center>
-  );
-}
+
 
 export function PrintBtn({ click, size = "lg", colorScheme = "green" }) {
   return (

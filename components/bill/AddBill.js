@@ -42,10 +42,10 @@ export default function AddBill() {
       {(props) => {
         return (
           <Form>
-            <Title title="إضافة فاتورة" color={colors().billDark} />
+            <Title title="إضافة فاتورة" color={colors.billDark} />
             <Center m="2" p="2">
               <Wrap
-                color={colors().billLight}
+                color={colors.billLight}
                 justify="center"
                 borderWidth="1px"
                 borderRadius="lg"

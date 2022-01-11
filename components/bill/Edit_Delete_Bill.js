@@ -10,30 +10,20 @@ import {
   FormBottomButton,
 } from "../../comUtil/ComUtil";
 import { BILL_validationSchema, colors } from "../../lib/constants";
-import { handlePut,handleDelete, toCurrency } from "../../utils/dbConnect";
+import { handlePut, handleDelete, toCurrency } from "../../utils/dbConnect";
 import { cutString, handleFormDelete } from "../../lib/funcs";
 
 export default function Edit_Delete_Bill({ bill }) {
   const router = useRouter();
 
-  const {
-    details,
-    bill_date,
-    advance,
-    total_price,
-    balance,
-    remarks,
-    _id,
-    
-  } = bill;
+  const { details, bill_date, advance, total_price, balance, remarks, _id } =
+    bill;
 
-   async function put(values) {
+  async function put(values) {
+    handlePut({ values, url: "bill", router });
+    router.replace("/showBillPage");
+  }
 
-	
-		handlePut({values, url:'bill', router});
-		router.replace('/showBillPage');
-	}
- 
   async function FormDeleteFunc() {
     await handleFormDelete({
       deleteUrl: "bill",
@@ -63,7 +53,7 @@ export default function Edit_Delete_Bill({ bill }) {
           <Form>
             <Title
               title={`تحديث الفاتورة رقم: ${cutString(_id, 18, 24)}`}
-              color={colors().billDark}
+              color={colors.billDark}
             />
             <Center m="2" p="2">
               <Wrap
@@ -71,7 +61,7 @@ export default function Edit_Delete_Bill({ bill }) {
                 borderWidth="1px"
                 borderRadius="lg"
                 p="8"
-                color={colors().billLight}
+                color={colors.billLight}
               >
                 <CustomField
                   fieldName="bill_date"

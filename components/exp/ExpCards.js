@@ -43,7 +43,7 @@ export default function BillCards() {
           return (
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
-                HD_color={colors().expDark}
+                HD_color={colors.expDark}
                 color={"gray.100"}
                 link={`/${_id}/expEdit`}
                 header={`الرمز ${cutString(_id, 18, 24)}`}
@@ -58,7 +58,7 @@ export default function BillCards() {
                   });
                 }}
               >
-                <Box color={colors().expDark}>
+                <Box color={colors.expDark}>
                   <AllText
                     title="تاريخ الفاتورة:"
                     data={added_date && reverseString(added_date)}

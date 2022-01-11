@@ -59,7 +59,9 @@ export const SalButtons = () => {
     return toPDF(
       rows,
       columns,
-      `${snap.sal[0]?.emp_name}                                           ${rows.length}`
+      `Quantity:  ${rows.length}          Emp.Name: ${
+        snap.sal[0]?.emp_name.toUpperCase() || getItem("emp").toUpperCase()
+      } `
     );
   }
 
@@ -83,12 +85,12 @@ export const SalButtons = () => {
           icon={<RepeatIcon />}
           click={() => clear()}
           title="عرض الجميع"
-          color={colors().salLight}
+          color={colors.salLight}
         />
       </WrapItem>
       <WrapItem>
         <Btn
-          color={colors().salLight}
+          color={colors.salLight}
           icon={<AddIcon />}
           click={() => router.push(`/${getItem("id")}/addSalaryPage`)}
           title="إضافة"
@@ -97,13 +99,13 @@ export const SalButtons = () => {
 
       {snap.searchResults.length > 0 && (
         <WrapItem>
-          <PrintBtn click={ printPdf} color={colors().salDark} />
+          <PrintBtn click={printPdf} color={colors.salDark} />
         </WrapItem>
       )}
 
       <WrapItem>
         <TotalText
-          color={colors().salLight}
+          color={colors.salLight}
           text={`الإجمالي:  ${snap.sal && snap.searchResults.length}`}
         />
       </WrapItem>

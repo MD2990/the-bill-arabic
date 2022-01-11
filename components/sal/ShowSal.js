@@ -13,10 +13,6 @@ import { getItem } from "../../lib/funcs";
 export default function ShowSal() {
   const snap = useSnapshot(state);
 
-
-
-
-
   useEffect(() => {
     state.title = "رواتب الموظف";
   }, []);
@@ -24,10 +20,10 @@ export default function ShowSal() {
   return (
     <>
       <VStack>
-        <Title title={snap.title} color={colors().salDark}>
+        <Title title={snap.title} color={colors.salDark}>
           <Text
             fontWeight={"black"}
-            color={colors().salLight}
+            color={colors.salLight}
             fontSize={[12, 15, 18, 25]}
             textAlign={"center"}
           >

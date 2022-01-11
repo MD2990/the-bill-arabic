@@ -26,12 +26,18 @@ export const BillButtons = () => {
   function printPdf() {
     const rows = snap.searchResults.map(
       (
-        { details, bill_date, advance, total_price, balance, remarks,_id },
+        { details, bill_date, advance, total_price, balance, remarks, _id },
         index
       ) => {
         index += 1;
         const data = {
-      details, bill_date, advance, total_price, balance, remarks,id: cutString(_id, 18, 24),
+          details,
+          bill_date,
+          advance,
+          total_price,
+          balance,
+          remarks,
+          id: cutString(_id, 18, 24),
           index,
         };
 
@@ -39,7 +45,7 @@ export const BillButtons = () => {
       }
     );
 
- // const id = cutString(rows._id, 18, 24);
+    // const id = cutString(rows._id, 18, 24);
     const columns = [
       { title: "الملاحظات", key: "remarks" },
       { title: "تاريخ الفاتورة", key: "bill_date" },
@@ -57,7 +63,6 @@ export const BillButtons = () => {
       `${snap.title}                          العدد:${rows.length} `
     );
   }
-
 
   return (
     <>
@@ -77,7 +82,7 @@ export const BillButtons = () => {
         </WrapItem>
         <WrapItem>
           <Btn
-            color={colors().billLight}
+            color={colors.billLight}
             icon={<RepeatIcon />}
             click={() => clear()}
             title="عرض الجميع"
@@ -85,7 +90,7 @@ export const BillButtons = () => {
         </WrapItem>
         <WrapItem>
           <Btn
-            color={colors().billLight}
+            color={colors.billLight}
             icon={<AddIcon />}
             click={() => router.push("/addNewBillPage")}
             title="إضافة"
@@ -94,13 +99,13 @@ export const BillButtons = () => {
 
         {snap.searchResults.length > 0 && (
           <WrapItem>
-            <PrintBtn click={() => printPdf()} color={colors().billDark} />
+            <PrintBtn click={() => printPdf()} color={colors.billDark} />
           </WrapItem>
         )}
 
         <WrapItem>
           <TotalText
-            color={colors().billLight}
+            color={colors.billLight}
             text={`الإجمالي:  ${snap.bill && snap.searchResults.length}`}
           />
         </WrapItem>
@@ -110,7 +115,7 @@ export const BillButtons = () => {
             <Divider />
 
             <Title
-              color={colors().billLight}
+              color={colors.billLight}
               title="لا توجد نتائج للعرض ..."
             ></Title>
           </>

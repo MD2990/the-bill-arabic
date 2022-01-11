@@ -15,7 +15,6 @@ import { useEffect } from "react";
 export const EmpButtons = () => {
   const snap = useSnapshot(state);
 
-
   const router = useRouter();
   const clear = () => {
     state.searchTerm = "";
@@ -93,12 +92,12 @@ export const EmpButtons = () => {
           icon={<RepeatIcon />}
           click={clear}
           title="عرض الجميع"
-          color={colors().empLight}
+          color={colors.empLight}
         />
       </WrapItem>
       <WrapItem>
         <Btn
-          color={colors().empLight}
+          color={colors.empLight}
           icon={<AddIcon />}
           click={() => router.push("/addNewEmpPage")}
           title="إضافة"
@@ -113,7 +112,7 @@ export const EmpButtons = () => {
 
       <WrapItem>
         <TotalText
-          color={colors().empLight}
+          color={colors.empLight}
           text={`الإجمالي:  ${snap.searchResults.length || 0}`}
         />
       </WrapItem>
@@ -124,7 +123,7 @@ export const EmpButtons = () => {
 
           <Title
             title="لا توجد نتائج للعرض ..."
-            color={colors().empLight}
+            color={colors.empLight}
           ></Title>
         </>
       )}

@@ -3,7 +3,7 @@ import { Title } from "../comUtil/ComUtil";
 import { Form, Formik } from "formik";
 import { handlePut, handleDelete, toCurrency } from "../../utils/dbConnect";
 import { Wrap, Divider, Center } from "@chakra-ui/react";
-import { EXP_validationSchema } from "../../lib/constants";
+import { colors, EXP_validationSchema } from "../../lib/constants";
 import {
   CustomField,
   CustomFieldWithValue,
@@ -64,9 +64,9 @@ export default function Edit_Delete_Exp({ exp }) {
       {(props) => {
         return (
           <Form>
-            <Title title="إضافة مصروفات" />
+            <Title title="إضافة مصروفات" color={colors.expDark} />
             <Center m="2" p="2">
-              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8">
+              <Wrap justify="center" borderWidth="1px" borderRadius="lg" p="8" color={colors.expDark} >
                 <CustomField
                   fieldName="added_date"
                   labelName="التاريخ"

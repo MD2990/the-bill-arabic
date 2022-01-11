@@ -15,7 +15,7 @@ import {
   SAL_validationSchema,
 } from "../../lib/constants";
 import { handlePut, handleDelete, getSumToNum } from "../../utils/dbConnect";
-import { getItem, handleFormDelete } from "../../lib/funcs";
+import { cutString, getItem, handleFormDelete } from "../../lib/funcs";
 
 export default function Edit_Delete_Sal({ sal }) {
   const router = useRouter();
@@ -29,8 +29,10 @@ export default function Edit_Delete_Sal({ sal }) {
     salary_date,
     remarks,
     _id,
+    
   } = sal;
 
+    const id= cutString(_id);
   async function put(values) {
     handlePut({ values, url: "sal", router });
     router.back();
@@ -47,7 +49,7 @@ export default function Edit_Delete_Sal({ sal }) {
   return (
     <Formik
       initialValues={{
-        _id,
+        id,
         basic_salary,
         bonus,
         loans,
@@ -65,8 +67,8 @@ export default function Edit_Delete_Sal({ sal }) {
       {(props) => {
         return (
           <Form>
-            <Title title={`تحديث راتب الموظف:   `} color={colors().salDark}>
-              <Text as="span" color={colors().salLight}>
+            <Title title={`تحديث راتب الموظف:   `} color={colors.salDark}>
+              <Text as="span" color={colors.salLight}>
                 {" "}
                 {getItem("emp")?.toUpperCase()}{" "}
               </Text>
@@ -77,7 +79,7 @@ export default function Edit_Delete_Sal({ sal }) {
                 borderWidth="1px"
                 borderRadius="lg"
                 p="8"
-                color={colors().salLight}
+                color={colors.salLight}
               >
                 <CustomField
                   fieldName="basic_salary"
@@ -113,7 +115,7 @@ export default function Edit_Delete_Sal({ sal }) {
                 <CustomTextArea fieldName="remarks" labelName="ملاحظات" />
 
                 <CustomField
-                  fieldName="_id"
+                  fieldName="id"
                   labelName="الرمز التعريفي"
                   disabled
                 />

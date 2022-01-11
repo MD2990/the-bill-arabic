@@ -15,9 +15,6 @@ import { handleFormDelete } from "../../lib/funcs";
 export default function Edit_Delete_Emp({ emp }) {
   const router = useRouter();
 
-
-
-
   const {
     emp_name,
     job,
@@ -62,8 +59,8 @@ export default function Edit_Delete_Emp({ emp }) {
       {(props) => {
         return (
           <Form>
-            <Title title={`تحديث بيانات  الموظف:   `} color={colors().empDark}>
-              <Text as="span" color={colors().empLight}>
+            <Title title={`تحديث بيانات  الموظف:   `} color={colors.empLight}>
+              <Text as="span" color={colors.empDark}>
                 {" "}
                 {emp_name.toUpperCase()}{" "}
               </Text>
@@ -74,7 +71,7 @@ export default function Edit_Delete_Emp({ emp }) {
                 borderWidth="1px"
                 borderRadius="lg"
                 p="8"
-                color={colors().empLight}
+                color={colors.empLight}
               >
                 <CustomField fieldName="emp_name" labelName="اسم العامل" />
                 <CustomField fieldName="job" labelName="المهنة" />

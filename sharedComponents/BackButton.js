@@ -5,28 +5,32 @@ import { useRouter } from "next/router";
 export const BackButton = ({ ml = "0", mr = "0", mt = "0", mb = "0" }) => {
   const router = useRouter();
 
-  const color = "gray.400";
   return (
     <Button
-      className="hvr hvr-backward"
+      className="btn"
+      _hover={{ transform: "translateX(2px)", transition: "all .5s" }}
       size="lg"
-      colorScheme="gray"
-      color
-      borderColor={color}
+      colorScheme="blackAlpha"
+      color='blackAlpha.800'
+      
+      borderColor={'transparent'}
       ml={ml}
       mt={mt}
       mb={mb}
       mr={mr}
       leftIcon={
         <ArrowBackIcon
-          className="hvr hvr-backward"
-          w="1.5rem"
-          h="1.5rem"
-          color
+        className="btn"
+        _hover={{ transform: "translateX(5px)", transition: "all .5s" }}
+        w="1.8rem"
+        h="1.8rem"
+        color='blackAlpha.800'
+        borderColor={'transparent'}
+        bg='blackAlpha.50'
         />
       }
       onClick={() => router.back()}
-    >
+      >
       رجوع
     </Button>
   );

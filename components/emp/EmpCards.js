@@ -13,17 +13,12 @@ import { cutString, handleFormDelete } from "../../lib/funcs";
 import { colors } from "../../lib/constants";
 
 export default function EmpCards() {
-  
   const snap = useSnapshot(state);
-
-
-
 
   const rs = useCallback(
     () => snap.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
     [snap.PER_PAGE, snap.offset, snap.searchResults]
   );
-
 
   useEffect(() => {
     rs();
@@ -48,7 +43,7 @@ export default function EmpCards() {
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
                 color={"green.100"}
-                HD_color={colors().empLight}
+                HD_color={colors.empLight}
                 _id={_id}
                 showSalary
                 addSalary
@@ -66,8 +61,8 @@ export default function EmpCards() {
                   });
                 }}
               >
-                <Box color={colors().empDark}>
-                  <AllText title=" الوظيفة:" data={job}  />
+                <Box color={colors.empDark}>
+                  <AllText title=" الوظيفة:" data={job} />
                   <AllText title=" رقم البطاقة:" data={civil_id} />
                   <AllText title=" تاريخ الاضافة:" data={added_date} />
                   <AllText title=" رقم الجواز :" data={passport_number} />

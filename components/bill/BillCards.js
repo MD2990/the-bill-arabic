@@ -1,4 +1,4 @@
-import { Box, color, Wrap } from "@chakra-ui/react";
+import { Box, Wrap } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -43,7 +43,7 @@ export default function BillCards() {
           return (
             <Wrap key={_id} justify="center" spacing="4">
               <SingleCard
-                HD_color={colors().billDark}
+                HD_color={colors.billDark}
                 color={"orange.100"}
                 link={`/${_id}/billEdit`}
                 header={`رقم الفاتورة ${cutString(_id, 18, 24)}`}
@@ -60,7 +60,7 @@ export default function BillCards() {
                   });
                 }}
               >
-                <Box color={colors().billLight}>
+                <Box color={colors.billLight}>
                   <AllText title=" التفاصيل:" data={details} />
                   <AllText title=" الإجمالي:" data={total_price} />
                   <AllText title=" المبلغ المدفوع:" data={advance} />

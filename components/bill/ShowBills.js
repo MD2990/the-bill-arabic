@@ -20,7 +20,7 @@ export default function ShowBills() {
 
   return (
     <>
-      <Title title={snap.title} color={colors().billLight} />
+      <Title title={snap.title} color={colors.billLight} />
 
       <MainInterface>
         <BillButtons />

@@ -60,10 +60,9 @@ export default function ExpDateFilter() {
     });
   }
 
-
   return (
     <DateFilterUI
-      color={colors().expDark}
+      color={colors.expDark}
       getCurrentMonth={getCurrentMonth}
       getLastMonth={getLastMonth}
       getLast3Month={getLast3Month}

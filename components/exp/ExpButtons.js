@@ -103,7 +103,7 @@ export const ExpButtons = () => {
         </WrapItem>
         <WrapItem>
           <Btn
-            color={colors().expDark}
+            color={colors.expDark}
             icon={<RepeatIcon />}
             click={() => clear()}
             title="عرض الجميع"
@@ -111,7 +111,7 @@ export const ExpButtons = () => {
         </WrapItem>
         <WrapItem>
           <Btn
-            color={colors().expDark}
+            color={colors.expDark}
             icon={<AddIcon />}
             click={() => router.push("/addNewExpPage")}
             title="إضافة"
@@ -120,13 +120,13 @@ export const ExpButtons = () => {
 
         {snap.searchResults.length > 0 && (
           <WrapItem>
-            <PrintBtn click={() => printPdf()} color={colors().expLight} />
+            <PrintBtn click={() => printPdf()} color={colors.expLight} />
           </WrapItem>
         )}
 
         <WrapItem>
           <TotalText
-            color={colors().expDark}
+            color={colors.expDark}
             text={`الإجمالي:  ${snap.exp && snap.searchResults.length}`}
           />
         </WrapItem>
@@ -137,7 +137,7 @@ export const ExpButtons = () => {
 
             <Title
               title="لا توجد نتائج للعرض ..."
-              color={colors().expDark}
+              color={colors.expDark}
             ></Title>
           </>
         )}

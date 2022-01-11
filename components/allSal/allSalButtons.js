@@ -8,8 +8,6 @@ import TotalText from "../../sharedComponents/TotalText";
 import { BackButton } from "../../sharedComponents/BackButton";
 import SearchInput from "../../sharedComponents/SearchInput";
 import { cutString } from "../../lib/funcs";
-
-import "react-datepicker/dist/react-datepicker.css";
 import AllSalDateFilter from "./AllSalDateFilter";
 import { colors } from "../../lib/constants";
 
@@ -91,7 +89,7 @@ export const SalButtons = () => {
       </WrapItem>
       <WrapItem>
         <Btn
-          color={colors().salDark}
+          color={colors.salDark}
           icon={<RepeatIcon />}
           click={() => clear()}
           title="عرض الجميع"
@@ -100,13 +98,13 @@ export const SalButtons = () => {
 
       {snap.searchResults.length > 0 && (
         <WrapItem>
-          <PrintBtn color={colors().salLight} click={() => printPdf()} />
+          <PrintBtn color={colors.salLight} click={() => printPdf()} />
         </WrapItem>
       )}
 
       <WrapItem>
         <TotalText
-          color={colors().salDark}
+          color={colors.salDark}
           text={`الإجمالي:  ${snap.allSal && snap.searchResults.length}`}
         />
       </WrapItem>
@@ -117,7 +115,7 @@ export const SalButtons = () => {
 
           <Title
             title="لا توجد نتائج للعرض ..."
-            color={colors().salLight}
+            color={colors.salLight}
           ></Title>
         </>
       )}
