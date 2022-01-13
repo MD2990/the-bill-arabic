@@ -12,7 +12,6 @@ import {
 import {
   Center,
   Divider,
-  HStack,
   Text,
   Wrap,
   WrapItem,
@@ -46,8 +45,7 @@ export function CustomCol({ path, children, text, size = "8em" }) {
   );
 }
 
-//    transition-duration: 1s;
-//transition-timing-function: linear;
+
 const TheTitle = ({ text }) => (
   <WrapItem>
     <Text
