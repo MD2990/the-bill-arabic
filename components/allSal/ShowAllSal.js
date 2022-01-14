@@ -35,7 +35,7 @@ export default function ShowAllSal({ sal }) {
       <Title title={snap.title} color={colors.salDark}></Title>
 
       <MainInterface>
-        <SalButtons />
+        <SalButtons sal={sal} />
 
         <Divider mt="-8" />
         <TheTable />

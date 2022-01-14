@@ -33,6 +33,8 @@ export default function SearchInput({ data }) {
       arr: data,
       searchTerm: state.searchTerm,
     });
+    state.isMonthFilter = false;
+
   }, [data, snap.searchTerm]);
 
   return (

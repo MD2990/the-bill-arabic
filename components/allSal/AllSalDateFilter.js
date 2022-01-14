@@ -2,12 +2,13 @@ import moment from "moment";
 import React, { useCallback, useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { colors } from "../../lib/constants";
+import { myFilter } from "../../lib/funcs";
 import DateFilterUI from "../../sharedComponents/DateFilterUI";
 import state from "../../stor";
 
 export default function AllSalDateFilter() {
   const snap = useSnapshot(state);
-
+  console.log("object");
   useEffect(() => {
     state.isFiltered = false;
   }, [snap.isFiltered]);
@@ -17,17 +18,33 @@ export default function AllSalDateFilter() {
   }, [getDateFromTo, snap.fromDate, snap.isFiltered, snap.toDate]);
 
   function getCurrentMonth() {
+    if (snap.isMonthFilter) {
+      state.searchResults = myFilter({
+        arr: state.allSal,
+        searchTerm: state.searchTerm,
+      });
+    }
+    state.isMonthFilter = true;
     state.title = `رواتب الشهر الحالي ${moment().format("MM/YYYY")}`;
-    state.searchResults = state.allSal.filter((b) => {
+    state.searchResults = state.searchResults.filter((b) => {
       return moment(b.salary_date).isSame(moment(), "month");
     });
   }
 
   function getLast3Month() {
+    console.log("last 3 month");
+    if (snap.isMonthFilter) {
+      state.searchResults = myFilter({
+        arr: state.allSal,
+        searchTerm: state.searchTerm,
+      });
+    }
+    state.isMonthFilter = true;
+
     state.title = `رواتب آخر 3 أشهر من ${moment()
       .subtract(3, "M")
       .format("MM")} إلى ${moment().subtract(1, "M").format("MM")}`;
-    state.searchResults = state.allSal.filter((b) => {
+    state.searchResults = state.searchResults.filter((b) => {
       return moment(b.salary_date).isBetween(
         moment().subtract(4, "M"),
         moment(),
@@ -36,10 +53,18 @@ export default function AllSalDateFilter() {
     });
   }
   function getLastMonth() {
+    if (snap.isMonthFilter) {
+      state.searchResults = myFilter({
+        arr: state.allSal,
+        searchTerm: state.searchTerm,
+      });
+    }
+    state.isMonthFilter = true;
+
     state.title = ` الرواتب لشهر  ${moment()
       .subtract(1, "M")
       .format("MM/YYYY")}`;
-    state.searchResults = state.allSal.filter((b) => {
+    state.searchResults = state.searchResults.filter((b) => {
       return moment(b.salary_date).isBetween(
         moment().subtract(2, "M"),
         moment(),
@@ -47,22 +72,36 @@ export default function AllSalDateFilter() {
       );
     });
   }
-  function getCurrentYear() {
+  const getCurrentYear = () => {
+    if (snap.isMonthFilter) {
+      state.searchResults = myFilter({
+        arr: state.allSal,
+        searchTerm: state.searchTerm,
+      });
+    }
+    state.isMonthFilter = true;
     state.title = `رواتب السنة الحالية ${moment().format("YYYY")}`;
-    state.searchResults = state.allSal.filter((b) => {
+    state.searchResults = state.searchResults.filter((b) => {
       return moment(b.salary_date).isSame(moment(), "Y");
     });
-  }
+  };
 
   const getDateFromTo = useCallback(() => {
     state.title = `الرواتب من ${moment(snap.fromDate).format(
       "YYYY/MM/DD"
     )} إلى ${moment(snap.toDate).format("YYYY/MM/DD")}`;
+    if (snap.isMonthFilter) {
+      state.searchResults = myFilter({
+        arr: state.allSal,
+        searchTerm: state.searchTerm,
+      });
+    }
+    state.isMonthFilter = true;
 
-    state.searchResults = state.allSal.filter((b) => {
+    state.searchResults = state.searchResults.filter((b) => {
       return b.salary_date >= snap.fromDate && b.salary_date <= snap.toDate;
     });
-  }, [snap.fromDate, snap.toDate]);
+  }, [snap.fromDate, snap.isMonthFilter, snap.toDate]);
 
   return (
     <DateFilterUI

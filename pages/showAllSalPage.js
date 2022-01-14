@@ -49,7 +49,7 @@ export default function ShowSalPage({ allSal }) {
   return (
     <>
       <Hd title={`عرض جميع الرواتب`} />
-      <ShowAllSal />
+      <ShowAllSal sal={allSal}/>
     </>
   );
 }

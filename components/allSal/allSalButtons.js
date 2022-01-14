@@ -10,14 +10,15 @@ import SearchInput from "../../sharedComponents/SearchInput";
 import { cutString } from "../../lib/funcs";
 import AllSalDateFilter from "./AllSalDateFilter";
 import { colors } from "../../lib/constants";
+import { FcClearFilters } from "react-icons/fc";
 
-export const SalButtons = () => {
+export const SalButtons = ({ sal }) => {
   const snap = useSnapshot(state);
 
   const clear = () => {
     state.searchTerm = "";
     state.isFiltered = false;
-    state.searchResults = snap.allSal;
+    state.searchResults = sal;
     state.title = " جميع الرواتب";
   };
 
@@ -90,7 +91,7 @@ export const SalButtons = () => {
       <WrapItem>
         <Btn
           color={colors.salDark}
-          icon={<RepeatIcon />}
+          icon={<FcClearFilters />}
           click={() => clear()}
           title="عرض الجميع"
         />

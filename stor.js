@@ -6,6 +6,7 @@ const state = proxy({
   paymentText: "Filleter by Payment",
   paid: false,
   searchTerm: "",
+  isMonthFilter: false,
   
   searchResults: [],
   data: [],
