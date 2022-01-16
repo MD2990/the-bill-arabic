@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { Hd, Spans, Title } from '../../components/comUtil/ComUtil';
+import { Hd } from '../../components/comUtil/ComUtil';
 import AddSal from '../../components/sal/AddSal';
 import { getItem } from '../../lib/funcs';
+import MySkeletons from '../../sharedComponents/MySkeletons';
  
 //Here we need {sal} to add a salary for specific employee
 const AddSalaryPage = () => {
@@ -11,7 +12,7 @@ const AddSalaryPage = () => {
   const empName= getItem( 'emp');
 
   if (router.isFallback || !empName) {
-    return <Spans />;
+    return <MySkeletons />;
   }
 
   return (

@@ -10,14 +10,16 @@ import { colors } from "../lib/constants";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import MySkeletons from "../sharedComponents/MySkeletons";
+import Sal from "../models/Sal";
 
-export default function ShowEmpPage({ emp }) {
+export default function ShowEmpPage({ emp, sal }) {
   const router = useRouter();
   const snap = useSnapshot(state);
 
   useEffect(() => {
     state.emp = emp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
-  }, [emp]);
+    state.sal = sal;
+  }, [emp, sal]);
 
   if (!emp)
     return (
@@ -56,7 +58,8 @@ export default function ShowEmpPage({ emp }) {
 export const getServerSideProps = async () => {
   await dbConnect();
   const data = await Emp.find({});
-  if (!data) {
+  const data2 = await Sal.find({});
+  if (!data || !data2) {
     return {
       redirect: {
         destination: "/",
@@ -65,10 +68,12 @@ export const getServerSideProps = async () => {
     };
   }
   const emp = await jsonify(data);
+  const sal = await jsonify(data2);
 
   return {
     props: {
       emp,
+      sal,
     },
   };
 };

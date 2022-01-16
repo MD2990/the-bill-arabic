@@ -12,13 +12,13 @@ import AllSalDateFilter from "./AllSalDateFilter";
 import { colors } from "../../lib/constants";
 import { FcClearFilters } from "react-icons/fc";
 
-export const SalButtons = ({ sal }) => {
+export const SalButtons = () => {
   const snap = useSnapshot(state);
 
   const clear = () => {
     state.searchTerm = "";
     state.isFiltered = false;
-    state.searchResults = sal;
+  
     state.title = " جميع الرواتب";
   };
 
@@ -69,7 +69,7 @@ export const SalButtons = ({ sal }) => {
     return toPDF(
       rows,
       columns,
-      `${snap.title}                          العدد:${rows.length} `
+      `${rows.length}                ${state.title}  ${state.subTitle}`
     );
   }
 

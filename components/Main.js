@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-export function CustomCol({ path, children, text, size = "8em" }) {
+ function CustomCol({ path, children, text, size = "8em" }) {
   return (
     <WrapItem
       className="main"

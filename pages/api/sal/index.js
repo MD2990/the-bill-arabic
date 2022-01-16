@@ -1,6 +1,5 @@
 import dbConnect, { getSumToNum, toCurrency } from "../../../utils/dbConnect";
 import Sal from "../../../models/Sal";
-import { convertDate } from "../../../lib/funcs";
 import moment from "moment";
 
 export default async function handler(req, res) {

@@ -8,7 +8,6 @@ import state from "../../stor";
 
 export default function AllSalDateFilter() {
   const snap = useSnapshot(state);
-  console.log("object");
   useEffect(() => {
     state.isFiltered = false;
   }, [snap.isFiltered]);
@@ -25,14 +24,13 @@ export default function AllSalDateFilter() {
       });
     }
     state.isMonthFilter = true;
-    state.title = `رواتب الشهر الحالي ${moment().format("MM/YYYY")}`;
+    state.title = `  رواتب شهر  ${moment().format("MM/YYYY")}`;
     state.searchResults = state.searchResults.filter((b) => {
       return moment(b.salary_date).isSame(moment(), "month");
     });
   }
 
   function getLast3Month() {
-    console.log("last 3 month");
     if (snap.isMonthFilter) {
       state.searchResults = myFilter({
         arr: state.allSal,
@@ -40,7 +38,6 @@ export default function AllSalDateFilter() {
       });
     }
     state.isMonthFilter = true;
-
     state.title = `رواتب آخر 3 أشهر من ${moment()
       .subtract(3, "M")
       .format("MM")} إلى ${moment().subtract(1, "M").format("MM")}`;
@@ -60,7 +57,6 @@ export default function AllSalDateFilter() {
       });
     }
     state.isMonthFilter = true;
-
     state.title = ` الرواتب لشهر  ${moment()
       .subtract(1, "M")
       .format("MM/YYYY")}`;
@@ -85,6 +81,16 @@ export default function AllSalDateFilter() {
       return moment(b.salary_date).isSame(moment(), "Y");
     });
   };
+  const getAllSalaries = () => {
+    if (snap.isMonthFilter) {
+      state.searchResults = myFilter({
+        arr: state.allSal,
+        searchTerm: state.searchTerm,
+      });
+    }
+    state.isMonthFilter = true;
+    state.title = "جميع الرواتب";
+  };
 
   const getDateFromTo = useCallback(() => {
     state.title = `الرواتب من ${moment(snap.fromDate).format(
@@ -97,7 +103,6 @@ export default function AllSalDateFilter() {
       });
     }
     state.isMonthFilter = true;
-
     state.searchResults = state.searchResults.filter((b) => {
       return b.salary_date >= snap.fromDate && b.salary_date <= snap.toDate;
     });
@@ -111,6 +116,8 @@ export default function AllSalDateFilter() {
       getLast3Month={getLast3Month}
       getCurrentYear={getCurrentYear}
       getDateFromTo={getDateFromTo}
+      getAllSalaries={getAllSalaries}
+      showAllBtn
     />
   );
 }

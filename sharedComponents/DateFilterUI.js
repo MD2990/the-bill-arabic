@@ -1,17 +1,19 @@
-import { Box, HStack, Input, Text, Wrap, WrapItem } from '@chakra-ui/react';
-import React from 'react'
-import { FcCalendar, FcFilledFilter } from 'react-icons/fc';
-import { useSnapshot } from 'valtio';
-import { Btn } from '../components/comUtil/ComUtil';
-import state from '../stor';
+import { Box, HStack, Input, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import React from "react";
+import { FcCalendar, FcFilledFilter } from "react-icons/fc";
+import { useSnapshot } from "valtio";
+import { Btn } from "../components/comUtil/ComUtil";
+import state from "../stor";
 
 export default function DateFilterUI({
+  showAllBtn = false,
   color,
   getCurrentMonth,
   getLastMonth,
   getLast3Month,
   getCurrentYear,
   getDateFromTo,
+  getAllSalaries,
 }) {
   const snap = useSnapshot(state);
 
@@ -26,11 +28,7 @@ export default function DateFilterUI({
   return (
     <HStack w="100%" p="2">
       <Box as="details" cursor={"pointer"} color={color} fontWeight={"bold"}>
-        <Text
-          as="summary"
-  
-          fontSize={["sm", "md", "lg", "xl"]}
-        >
+        <Text as="summary" fontSize={["sm", "md", "lg", "xl"]}>
           تصفية النتائج
         </Text>
 
@@ -91,6 +89,16 @@ export default function DateFilterUI({
               />
             </HStack>
           </WrapItem>
+         { showAllBtn && (
+           <WrapItem>
+            <Btn
+              color={color}
+              icon={<FcCalendar />}
+              title={"عرض الجميع"}
+              click={getAllSalaries}
+            />
+          </WrapItem>)
+         } 
         </Wrap>
       </Box>
     </HStack>

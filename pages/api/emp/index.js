@@ -1,6 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
 import Emp from "../../../models/Emp";
-import { getDate } from "../../../lib/funcs";
 import moment from "moment";
 
 export default async function handler(req, res) {

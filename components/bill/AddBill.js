@@ -12,7 +12,6 @@ import {
   FormBottomButton,
 } from "../../comUtil/ComUtil";
 import { useRouter } from "next/router";
-import { getCurrentDateTime } from "../../lib/funcs";
 import moment from "moment";
 
 export default function AddBill() {

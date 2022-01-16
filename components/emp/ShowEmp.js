@@ -9,11 +9,12 @@ import state from "../../stor";
 import { colors } from "../../lib/constants";
 import { useSnapshot } from "valtio";
 
-export default function ShowEmp({ emp }) {
+export default function ShowEmp() {
   const snap = useSnapshot(state);
 
   useEffect(() => {
     state.title = "سجل الموظفين";
+       state.searchTerm = "";
   }, []);
 
   return (

@@ -1,6 +1,0 @@
-details
-bill_date
-advance
-total_price
-    balance
-remarks

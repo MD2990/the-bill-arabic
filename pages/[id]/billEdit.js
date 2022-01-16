@@ -2,16 +2,17 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { dbConnect, jsonify } from '../../utils/dbConnect';
 import Edit_Delete_Bill from '../../components/bill/Edit_Delete_Bill';
-import { Hd, Spans, Title } from '../../components/comUtil/ComUtil';
+import { Hd } from '../../components/comUtil/ComUtil';
 import Bill from '../../models/Bill';
 import { convertToNumber, cutString, setCurrentDateTime } from '../../lib/funcs';
+import MySkeletons from '../../sharedComponents/MySkeletons';
 
 const EditBill = ({ bill }) => {
 	const router = useRouter();
 
 
 	if (router.isFallback) {
-		return <Spans />;
+		return <MySkeletons />;
 	}
 
 	return (

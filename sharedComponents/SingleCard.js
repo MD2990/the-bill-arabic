@@ -18,7 +18,7 @@ import React from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { IconButton } from "@chakra-ui/react";
-import {  setItem } from "../lib/funcs";
+import { setItem } from "../lib/funcs";
 export const AllText = ({ title, data }) => {
   return (
     <Text pb="0.5" fontSize={["xs", "sm", "md", "lg"]}>
@@ -41,18 +41,35 @@ export default function SingleCard({
   header,
   color,
   HD_color,
+  salCount,
 }) {
   const router = useRouter();
 
   return (
     <WrapItem
-      alignItems="center"
+      alignItems="flex-end"
       whiteSpace="nowrap"
       boxShadow="dark-lg"
       rounded="xl"
       bg={color}
     >
       <Center m={[1, 1.5, 2]} p={[1, 1.5, 2]} cursor="pointer" mr="-1">
+        {showSalary && (
+          <Text
+          px='0.2'
+            alignSelf={"flex-end"}
+            fontSize={["xx-small", "x-small", "small"]}
+            color="green.600"
+            ml="1"
+            as="cite"
+            fontWeight={"extrabold"}
+          >
+            <Text ml='0.5'  fontWeight={"hairline"} as="span">
+              الرواتب:
+            </Text>
+            {salCount}
+          </Text>
+        )}
         <HStack spacing={[1, 2, 3]} align={"flex-end"}>
           <Tooltip
             label="تعديل"
@@ -134,6 +151,8 @@ export default function SingleCard({
               />
             </Tooltip>
           )}
+
+    
         </HStack>
       </Center>
       <Accordion defaultIndex={[1]} allowMultiple="false" rounded="lg">
@@ -168,3 +187,7 @@ export default function SingleCard({
     </WrapItem>
   );
 }
+
+// create money sample
+// import { AiOutlineEdit } from "react-icons/ai";
+// import { FaMoneyBillWave

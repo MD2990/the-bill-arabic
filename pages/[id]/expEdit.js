@@ -2,19 +2,20 @@ import { useRouter } from "next/router";
 import React from "react";
 import { dbConnect, jsonify } from "../../utils/dbConnect";
 import Edit_Delete_Exp from "../../components/exp/Edit_Delete_Exp";
-import { Hd, Spans, Title } from "../../components/comUtil/ComUtil";
+import { Hd, } from "../../components/comUtil/ComUtil";
 import Exp from "../../models/Exp";
 import {
   convertToNumber,
   cutString,
-  setCurrentDateTime,
+
 } from "../../lib/funcs";
+import MySkeletons from "../../sharedComponents/MySkeletons";
 
 const EditExp = ({ exp }) => {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <Spans />;
+    return <MySkeletons />;
   }
 
   return (

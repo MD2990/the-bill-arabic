@@ -90,43 +90,7 @@ export const handlePut = async ({ values, url, router }) => {
   }
 };
 
-export const handlePutEmp = async (name, url, router) => {
-  const contentType = "application/json";
 
-  const { id } = router.query;
-
-  try {
-    const res = await fetch(`/api/${url}/${id}`, {
-      method: "PUT",
-      headers: {
-        Accept: contentType,
-        "Content-Type": contentType,
-      },
-      body: JSON.stringify(name),
-    });
-
-    // Throw error with status code in case Fetch API req failed
-    if (!res.ok) {
-      toast(
-        ` Something went wrong, ${res.status} \n please try again`,
-
-        {
-          type: toast.TYPE.ERROR,
-          autoClose: 2000,
-        }
-      );
-    }
-  } catch (error) {
-    toast(
-      ` Something went wrong, ${error} \n please try again`,
-
-      {
-        type: toast.TYPE.ERROR,
-        autoClose: 2500,
-      }
-    );
-  }
-};
 
 export const handleDelete = async ({ deleteUrl, id }) => {
   deleteUrl = `http://localhost:3000/api/${deleteUrl}/${id}`;

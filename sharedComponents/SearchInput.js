@@ -4,7 +4,7 @@ import state from "../stor";
 import { Input } from "@chakra-ui/input";
 import { myFilter } from "../lib/funcs";
 
-export function SearchInputField() {
+ function SearchInputField() {
   const snap = useSnapshot(state);
   const handleChange = (e) => {
     state.searchTerm = e.target.value;

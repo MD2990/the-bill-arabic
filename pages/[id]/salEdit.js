@@ -3,15 +3,16 @@ import React from 'react';
 import { dbConnect, jsonify } from '../../utils/dbConnect';
 import Sal from '../../models/Sal';
 import Edit_Delete_Sal from '../../components/sal/Edit_Delete_Sal';
-import { Hd, Spans } from '../../components/comUtil/ComUtil';
-import { convertDate, convertToNumber } from "../../lib/funcs";
+import { Hd } from '../../components/comUtil/ComUtil';
+import { convertToNumber } from "../../lib/funcs";
 import moment from "moment";
+import MySkeletons from '../../sharedComponents/MySkeletons';
 
 const EmpEdit = ({ sal }) => {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <Spans />;
+    return <MySkeletons />;
   }
 
   return (

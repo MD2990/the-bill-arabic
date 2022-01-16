@@ -1,13 +1,10 @@
-import { m } from "framer-motion";
 import moment from "moment";
 import { proxy } from "valtio";
-
 const state = proxy({
   paymentText: "Filleter by Payment",
   paid: false,
   searchTerm: "",
   isMonthFilter: false,
-  
   searchResults: [],
   data: [],
   bill: [],
@@ -24,6 +21,7 @@ const state = proxy({
   empName: [],
   isFiltered: false,
   title: "",
+  subTitle:'',
   billTitle: "",
   fromDate: moment().format("YYYY-MM-DD"),
   toDate: moment().format("YYYY-MM-DD"),

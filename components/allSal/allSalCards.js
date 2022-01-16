@@ -8,8 +8,7 @@ import { handleDelete } from "../../utils/dbConnect";
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
 import {
-  cutString,
-  getItem,
+
   handleFormDelete,
   reverseString,
 } from "../../lib/funcs";
@@ -20,6 +19,7 @@ export default function AllSalCards() {
 
   const rs = useCallback(
     () => state.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [snap.PER_PAGE, snap.offset, snap.searchResults]
   );
 

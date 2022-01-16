@@ -2,7 +2,7 @@ import useSWR from "swr";
 import ShowExp from "../components/exp/ShowExp";
 import { dbConnect, jsonify } from "../utils/dbConnect";
 import Exp from "../models/Exp";
-import { Btn, Hd, Spans, Title } from "../components/comUtil/ComUtil";
+import { Btn, Hd, Title } from "../components/comUtil/ComUtil";
 import { Center } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";

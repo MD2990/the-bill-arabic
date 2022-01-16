@@ -2,16 +2,14 @@ import ShowSal from "../../components/sal/ShowSal";
 import { dbConnect, jsonify } from "../../utils/dbConnect";
 import Sal from "../../models/Sal";
 import { useRouter } from "next/router";
-import { Btn, Hd, Spans, Title } from "../../components/comUtil/ComUtil";
+import { Btn, Hd, Title } from "../../components/comUtil/ComUtil";
 import { Center, Stack, Text } from "@chakra-ui/react";
 import state from "../../stor";
 import { useEffect } from "react";
-
 import { getItem } from "../../lib/funcs";
 import { AddIcon } from "@chakra-ui/icons";
 import { BackButton } from "../../sharedComponents/BackButton";
 import { colors } from "../../lib/constants";
-import useSWR from "swr";
 import MySkeletons from "../../sharedComponents/MySkeletons";
 import { useSnapshot } from "valtio";
 

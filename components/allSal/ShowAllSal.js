@@ -1,5 +1,5 @@
 import { Title } from "../comUtil/ComUtil";
-import { HStack, Divider, Wrap, WrapItem } from "@chakra-ui/react";
+import { HStack, Divider, Wrap, WrapItem, Text } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { SalButtons } from "./allSalButtons";
 import AllSalCards from "./allSalCards";
@@ -12,7 +12,7 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
+
   Tr,
   Th,
   Td,
@@ -28,17 +28,24 @@ export default function ShowAllSal({ sal }) {
 
   useEffect(() => {
     state.title = " جميع الرواتب";
-  }, [sal]);
+     state.subTitle = snap.searchTerm ? ` للموظف ${snap.searchTerm.toUpperCase()}` : "";
+     state.isMonthFilter=false;
+
+  }, [snap.searchTerm]);
 
   return (
     <>
-      <Title title={snap.title} color={colors.salDark}></Title>
+      <Title title={snap.title} color={colors.salDark}>
+      {  snap.isMonthFilter &&  <Text as='span'  color='blue.300' >
+          {snap.subTitle}
+        </Text>}
+      </Title>
 
       <MainInterface>
         <SalButtons sal={sal} />
 
         <Divider mt="-8" />
-        <TheTable />
+       { snap.searchResults.length>0  && <TheTable />}
 
         {/*   <AllSalCards /> */}
       </MainInterface>

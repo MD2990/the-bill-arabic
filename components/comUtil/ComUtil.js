@@ -1,8 +1,7 @@
 import React from "react";
 import { Box, Center } from "@chakra-ui/layout";
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import Head from "next/head";
-import { CalendarIcon } from "@chakra-ui/icons";
 import { FcPrint } from "react-icons/fc";
 
 export function Title({ title, children, color }) {
@@ -63,19 +62,7 @@ export function Btn({ click, title, icon, color = "blackAlpha" ,p,fontSize }) {
   );
 }
 
-export function Spans() {
-  return (
-    <Center mt={200}>
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="teal"
-        size="xl"
-      />
-    </Center>
-  );
-}
+
 
 export function Hd({ title }) {
   return (

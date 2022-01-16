@@ -1,15 +1,15 @@
 import { dbConnect, jsonify } from "../utils/dbConnect";
 import Sal from "../models/Sal";
 import { useRouter } from "next/router";
-import { Hd, Spans, Title } from "../components/comUtil/ComUtil";
+import { Hd, Title } from "../components/comUtil/ComUtil";
 import { Stack } from "@chakra-ui/react";
 import { BackButton } from "../sharedComponents/BackButton";
 import ShowAllSal from "../components/allSal/ShowAllSal";
-import useSWR from "swr";
 import { colors } from "../lib/constants";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import state from "../stor";
+import MySkeletons from "../sharedComponents/MySkeletons";
 
 export default function ShowSalPage({ allSal }) {
   const snap = useSnapshot(state);
@@ -25,10 +25,10 @@ export default function ShowSalPage({ allSal }) {
     return (
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
-  if (!snap.allSal) return <Spans />;
+  if (!snap.allSal) return <MySkeletons />;
 
   if (router.isFallback) {
-    return <Spans />;
+    return <MySkeletons />;
   }
 
   if (snap.allSal?.length < 1)

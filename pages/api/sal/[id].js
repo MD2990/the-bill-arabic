@@ -1,6 +1,5 @@
 import dbConnect, { getSumToNum, toCurrency } from "../../../utils/dbConnect";
 import Sal from "../../../models/Sal";
-import { convertDate } from "../../../lib/funcs";
 import moment from "moment";
 
 export default async function handler(req, res) {
@@ -58,7 +57,7 @@ export default async function handler(req, res) {
         if (!sal) return res.status(400).json({ success: false });
         else {
           res.status(200).json({ sal });
-          console.log(res);
+         
         }
       } catch (error) {
         res.status(400).json({ success: error });

@@ -47,6 +47,9 @@ export default function EmpCards() {
                 _id={_id}
                 showSalary
                 addSalary
+                salCount={
+                  snap.sal.filter(({ emp_id }) => emp_id === _id).length
+                }
                 link={`/${_id}/empEdit`}
                 header={emp_name?.toUpperCase()}
                 deleteFunction={async () => {

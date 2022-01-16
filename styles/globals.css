@@ -1,7 +1,7 @@
 html,
 * {
   font-family: "Times New Roman", Times, serif !important;
-  direction: rtl;
+  direction: rtl !important; ;
   
 
 }

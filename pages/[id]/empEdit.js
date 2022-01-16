@@ -3,13 +3,14 @@ import React from 'react';
 import { dbConnect, jsonify } from '../../utils/dbConnect';
 import Emp from '../../models/Emp';
 import Edit_Delete_Bill from "../../components/emp/Edit_Delete_Emp";
-import { Hd, Spans, Title } from '../../components/comUtil/ComUtil';
+import { Hd } from '../../components/comUtil/ComUtil';
+import MySkeletons from '../../sharedComponents/MySkeletons';
 
 const EmpEdit = ({ emp }) => {
 	const router = useRouter();
 
 	if (router.isFallback) {
-		return <Spans />;
+		return <MySkeletons />;
 	}
 
 	return (
@@ -33,7 +34,7 @@ export async function getServerSideProps({ params }) {
     };
   }
   const emp = await jsonify(data);
-console.log(emp);
+
 
   return {
     props: {

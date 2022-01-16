@@ -17,6 +17,7 @@ export default function ShowExp() {
 
   useEffect(() => {
     state.title = "المصروفات";
+       state.searchTerm = "";
   }, []);
 
   return (
