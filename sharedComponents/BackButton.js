@@ -12,7 +12,6 @@ export const BackButton = ({ ml = "0", mr = "0", mt = "0", mb = "0" }) => {
       size="lg"
       colorScheme="blackAlpha"
       color='blackAlpha.800'
-      
       borderColor={'transparent'}
       ml={ml}
       mt={mt}

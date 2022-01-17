@@ -18,7 +18,7 @@ import { myFilter } from "../lib/funcs";
       textAlign="center"
       size="lg"
       rounded="full"
-      placeholder="Search by any field"
+      placeholder="البحث عبر جميع الحقول"
       value={snap.searchTerm}
       onChange={handleChange}
     />
