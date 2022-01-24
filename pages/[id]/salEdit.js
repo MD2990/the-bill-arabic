@@ -17,7 +17,7 @@ const EmpEdit = ({ sal }) => {
 
   return (
     <>
-      <Hd title={`تحديث راتب الموظف ${"sal.emp_name"}`} />
+      <Hd title={`تحديث راتب الموظف ${sal.emp_name}`} />
       <Edit_Delete_Sal sal={sal} />
     </>
   );

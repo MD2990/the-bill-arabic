@@ -9,11 +9,13 @@ import { handleDelete } from "../../utils/dbConnect";
 
 import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
-import {   handleFormDelete, reverseString } from "../../lib/funcs";
+import {   getItem, handleFormDelete, reverseString, setItem } from "../../lib/funcs";
+import { MyTable } from "../../sharedComponents/MyTable";
+import { useRouter } from "next/router";
 
 export default function SalCards() {
   const snap = useSnapshot(state);
-
+const router= useRouter();
 
   
   const rs = useCallback(
@@ -25,57 +27,34 @@ export default function SalCards() {
     rs();
   }, [rs]);
 
+
   if (!snap.sal) return <MySkeletons />;
+  
+  const editFunction = ( _id ) => {
+    
+    router.push(`/${_id}/salEdit`);
+  };
+
+  const deleteFunction = async (_id) => {
+    await handleFormDelete({
+      deleteUrl: "sal",
+      id: _id,
+
+      handleDelete,
+
+      secondDelete: () =>
+        (state.sal = state.sal.filter((item) => item._id !== _id)),
+    });
+  };
+
+  
   return (
-    <>
-      {rs()?.map(
-        ({
-          _id,
-          basic_salary,
-          bonus,
-          loans,
-          total_salary,
-          salary_date,
-          emp_name,
-          remarks,
-        }) => {
-          return (
-            <Wrap key={_id} justify="center" spacing="4">
-              <SingleCard
-                HD_color={"blue.600"}
-                color={"blue.100"}
-                _id={_id}
-                link={`/${_id}/salEdit`}
-                header={emp_name.toUpperCase()}
-                deleteFunction={async () => {
-                  await handleFormDelete({
-                    deleteUrl: "sal",
-                    id: _id,
-
-                    handleDelete,
-
-                    secondDelete: () =>
-                      (state.sal = snap.sal.filter((item) => item._id !== _id)),
-                  });
-                }}
-              >
-                <Box color="blue.700">
-                  <AllText title=" الراتب الاساسي:" data={basic_salary} />
-                  <AllText title=" المكافأة:" data={bonus} />
-                  <AllText title=" القروض:" data={loans} />
-                  <AllText title=" المجموع:" data={total_salary} />
-                  <AllText
-                    title=" تاريخ الاستحقاق:"
-                    data={salary_date && reverseString(salary_date)}
-                  />
-
-                  <AllText title=" الملاحظات:" data={remarks} />
-                </Box>
-              </SingleCard>
-            </Wrap>
-          );
-        }
-      )}
-    </>
+    <MyTable
+      data={rs}
+      tableTitle={ snap.sal.emp_name}
+      editFunction={editFunction}
+      deleteFunction={deleteFunction}
+    />
+  
   );
 }

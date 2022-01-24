@@ -22,6 +22,7 @@ export default function Edit_Delete_Sal({ sal }) {
 
   const {
     basic_salary,
+    emp_name,
     bonus,
     loans,
     total_salary,
@@ -70,7 +71,7 @@ export default function Edit_Delete_Sal({ sal }) {
             <Title title={`تحديث راتب الموظف:   `} color={colors.salDark}>
               <Text as="span" color={colors.salLight}>
                 {" "}
-                {getItem("emp")?.toUpperCase()}{" "}
+                {emp_name?.toUpperCase()}{" "}
               </Text>
             </Title>
             <Center m="2" p="2">
