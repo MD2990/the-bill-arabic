@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { handleFormDelete, setItem } from "../../lib/funcs";
 import { handleDelete } from "../../utils/dbConnect";
 import { MyTable } from "../../sharedComponents/MyTable";
+import AllSalTable from "./AllSalTable";
 
 export default function ShowAllSal({ sal }) {
   const router = useRouter();
@@ -24,30 +25,6 @@ export default function ShowAllSal({ sal }) {
     state.isMonthFilter = false;
   }, [snap.searchTerm]);
 
-  const rs = useCallback(
-    () => snap.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
-    [snap.PER_PAGE, snap.offset, snap.searchResults]
-  );
-
-  useEffect(() => {
-    rs();
-  }, [rs]);
-
-  const editFunction = (_id) => {
-    router.push(`/${_id}/salEdit`);
-  };
-
-  const deleteFunction = async (_id) => {
-    await handleFormDelete({
-      deleteUrl: "sal",
-      id: _id,
-
-      handleDelete,
-
-      secondDelete: () =>
-        (state.allSal = snap.allSal.filter((item) => item._id !== _id)),
-    });
-  };
 
   return (
     <>
@@ -64,12 +41,7 @@ export default function ShowAllSal({ sal }) {
 
         <Divider mt="-8" />
         {snap.searchResults.length > 0 && (
-          <MyTable
-            data={rs}
-            tableTitle="بيانات الرواتب لجميع الموظفين"
-            editFunction={editFunction}
-            deleteFunction={deleteFunction}
-          />
+    <AllSalTable/>
         )}
       </MainInterface>
       <HStack mt="12" justify="center">

@@ -1,4 +1,4 @@
-import { Box, Wrap } from "@chakra-ui/react";
+import { Box, Td, Wrap } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -11,8 +11,10 @@ import state from "../../stor";
 import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
 import { cutString, handleFormDelete } from "../../lib/funcs";
 import { colors } from "../../lib/constants";
+import { MyTable } from "../../sharedComponents/MyTable";
+import { DeleteIcon } from "@chakra-ui/icons";
 
-export default function EmpCards() {
+export default function EmpTable() {
   const snap = useSnapshot(state);
 
   const rs = useCallback(
@@ -26,9 +28,14 @@ export default function EmpCards() {
 
   if (!snap.emp) return <MySkeletons />;
 
+  const data = () => {
+    return rs().map(({ _id, emp_name, added_date }) => {
+      return { _id, emp_name, added_date };
+    });
+  };
+
   return (
-    <>
-      {rs().map(
+    /*   {rs().map(
         ({
           _id,
           emp_name,
@@ -77,6 +84,14 @@ export default function EmpCards() {
           );
         }
       )}
-    </>
+ */
+    <MyTable data={data} emp tableTitle="بيانات الموظفين">
+      <Td onClick={() => deleteFunction(_id)} cursor={"pointer"}>
+        <DeleteIcon color={"red.300"} />{" "}
+      </Td>{" "}
+      <Td onClick={() => deleteFunction(_id)} cursor={"pointer"}>
+        <DeleteIcon color={"red.300"} />{" "}
+      </Td>
+    </MyTable>
   );
 }
