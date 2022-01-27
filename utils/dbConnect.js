@@ -7,6 +7,7 @@ import moment from "moment";
 
 import font from "../public/Amiri-Regular-normal";
 import { errorMsg, successMsg } from "../lib/funcs";
+
 const DB = process.env.DB;
 export async function dbConnect() {
   // check if we have a connection to the database or if it's currently
@@ -50,7 +51,7 @@ export function getSum(sum1, sub) {
 }
 
 export async function post(url, values) {
-  url = "http://localhost:3000/api/" + url;
+  url = `/api/${url}`;
   try {
     await axios
       .post(url, values)
@@ -90,10 +91,8 @@ export const handlePut = async ({ values, url, router }) => {
   }
 };
 
-
-
 export const handleDelete = async ({ deleteUrl, id }) => {
-  deleteUrl = `http://localhost:3000/api/${deleteUrl}/${id}`;
+  deleteUrl = `/api/${deleteUrl}/${id}`;
   try {
     await axios
       .delete(deleteUrl)
@@ -113,8 +112,7 @@ export const handleDelete = async ({ deleteUrl, id }) => {
 };
 
 export const toPDF = (rows, columns, title, view = "p") => {
-
-  const dateTimeNow =  moment().format("YYYY/MM/DD  HH:mm:ss");
+  const dateTimeNow = moment().format("YYYY/MM/DD  HH:mm:ss");
   var doc = new jsPDF(view, "pt"); // l or p
 
   doc.addFileToVFS("Amiri.ttf", font);
@@ -181,16 +179,20 @@ export const toPDF = (rows, columns, title, view = "p") => {
       halign: "center",
       fontStyle: "normal", // normal, bold, italic, bolditalic
     },
- 
-  
+
     didDrawPage: (data) => {
       if (doc.internal.getNumberOfPages() === 1) {
         doc.setFontSize(12);
         view === "p"
-          ? doc.text(title  , 350, 30, "right")
-          : doc.text( title, 550, 30, "right");
+          ? doc.text(title, 350, 30, "right")
+          : doc.text(title, 550, 30, "right");
 
-          doc.text(`${dateTimeNow}`, doc.internal.pageSize.width - 100, 30, "right" );
+        doc.text(
+          `${dateTimeNow}`,
+          doc.internal.pageSize.width - 100,
+          30,
+          "right"
+        );
       }
 
       let footerStr = "Page " + doc.internal.getNumberOfPages();

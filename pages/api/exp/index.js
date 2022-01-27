@@ -1,8 +1,10 @@
 import dbConnect, { toCurrency } from "../../../utils/dbConnect";
 import Exp from "../../../models/Exp";
 import moment from "moment";
+import handlers from "../../../lib/midWare";
 
 export default async function handler(req, res) {
+  await handlers(req, res);
   const { method } = req;
 
   await dbConnect();

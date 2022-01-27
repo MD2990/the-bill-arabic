@@ -1,8 +1,9 @@
 import dbConnect from '../../../utils/dbConnect';
 import Emp from '../../../models/Emp';
 import Sal from "../../../models/Sal";
-
+import handlers from "../../../lib/midWare";
 export default async function handler(req, res) {
+  await handlers(req, res);
   const {
     query: { id },
     method,

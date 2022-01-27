@@ -1,8 +1,10 @@
 import dbConnect, { getSumToNum, toCurrency } from "../../../utils/dbConnect";
 import Sal from "../../../models/Sal";
 import moment from "moment";
+import handlers from "../../../lib/midWare";
 
 export default async function handler(req, res) {
+  await handlers(req, res);
   const { method } = req;
 
   await dbConnect();
@@ -12,7 +14,7 @@ export default async function handler(req, res) {
       try {
         const sal = await Sal.find({}); /* find all the data in our database */
         res.status(200).json({
-          sal: sal.sort((a, b) => (a.salary_date  < b.salary_date ? 1 : -1)),
+          sal: sal.sort((a, b) => (a.salary_date < b.salary_date ? 1 : -1)),
         });
       } catch (error) {
         res.status(400).json({ success: false });
@@ -26,7 +28,6 @@ export default async function handler(req, res) {
           req.body.loans
         );
 
-       
         req.body.salary_date = moment(req.body.salary_date).format(
           "YYYY-MM-DD"
         );

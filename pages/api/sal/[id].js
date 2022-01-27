@@ -1,8 +1,10 @@
 import dbConnect, { getSumToNum, toCurrency } from "../../../utils/dbConnect";
 import Sal from "../../../models/Sal";
 import moment from "moment";
+import handlers from "../../../lib/midWare";
 
 export default async function handler(req, res) {
+  await handlers(req, res);
   const {
     query: { id },
     method,
