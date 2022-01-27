@@ -113,7 +113,7 @@ export default function Main() {
         <CustomCol path="/showEmpPage" text={"عرض بيانات الموظفين"}>
           <FcCollaboration />
         </CustomCol>
-        <CustomCol path="/showAllSal" text={"عرض جميع الرواتب"}>
+        <CustomCol path="/showAllSalPage" text={"عرض جميع الرواتب"}>
           <FcDonate />
         </CustomCol>
       </Wrap>

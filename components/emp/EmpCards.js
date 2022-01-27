@@ -28,11 +28,7 @@ export default function EmpTable() {
 
   if (!snap.emp) return <MySkeletons />;
 
-  const data = () => {
-    return rs().map(({ _id, emp_name, added_date }) => {
-      return { _id, emp_name, added_date };
-    });
-  };
+  
 
   return (
     /*   {rs().map(
@@ -85,13 +81,8 @@ export default function EmpTable() {
         }
       )}
  */
-    <MyTable data={data} emp tableTitle="بيانات الموظفين">
-      <Td onClick={() => deleteFunction(_id)} cursor={"pointer"}>
-        <DeleteIcon color={"red.300"} />{" "}
-      </Td>{" "}
-      <Td onClick={() => deleteFunction(_id)} cursor={"pointer"}>
-        <DeleteIcon color={"red.300"} />{" "}
-      </Td>
-    </MyTable>
+    <MyTable data={rs} emp tableTitle="بيانات الموظفين"/>
+
+
   );
 }

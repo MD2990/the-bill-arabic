@@ -49,7 +49,7 @@ export default function AddEmp() {
                 p="8"
                 color={colors.empLight}
               >
-                <CustomField fieldName="emp_name" labelName="اسم العامل" />
+                <CustomField fieldName="emp_name" labelName="اسم الموظف" />
                 <CustomField fieldName="job" labelName="المهنة" />
                 <CustomField fieldName="civil_id" labelName="الرقم المدني" />
                 <CustomField

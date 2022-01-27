@@ -12,7 +12,7 @@ import {
   Wrap,
   WrapItem,
   IconButton,
-  color,
+  
 } from "@chakra-ui/react";
 import state from "../stor";
 import { FaMoneyBillWave } from "react-icons/fa";
@@ -22,10 +22,12 @@ import { handleDelete } from "../utils/dbConnect";
 import { useRouter } from "next/router";
 import { colors } from "../lib/constants";
 
-export function MyTable({ data, tableTitle, emp, allSal }) {
+export function MyTable({ data, tableTitle, emp, allSal, sal }) {
+  const router = useRouter();
   const [arrowIcon, setArrowIcon] = useState("");
   const [dec, setDec] = useState(false);
   const ArrowIcon = dec ? "▼" : "▲";
+  const snap = useSnapshot(state);
   const sortArray = ({ array, key, isTrue }) => {
     return array.sort((a, b) => {
       key = key.toLowerCase().trim();
@@ -36,80 +38,137 @@ export function MyTable({ data, tableTitle, emp, allSal }) {
     });
   };
 
-  const snap = useSnapshot(state);
-  const salCount = (_id) =>
-    snap.allSal.filter(({ emp_id }) => emp_id === _id).length;
+  const salaryCount = ({ arr, _id, key }) =>
+    arr.filter((e) => e[key] === _id).length;
 
-  const EmpTableData = ({ data }) => {
-    const router = useRouter();
-    return (
-      <>
-        {data().map(({ _id, emp_name, added_date }) => {
-          const deleteFunction = async () => {
-            await handleFormDelete({
-              deleteUrl: "emp",
-              id: _id,
+  const EmpTable = () => (
+    <>
+      <Thead>
+        <Tr>
+          <Th
+            cursor={"pointer"}
+            onClick={() => {
+              setDec(!dec);
 
-              handleDelete,
+              sortArray({
+                array: state.searchResults,
+                key: "emp_name",
+                isTrue: dec,
+              });
+            }}
+          >
+            الإسم {arrowIcon === "emp_name" ? ArrowIcon : ""}
+          </Th>
 
-              secondDelete: () =>
-                (state.emp = snap.emp.filter((item) => item._id !== _id)),
-            });
-          };
-          return (
-            <Tr key={_id}>
-              <Td>{added_date}</Td>
-              <Td
-                onClick={() => router.push(`/${_id}/empEdit`)}
-                cursor={"pointer"}
-              >
-                <EditIcon color={"green.600"} />
-              </Td>
-              <Td onClick={deleteFunction} cursor={"pointer"}>
-                <DeleteIcon color={"red.300"} />
-              </Td>
+          <Th>الوظيفة</Th>
+          <Th>رقم البطاقة </Th>
+          <Th> رقم الجواز </Th>
+          <Th>تاريخ الإضافة</Th>
 
-              <Td>
-                <IconButton
-                  variant="unstyled"
-                  aria-label="Show Salaries"
-                  icon={<FaMoneyBillWave />}
-                  color={`${colors.empDark.substring(
-                    colors.empDark.length - 4,
-                    0
-                  )}`}
-                  size="1.8rem"
-                  onClick={() => {
-                    router.push(`/${_id}/showSalPage`);
-                    setItem("emp", emp_name);
-                  }}
-                />
-              </Td>
-              <Td>
-                <IconButton
-                  variant="unstyled"
-                  aria-label="Add Salary"
-                  icon={<AddIcon />}
-                  color={`${colors.empDark.substring(
-                    colors.empDark.length - 4,
-                    0
-                  )}`}
-                  size="1.5rem"
-                  onClick={() => {
-                    router.push(`/${_id}/addSalaryPage`);
-                    setItem("emp", emp_name);
-                  }}
-                />
-              </Td>
-              <Td>{salCount(_id)}</Td>
-            </Tr>
-          );
-        })}
-      </>
-    );
-  };
+          <Th
+            cursor={"pointer"}
+            onClick={() => {
+              setDec(!dec);
 
-  const EmpTableRows = () => (
+              sortArray({
+                array: state.searchResults,
+                key: "empl_date",
+                isTrue: dec,
+              });
+            }}
+          >
+            تاريخ التوظيف
+            {arrowIcon === "empl_date" ? ArrowIcon : ""}
+          </Th>
+
+          <Th>الرواتب</Th>
+          <Th>حذف</Th>
+          <Th>عرض الرواتب</Th>
+          <Th>إضافة راتب</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+        {data().map(
+          ({
+            _id,
+            emp_name,
+            empl_date,
+            job,
+            civil_id,
+            passport_number,
+            added_date,
+          }) => {
+            const deleteFunction = async () => {
+              await handleFormDelete({
+                deleteUrl: "emp",
+                id: _id,
+
+                handleDelete,
+
+                secondDelete: () =>
+                  (state.emp = snap.emp.filter((item) => item._id !== _id)),
+              });
+            };
+            return (
+              <Tr key={_id}>
+                <Td
+                  cursor={"pointer"}
+                  _hover={{ color: "red", textDecoration: "underline" }}
+                  onClick={() => router.push(`/${_id}/empEdit`)}
+                >
+                  {emp_name}
+                </Td>
+
+                <Td>{job}</Td>
+                <Td>{civil_id}</Td>
+                <Td>{passport_number}</Td>
+                <Td>{added_date}</Td>
+                <Td>{empl_date}</Td>
+                  <Td>{salaryCount({ arr: snap.sal, _id, key: "emp_id" })}</Td>
+                <Td onClick={deleteFunction} cursor={"pointer"}>
+                  <DeleteIcon color={"red.300"} />
+                </Td>
+                <Td>
+                  <IconButton
+                    variant="unstyled"
+                    aria-label="Show Salaries"
+                    icon={<FaMoneyBillWave />}
+                    color={`${colors.empDark.substring(
+                      colors.empDark.length - 4,
+                      0
+                    )}`}
+                    size="1.8rem"
+                    onClick={() => {
+                      router.push(`/${_id}/showSalPage`);
+                      setItem("emp", emp_name);
+                    }}
+                  />
+                </Td>
+                <Td>
+                  <IconButton
+                    variant="unstyled"
+                    aria-label="Add Salary"
+                    icon={<AddIcon />}
+                    color={`${colors.empDark.substring(
+                      colors.empDark.length - 4,
+                      0
+                    )}`}
+                    size="1.5rem"
+                    onClick={() => {
+                      router.push(`/${_id}/addSalaryPage`);
+                      setItem("emp", emp_name);
+                    }}
+                  />
+                </Td>
+              </Tr>
+            );
+          }
+        )}
+      </Tbody>
+    </>
+  );
+
+  const AllSalTable = () => (
     <>
       <Thead>
         <Tr>
@@ -135,32 +194,22 @@ export function MyTable({ data, tableTitle, emp, allSal }) {
 
               sortArray({
                 array: state.searchResults,
-                key: "added_date",
+                key: "salary_date",
                 isTrue: dec,
               });
             }}
           >
             تاريخ الإستلام
-            {arrowIcon === "added_date" ? ArrowIcon : ""}
+            {arrowIcon === "salary_date" ? ArrowIcon : ""}
           </Th>
 
-          <Th>تعديل /عرض</Th>
+          <Th>تعديل</Th>
           <Th>حذف</Th>
-          <Th>عرض الرواتب</Th>
-          <Th>إضافة راتب</Th>
-          <Th>الرواتب</Th>
+          <Th>عرض </Th>
+          <Th>إضافة </Th>
         </Tr>
       </Thead>
       <Tbody>
-        <EmpTableData data={data} />
-      </Tbody>
-    </>
-  );
-
-  const AllSalTableData = ({ data }) => {
-    const router = useRouter();
-    return (
-      <>
         {data().map(({ _id, emp_name, salary_date, emp_id }) => {
           const deleteFunction = async () => {
             await handleFormDelete({
@@ -222,29 +271,14 @@ export function MyTable({ data, tableTitle, emp, allSal }) {
             </Tr>
           );
         })}
-      </>
-    );
-  };
+      </Tbody>
+    </>
+  );
 
-  const AllSalTableRows = () => (
+  const SalTable = () => (
     <>
       <Thead>
         <Tr>
-          <Th
-            cursor={"pointer"}
-            onClick={() => {
-              setDec(!dec);
-
-              sortArray({
-                array: state.searchResults,
-                key: "emp_name",
-                isTrue: dec,
-              });
-            }}
-          >
-            الإسم {arrowIcon === "emp_name" ? ArrowIcon : ""}
-          </Th>
-
           <Th
             cursor={"pointer"}
             onClick={() => {
@@ -261,14 +295,58 @@ export function MyTable({ data, tableTitle, emp, allSal }) {
             {arrowIcon === "salary_date" ? ArrowIcon : ""}
           </Th>
 
+          <Th>الراتب الأساسي</Th>
+          <Th>العلاوات</Th>
+          <Th>الخصميات</Th>
+
+          <Th>إجمالي الراتب</Th>
+
           <Th>تعديل</Th>
           <Th>حذف</Th>
-          <Th>عرض </Th>
-          <Th>إضافة </Th>
         </Tr>
       </Thead>
       <Tbody>
-        <AllSalTableData data={data} />
+        {data().map(
+          ({
+            _id,
+            emp_name,
+            salary_date,
+            basic_salary,
+            bonus,
+            loans,
+            total_salary,
+          }) => {
+            const deleteFunction = async () => {
+              await handleFormDelete({
+                deleteUrl: "sal",
+                id: _id,
+
+                handleDelete,
+
+                secondDelete: () =>
+                  (state.sal = snap.sal.filter((item) => item._id !== _id)),
+              });
+            };
+            return (
+              <Tr key={_id}>
+                <Td>{salary_date}</Td>
+                <Td>{basic_salary}</Td>
+                <Td>{bonus}</Td>
+                <Td>{loans}</Td>
+                <Td>{total_salary}</Td>
+                <Td
+                  onClick={() => router.push(`/${_id}/salEdit`)}
+                  cursor={"pointer"}
+                >
+                  <EditIcon color={"green.600"} />
+                </Td>
+                <Td onClick={deleteFunction} cursor={"pointer"}>
+                  <DeleteIcon color={"red.300"} />
+                </Td>
+              </Tr>
+            );
+          }
+        )}
       </Tbody>
     </>
   );
@@ -276,7 +354,7 @@ export function MyTable({ data, tableTitle, emp, allSal }) {
   return (
     <Wrap justify={"center"}>
       <WrapItem>
-        <Table variant="striped" colorScheme="teal">
+        <Table variant="striped" colorScheme="teal" size={ emp && 'sm'} >  
           <TableCaption
             userSelect={"none"}
             placement="top"
@@ -285,8 +363,9 @@ export function MyTable({ data, tableTitle, emp, allSal }) {
             {tableTitle}
           </TableCaption>
 
-          {emp && <EmpTableRows />}
-          {allSal && <AllSalTableRows />}
+          {emp && <EmpTable />}
+          {allSal && <AllSalTable />}
+          {sal && <SalTable />}
         </Table>
       </WrapItem>
     </Wrap>

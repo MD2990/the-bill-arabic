@@ -20,6 +20,7 @@ export const SalButtons = () => {
   const clear = () => {
     state.searchTerm = "";
     state.title = " رواتب الموظف";
+   state.searchResults = snap.sal;
   };
 
   function printPdf() {

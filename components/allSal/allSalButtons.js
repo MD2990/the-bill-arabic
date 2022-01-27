@@ -18,7 +18,7 @@ export const SalButtons = () => {
   const clear = () => {
     state.searchTerm = "";
     state.isFiltered = false;
-  
+   state.searchResults = snap.allSal;
     state.title = " جميع الرواتب";
   };
 

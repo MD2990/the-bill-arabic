@@ -21,6 +21,7 @@ export const BillButtons = () => {
   const clear = () => {
     state.searchTerm = "";
     state.title = "  الفواتير";
+      state.searchResults = snap.bill;
   };
 
   function printPdf() {

@@ -16,7 +16,7 @@ export default function BillCards() {
   const snap = useSnapshot(state);
 
   const rs = useCallback(
-    () => state.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
+    () => snap.searchResults.slice(snap.offset, snap.offset + snap.PER_PAGE),
     [snap.PER_PAGE, snap.offset, snap.searchResults]
   );
 
