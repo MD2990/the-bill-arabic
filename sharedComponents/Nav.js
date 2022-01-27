@@ -21,6 +21,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   AddIcon,
+  ExternalLinkIcon,
 } from "@chakra-ui/icons";
 import { FaCar } from "react-icons/fa";
 
@@ -28,8 +29,8 @@ export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
-      <Flex minH={"80px"} p={[2, 4, 8, 10]} align={"center"}>
+    <Box  > 
+      <Flex minH={"80px"} p={[2, 4, 8, 10]} align={"center"} >
         <Flex
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
@@ -67,6 +68,7 @@ export default function WithSubnavigation() {
         </Flex>
 
         <Stack
+        
           flex={{ base: 1, md: 0 }}
           justify={"flex-end"}
           direction={"row"}
@@ -119,6 +121,7 @@ const DesktopNav = () => {
           <Popover id={navItem.label} trigger={"hover"} placement={"top-end"}>
             <PopoverTrigger>
               <LN
+                cursor={!navItem.children ?"pointer":"default"}
                 p={2}
                 href={navItem.href ?? "#"}
                 fontSize={["md", "lg", "xl", "2xl"]}
@@ -171,10 +174,10 @@ const DesktopSubNav = ({ label, href, children }) => {
       rounded={"md"}
       _hover={{ bg: "blue.50" }}
     >
-      <Link href={href} passHref>
-        <Stack direction={"row"} align={"center"}>
+      <Link href={href} passHref >
+        <Stack  direction={"row"} align={"center"}>
           {children}
-          <Box>
+          <Box >
             <Text
               transition={"all .3s ease"}
               _groupHover={{ color: "blue.600" }}
@@ -202,8 +205,8 @@ const DesktopSubNav = ({ label, href, children }) => {
 
 const MobileNav = () => {
   return (
-    <Stack p={4} display={{ md: "none" }}>
-      {NAV_ITEMS.map((navItem) => (
+    <Stack p={4} display={{ md: "none" }}  >
+      {NAV_ITEMS.map((navItem ) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
     </Stack>
@@ -216,6 +219,7 @@ const MobileNavItem = ({ label, children, href }) => {
   return (
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
+        cursor={children ? "default" : "pointer"}
         py={2}
         as={LN}
         href={href ?? "#"}
@@ -223,6 +227,11 @@ const MobileNavItem = ({ label, children, href }) => {
         align={"center"}
         _hover={{
           textDecoration: "none",
+           transition:"all .3s  ease",
+              transform:"translateX(12px)",
+              bg:'blue.50',
+              borderRadius:'md',
+              px:2,
         }}
       >
         <Text
@@ -266,35 +275,47 @@ const MobileNavItem = ({ label, children, href }) => {
 const NAV_ITEMS = [
   {
     label: "الفواتير",
-    href: "/showBillPage",
     children: [
       {
         label: "إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
         href: "/addNewBillPage",
       },
+      {
+        label: "عرض",
+        href: "/showBillPage",
+        icon: <ExternalLinkIcon color="blue.300" w="5" h="5" />,
+      },
     ],
   },
 
   {
     label: "المصاريف",
-    href: "/showExpPage",
     children: [
       {
         label: "إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
         href: "/addNewExpPage",
       },
+      {
+        label: "عرض",
+        href: "/showExpPage",
+        icon: <ExternalLinkIcon color="blue.300" w="5" h="5" />,
+      },
     ],
   },
   {
     label: "الموظفين",
-    href: "/showEmpPage",
     children: [
       {
         label: "إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
         href: "/addNewEmpPage",
+      },
+      {
+        label: "عرض",
+        href: "/showEmpPage",
+        icon: <ExternalLinkIcon color="blue.300" w="5" h="5" />,
       },
     ],
   },
