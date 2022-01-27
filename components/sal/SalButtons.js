@@ -60,8 +60,8 @@ export const SalButtons = () => {
     return toPDF(
       rows,
       columns,
-      `Quantity:  ${rows.length}          Emp.Name: ${
-        snap.sal[0]?.emp_name.toUpperCase() || getItem("emp").toUpperCase()
+      `Quantity: ${rows.length}          ${snap.title} ${
+        snap.sal[0]?.emp_name || getItem("emp")
       } `
     );
   }

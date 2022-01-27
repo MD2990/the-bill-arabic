@@ -21,7 +21,6 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   AddIcon,
-  ExternalLinkIcon,
 } from "@chakra-ui/icons";
 import { FaCar } from "react-icons/fa";
 
@@ -267,47 +266,35 @@ const MobileNavItem = ({ label, children, href }) => {
 const NAV_ITEMS = [
   {
     label: "الفواتير",
+    href: "/showBillPage",
     children: [
       {
         label: "إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
         href: "/addNewBillPage",
       },
-      {
-        label: "عرض",
-        href: "/showBillPage",
-        icon: <ExternalLinkIcon color="blue.300" w="5" h="5" />,
-      },
     ],
   },
 
   {
     label: "المصاريف",
+    href: "/showExpPage",
     children: [
       {
         label: "إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
         href: "/addNewExpPage",
       },
-      {
-        label: "عرض",
-        href: "/showExpPage",
-        icon: <ExternalLinkIcon color="blue.300" w="5" h="5" />,
-      },
     ],
   },
   {
     label: "الموظفين",
+    href: "/showEmpPage",
     children: [
       {
         label: "إضافة ",
         icon: <AddIcon color="blue.300" w="5" h="5" />,
         href: "/addNewEmpPage",
-      },
-      {
-        label: "عرض",
-        href: "/showEmpPage",
-        icon: <ExternalLinkIcon color="blue.300" w="5" h="5" />,
       },
     ],
   },
