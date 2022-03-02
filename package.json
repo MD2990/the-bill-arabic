@@ -8,17 +8,18 @@
     "export": "yarn run build && next export",
     "prod:build": "NODE_ENV=production yarn run build",
     "pm2-next": "pm2 start next start -p 5000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "upg": "yarn upgrade-interactive --latest"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.7.4",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "currency.js": "^2.0.4",
     "formik": "^2.2.9",
-    "framer-motion": "^5.6.0",
+    "framer-motion": "^6.2.8",
     "jspdf": "^2.5.0",
     "jspdf-autotable": "^3.5.23",
     "moment": "^2.29.1",
