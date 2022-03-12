@@ -29,8 +29,8 @@ export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box  > 
-      <Flex minH={"80px"} p={[2, 4, 8, 10]} align={"center"} >
+    <Box>
+      <Flex minH={"80px"} p={[2, 4, 8, 10]} align={"center"}>
         <Flex
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
@@ -50,17 +50,18 @@ export default function WithSubnavigation() {
           justify={{ base: "center", md: "center" }}
           className="btn"
         >
-          <Text
+          <Box
+          py={[2, 3, 4, 5]}
+            fontSize={["3xl", "5xl", "7xl", "8xl", "9xl"]}
             className="rotate"
-            textAlign={useBreakpointValue({ base: "center", md: "center" })}
             color="blue.600"
           >
             <Link href="/">
               <a>
-                <FaCar size="6.5rem" />
+                <FaCar />
               </a>
             </Link>
-          </Text>
+          </Box>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
@@ -68,7 +69,6 @@ export default function WithSubnavigation() {
         </Flex>
 
         <Stack
-        
           flex={{ base: 1, md: 0 }}
           justify={"flex-end"}
           direction={"row"}
@@ -121,10 +121,10 @@ const DesktopNav = () => {
           <Popover id={navItem.label} trigger={"hover"} placement={"top-end"}>
             <PopoverTrigger>
               <LN
-                cursor={!navItem.children ?"pointer":"default"}
+                cursor={!navItem.children ? "pointer" : "default"}
                 p={2}
                 href={navItem.href ?? "#"}
-                fontSize={["md", "lg", "xl", "2xl"]}
+                fontSize={["md", "lg", "2xl", "4xl"]}
                 fontWeight={700}
                 color="blue.700"
                 _hover={{
@@ -174,10 +174,10 @@ const DesktopSubNav = ({ label, href, children }) => {
       rounded={"md"}
       _hover={{ bg: "blue.50" }}
     >
-      <Link href={href} passHref >
-        <Stack  direction={"row"} align={"center"}>
+      <Link href={href} passHref>
+        <Stack direction={"row"} align={"center"}>
           {children}
-          <Box >
+          <Box>
             <Text
               transition={"all .3s ease"}
               _groupHover={{ color: "blue.600" }}
@@ -205,8 +205,8 @@ const DesktopSubNav = ({ label, href, children }) => {
 
 const MobileNav = () => {
   return (
-    <Stack p={4} display={{ md: "none" }}  >
-      {NAV_ITEMS.map((navItem ) => (
+    <Stack p={4} display={{ md: "none" }}>
+      {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
     </Stack>
@@ -227,11 +227,11 @@ const MobileNavItem = ({ label, children, href }) => {
         align={"center"}
         _hover={{
           textDecoration: "none",
-           transition:"all .3s  ease",
-              transform:"translateX(12px)",
-              bg:'blue.50',
-              borderRadius:'md',
-              px:2,
+          transition: "all .3s  ease",
+          transform: "translateX(12px)",
+          bg: "blue.50",
+          borderRadius: "md",
+          px: 2,
         }}
       >
         <Text

@@ -9,50 +9,45 @@ import {
   FcKindle,
 } from "react-icons/fc";
 
-import {
-  Center,
-  Divider,
-  Text,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Box, Center, Divider, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import React from "react";
 
- function CustomCol({ path, children, text, size = "8em" }) {
+function CustomCol({ path, children, text }) {
   return (
     <WrapItem
       className="main"
-      size={size}
       shadow="inner"
       textShadow="0px 0px 15px gray"
       rounded="2xl"
       p="2"
       color={"teal.600"}
     >
-      <Link href={path}>
-        <a className="text-center">
-          {React.cloneElement(children, { size })}
-          <Text
-            fontWeight="black"
-            fontSize={[10, 15, 20, 25]}
-            textAlign="center"
-          >
-            {text}
-          </Text>
-        </a>
-      </Link>
+      <Box fontSize={["2rem", "4rem", "7rem", "9rem"]}>
+        <Link href={path}>
+          <a className="text-center">
+            {React.cloneElement(children)}
+
+            <Text
+              fontSize={[10, 15, 20, 25]}
+              fontWeight="black"
+              textAlign="center"
+            >
+              {text}
+            </Text>
+          </a>
+        </Link>
+      </Box>
     </WrapItem>
   );
 }
 
-
 const TheTitle = ({ text }) => (
   <WrapItem>
     <Text
-    userSelect={'none'}
-   
+      textAlign={"right"}
+      userSelect={"none"}
       className="rotate"
-      pr={[2, 3, 4, 5]}
+      p={[2, 3, 4, 5]}
       alignSelf={"center"}
       fontSize={["md", "lg", "3xl", "5xl"]}
       fontWeight="extrabold"
@@ -68,9 +63,8 @@ export default function Main() {
     <>
       <Center p="4" m="4">
         <Text
-        className="blob"
+          className="blob"
           userSelect={"none"}
-          
           borderRadius="40"
           p={[1, 2, 3]}
           fontSize={["md", "lg", "3xl", "5xl"]}
