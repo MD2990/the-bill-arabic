@@ -1,17 +1,17 @@
-import { useRouter } from 'next/router';
-import React from 'react';
-import { dbConnect, jsonify } from '../../utils/dbConnect';
-import Sal from '../../models/Sal';
-import Edit_Delete_Sal from '../../components/sal/Edit_Delete_Sal';
-import { Hd } from '../../components/comUtil/ComUtil';
+import { useRouter } from "next/router";
+import React from "react";
+import { dbConnect, jsonify } from "../../utils/dbConnect";
+import Sal from "../../models/Sal";
+import Edit_Delete_Sal from "../../components/sal/Edit_Delete_Sal";
+import { Hd } from "../../components/comUtil/ComUtil";
 import { convertToNumber } from "../../lib/funcs";
 import moment from "moment";
-import MySkeletons from '../../sharedComponents/MySkeletons';
+import MySkeletons from "../../sharedComponents/MySkeletons";
 
-const EmpEdit = ({ sal }) => {
+export default function EmpEdit({ sal }) {
   const router = useRouter();
 
-  if (router.isFallback) {
+  if (router.isFallback || !sal) {
     return <MySkeletons />;
   }
 
@@ -21,10 +21,10 @@ const EmpEdit = ({ sal }) => {
       <Edit_Delete_Sal sal={sal} />
     </>
   );
-};
+}
 
 // This function gets called at build time
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
   dbConnect();
   const data = await Sal.findById(params.id);
 
@@ -47,8 +47,21 @@ export async function getServerSideProps({ params }) {
     props: {
       sal,
     },
-    //revalidate: 1,
+    revalidate: 1,
   };
 }
 
-export default EmpEdit;
+export async function getStaticPaths() {
+  dbConnect();
+  const data = await Sal.find({});
+
+  const sal = await jsonify(data);
+
+  // Get the paths we want to pre-render based on posts
+  const paths = sal.map((c) => ({
+    params: { id: c._id },
+  }));
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: true };
+}

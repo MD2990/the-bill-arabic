@@ -7,7 +7,7 @@ import { getItem } from '../../lib/funcs';
 import MySkeletons from '../../sharedComponents/MySkeletons';
  
 //Here we need {sal} to add a salary for specific employee
-const AddSalaryPage = () => {
+export default function AddSalaryPage () {
   const router = useRouter();
   const empName= getItem( 'emp');
 
@@ -25,4 +25,4 @@ const AddSalaryPage = () => {
 
 
 
-export default AddSalaryPage;
+

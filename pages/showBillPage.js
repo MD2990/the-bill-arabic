@@ -22,13 +22,13 @@ export default function ShowBillPage({ bills }) {
 
   if (!bills) return <MySkeletons />;
 
-  if (!snap.bill) {
+  if (!state.bill) {
     return (
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
   }
 
-  if (snap.bill?.length < 1)
+  if (state.bill?.length < 1)
     return (
       <>
         <Hd title=" الفواتير" />
@@ -56,7 +56,7 @@ export default function ShowBillPage({ bills }) {
     </>
   );
 }
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   await dbConnect();
   const data = await Bill.find({});
   if (!data) {
@@ -73,5 +73,6 @@ export const getServerSideProps = async () => {
     props: {
       bills,
     },
+    revalidate: 1,
   };
 };

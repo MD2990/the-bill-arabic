@@ -49,12 +49,12 @@ export default function ShowSalPage({ allSal }) {
   return (
     <>
       <Hd title={`عرض جميع الرواتب`} />
-      <ShowAllSal sal={allSal}/>
+      <ShowAllSal sal={allSal} />
     </>
   );
 }
 // This function gets called at build time
-export async function getServerSideProps() {
+export async function getStaticProps() {
   dbConnect();
   const data = await Sal.find({});
 
@@ -72,5 +72,6 @@ export async function getServerSideProps() {
     props: {
       allSal,
     },
+    revalidate: 1,
   };
 }

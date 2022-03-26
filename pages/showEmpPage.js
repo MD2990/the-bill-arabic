@@ -25,9 +25,9 @@ export default function ShowEmpPage({ emp, sal }) {
     return (
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
-  if (!snap.emp) return <MySkeletons />;
+  if (!state.emp) return <MySkeletons />;
 
-  if (snap.emp?.length < 1)
+  if (state.emp?.length < 1)
     return (
       <>
         <Title
@@ -55,7 +55,7 @@ export default function ShowEmpPage({ emp, sal }) {
     </>
   );
 }
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   await dbConnect();
   const data = await Emp.find({});
   const data2 = await Sal.find({});
@@ -75,5 +75,6 @@ export const getServerSideProps = async () => {
       emp,
       sal,
     },
+    revalidate: 1,
   };
 };

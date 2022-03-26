@@ -23,17 +23,14 @@ export default function ShowSalPage({ sal }) {
     state.sal = sal.sort((a, b) => (a.salary_date < b.salary_date ? 1 : -1));
   }, [sal]);
 
-  if (router.isFallback) {
+  if (router.isFallback || !sal) {
     return <MySkeletons />;
   }
 
-  if (!sal)
-    return (
-      <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
-    );
-  if (!snap.sal) return <MySkeletons />;
 
-  if (snap.sal.length < 1)
+  
+
+  if (state.sal.length < 1)
     return (
       <>
         <Stack ml="5%" align={"flex-end"}>
@@ -68,7 +65,7 @@ export default function ShowSalPage({ sal }) {
   );
 }
 // This function gets called at build time
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
   dbConnect();
   const data = await Sal.find({ emp_id: params.id });
 
@@ -87,4 +84,18 @@ export async function getServerSideProps({ params }) {
       sal,
     },
   };
+}
+export async function getStaticPaths() {
+  dbConnect();
+  const data = await Sal.find({});
+
+  const sal = await jsonify(data);
+
+  // Get the paths we want to pre-render based on posts
+  const paths = sal.map((c) => ({
+    params: { id: c._id },
+  }));
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: true };
 }

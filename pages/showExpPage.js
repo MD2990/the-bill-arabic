@@ -24,9 +24,9 @@ export default function ShowExpPage({ exp }) {
       <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
     );
 
-  if (!snap.exp) return <MySkeletons />;
+  if (!state.exp) return <MySkeletons />;
 
-  if (snap.exp?.length < 1)
+  if (state.exp?.length < 1)
     return (
       <>
         <Hd title=" المصروفات" />
@@ -56,7 +56,7 @@ export default function ShowExpPage({ exp }) {
     </>
   );
 }
-export async function getServerSideProps() {
+export async function getStaticProps() {
   await dbConnect();
   const data = await Exp.find({});
   if (!data) {
@@ -73,5 +73,6 @@ export async function getServerSideProps() {
     props: {
       exp,
     },
+    revalidate: 1,
   };
 }

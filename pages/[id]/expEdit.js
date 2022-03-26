@@ -2,19 +2,15 @@ import { useRouter } from "next/router";
 import React from "react";
 import { dbConnect, jsonify } from "../../utils/dbConnect";
 import Edit_Delete_Exp from "../../components/exp/Edit_Delete_Exp";
-import { Hd, } from "../../components/comUtil/ComUtil";
+import { Hd } from "../../components/comUtil/ComUtil";
 import Exp from "../../models/Exp";
-import {
-  convertToNumber,
-  cutString,
-
-} from "../../lib/funcs";
+import { convertToNumber, cutString } from "../../lib/funcs";
 import MySkeletons from "../../sharedComponents/MySkeletons";
 
-const EditExp = ({ exp }) => {
+export default function EditExp({ exp }) {
   const router = useRouter();
 
-  if (router.isFallback) {
+  if (router.isFallback || !exp) {
     return <MySkeletons />;
   }
 
@@ -24,10 +20,10 @@ const EditExp = ({ exp }) => {
       <Edit_Delete_Exp exp={exp} />
     </>
   );
-};
+}
 
 // This function gets called at build time
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
   dbConnect();
 
   const data = await Exp.findById(params.id);
@@ -39,18 +35,15 @@ export async function getServerSideProps({ params }) {
       },
     };
   }
-	const exp = await jsonify(data);
-	
+  const exp = await jsonify(data);
 
   // remove all non-numeric characters except for decimal point
 
   exp.elc = convertToNumber(exp.elc);
-   exp.rent = convertToNumber(exp.rent);
+  exp.rent = convertToNumber(exp.rent);
   exp.g_exp = convertToNumber(exp.g_exp);
   exp.workPrice = convertToNumber(exp.workPrice);
-  exp.other_exp =   convertToNumber(exp.other_exp);
-
-
+  exp.other_exp = convertToNumber(exp.other_exp);
 
   return {
     props: {
@@ -59,4 +52,17 @@ export async function getServerSideProps({ params }) {
   };
 }
 
-export default EditExp;
+export async function getStaticPaths() {
+  dbConnect();
+  const data = await Exp.find({});
+
+  const exp = await jsonify(data);
+
+  // Get the paths we want to pre-render based on posts
+  const paths = exp.map((c) => ({
+    params: { id: c._id },
+  }));
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: true };
+}
