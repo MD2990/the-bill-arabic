@@ -1,18 +1,11 @@
-import { Box, Td, Wrap } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import { useSnapshot } from "valtio";
-import { Title } from "../comUtil/ComUtil";
 import MySkeletons from "../../sharedComponents/MySkeletons";
-import { handleDelete } from "../../utils/dbConnect";
 
 import state from "../../stor";
-import SingleCard, { AllText } from "../../sharedComponents/SingleCard";
-import { cutString, handleFormDelete } from "../../lib/funcs";
-import { colors } from "../../lib/constants";
 import { MyTable } from "../../sharedComponents/MyTable";
-import { DeleteIcon } from "@chakra-ui/icons";
 
 export default function EmpTable() {
   const snap = useSnapshot(state);
@@ -28,61 +21,5 @@ export default function EmpTable() {
 
   if (!snap.emp) return <MySkeletons />;
 
-  
-
-  return (
-    /*   {rs().map(
-        ({
-          _id,
-          emp_name,
-          job,
-          civil_id,
-          passport_number,
-          empl_date,
-          added_date,
-          remarks,
-        }) => {
-          return (
-            <Wrap key={_id} justify="center" spacing="4">
-              <SingleCard
-                color={"green.100"}
-                HD_color={colors.empLight}
-                _id={_id}
-                showSalary
-                addSalary
-                salCount={
-                  snap.sal.filter(({ emp_id }) => emp_id === _id).length
-                }
-                link={`/${_id}/empEdit`}
-                header={emp_name?.toUpperCase()}
-                deleteFunction={async () => {
-                  await handleFormDelete({
-                    deleteUrl: "emp",
-                    id: _id,
-
-                    handleDelete,
-
-                    secondDelete: () =>
-                      (state.emp = snap.emp.filter((item) => item._id !== _id)),
-                  });
-                }}
-              >
-                <Box color={colors.empDark}>
-                  <AllText title=" الوظيفة:" data={job} />
-                  <AllText title=" رقم البطاقة:" data={civil_id} />
-                  <AllText title=" تاريخ الاضافة:" data={added_date} />
-                  <AllText title=" رقم الجواز :" data={passport_number} />
-                  <AllText title=" تاريخ التوظيف:" data={empl_date} />
-                  <AllText title=" الملاحظات:" data={remarks} />
-                </Box>
-              </SingleCard>
-            </Wrap>
-          );
-        }
-      )}
- */
-    <MyTable data={rs} emp tableTitle="بيانات الموظفين"/>
-
-
-  );
+  return <MyTable data={rs} emp tableTitle="بيانات الموظفين" />;
 }
