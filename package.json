@@ -2,7 +2,7 @@
 	"name": "the-bill-arabic",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start -p 5000",
 		"export": "yarn run build && next export",
