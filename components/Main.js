@@ -1,4 +1,13 @@
-import { Box, Center, Flex, HStack, Separator, Text } from "@chakra-ui/react";
+import {
+	Box,
+	Center,
+	Flex,
+	HStack,
+	Separator,
+	Stack,
+	Text,
+	VStack,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 import {
@@ -13,8 +22,8 @@ import {
 
 function CustomCol({ path, children, text }) {
 	return (
-		<HStack
-			wrap={"wrap"}
+		<Box
+			fontSize={["2rem", "4rem", "7rem", "9rem"]}
 			className="main"
 			shadow="inner"
 			textShadow="0px 0px 15px gray"
@@ -22,20 +31,14 @@ function CustomCol({ path, children, text }) {
 			p="2"
 			color={"teal.600"}
 		>
-			<Box fontSize={["2rem", "4rem", "7rem", "9rem"]}>
-				<Link href={path}>
-					{React.cloneElement(children)}
+			<Link href={path}>
+				{React.cloneElement(children)}
 
-					<Text
-						fontSize={[10, 15, 20, 25]}
-						fontWeight="black"
-						textAlign="center"
-					>
-						{text}
-					</Text>
-				</Link>
-			</Box>
-		</HStack>
+				<Text fontSize={[7, 10, 15, 20]} fontWeight="black" textAlign="center">
+					{text}
+				</Text>
+			</Link>
+		</Box>
 	);
 }
 
@@ -45,9 +48,9 @@ const TheTitle = ({ text }) => (
 			textAlign={"right"}
 			userSelect={"none"}
 			className="rotate"
-			p={[2, 3, 4, 5]}
+			p={[2, 3, 4]}
 			alignSelf={"center"}
-			fontSize={["md", "lg", "3xl", "5xl"]}
+			fontSize={["sm", "md", "lg", "xl"]}
 			fontWeight="extrabold"
 			color={["teal.300"]}
 		>
@@ -74,42 +77,51 @@ export default function Main() {
 				</Text>
 			</Center>
 
-			<HStack
-				wrap={"wrap"}
+			<Flex
+				wrap="nowrap"
 				pr={[2, 3, 4, 5]}
-				justify="right"
-				spacing={[4, 6, 8, 12]}
-				m={["1%", "2%", "3%", "4%"]}
-				shadow="dark-lg"
+				justify="space-around"
+				m={2}
+				shadow="lg"
 				rounded="2xl"
 			>
-				<TheTitle text="الفواتير" />
-				<CustomCol path="/addNewBillPage" text={"إضافة فاتورة جديدة"}>
-					<FcKindle />
-				</CustomCol>{" "}
-				<CustomCol path="/showBillPage" text={"عرض الفواتير"}>
-					<FcInspection />
-				</CustomCol>
-				<Separator shadow={"base"} />
-				<TheTitle text="المصروفات" />
-				<CustomCol path="/addNewExpPage" text={"إضافة مصروفات"}>
-					<FcAcceptDatabase />
-				</CustomCol>
-				<CustomCol path="/showExpPage" text={"عرض المصروفات"}>
-					<FcBullish />
-				</CustomCol>
-				<Separator shadow={"base"} />
-				<TheTitle text="الموظفين" />
-				<CustomCol path="/addNewEmpPage" text={"إضافة موظف جديد"}>
-					<FcBusinessman />
-				</CustomCol>
-				<CustomCol path="/showEmpPage" text={"عرض بيانات الموظفين"}>
-					<FcCollaboration />
-				</CustomCol>
-				<CustomCol path="/showAllSalPage" text={"عرض جميع الرواتب"}>
-					<FcDonate />
-				</CustomCol>
-			</HStack>
+				<VStack p="1" borderRight={"solid 1px lightGray"} w="full">
+					<TheTitle text="الفواتير" />
+					<HStack p="2" justify={"center"}>
+						<CustomCol path="/addNewBillPage" text={"إضافة فاتورة"}>
+							<FcKindle />
+						</CustomCol>
+						<CustomCol path="/showBillPage" text={"عرض الفواتير"}>
+							<FcInspection />
+						</CustomCol>
+					</HStack>
+				</VStack>
+				<VStack p="1" borderRight={"solid 1px lightGray"} w="full">
+					<TheTitle text="المصروفات" />
+					<HStack p="2" justify="center" w="full">
+						<CustomCol path="/addNewExpPage" text={"إضافة مصروفات"}>
+							<FcAcceptDatabase />
+						</CustomCol>
+						<CustomCol path="/showExpPage" text={"عرض المصروفات"}>
+							<FcBullish />
+						</CustomCol>
+					</HStack>
+				</VStack>
+				<VStack p="1" w="full">
+					<TheTitle text="الموظفين" />
+					<HStack p="2" justify="center">
+						<CustomCol path="/addNewEmpPage" text={"إضافة موظف"}>
+							<FcBusinessman />
+						</CustomCol>
+						<CustomCol path="/showEmpPage" text={"بيانات الموظفين"}>
+							<FcCollaboration />
+						</CustomCol>
+						<CustomCol path="/showAllSalPage" text={"عرض الرواتب"}>
+							<FcDonate />
+						</CustomCol>
+					</HStack>
+				</VStack>
+			</Flex>
 		</>
 	);
 }
