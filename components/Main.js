@@ -85,7 +85,7 @@ export default function Main() {
 			<SimpleGrid gap="40px" minChildWidth="md" dir="rtl" mb="4" mx="2">
 				<Stack p="2" justify={"center"} w="full">
 					<TheTitle text="الفواتير" />
-					<CustomCol path="/addNewBillPage" text={"إضافة فاتورة"}>
+					<CustomCol path="/bill/add" text={"إضافة فاتورة"}>
 						<FcKindle />
 					</CustomCol>
 					<CustomCol path="/showBillPage" text={"عرض الفواتير"}>

@@ -7,32 +7,30 @@ import { MainInterface } from "../../sharedComponents/MainInterface";
 import Paginate from "../../sharedComponents/Paginate";
 import { useSnapshot } from "valtio";
 import state from "../../stor";
-import { colors } from "../../lib/constants";
+import { colors } from "../../lib/validationSchemas";
 
 export default function ShowBills() {
+	const snap = useSnapshot(state);
 
-  const snap = useSnapshot(state);
+	useEffect(() => {
+		state.title = " الفواتير";
+		state.searchTerm = "";
+	}, []);
 
+	return (
+		<>
+			<Title title={snap.title} color={colors.billLight} />
 
-    useEffect(() => {
-      state.title = " الفواتير";
-      state.searchTerm = "";
-    }, []);
+			<MainInterface>
+				<BillButtons />
 
-  return (
-    <>
-      <Title title={snap.title} color={colors.billLight} />
+				<Divider mt="-8" />
 
-      <MainInterface>
-        <BillButtons />
-
-        <Divider mt="-8" />
-
-        <BillCards />
-      </MainInterface>
-      <HStack mt="12" justify="center">
-        <Paginate />
-      </HStack>
-    </>
-  );
+				<BillCards />
+			</MainInterface>
+			<HStack mt="12" justify="center">
+				<Paginate />
+			</HStack>
+		</>
+	);
 }

@@ -6,31 +6,31 @@ import EmpTable from "./EmpCards";
 import { MainInterface } from "../../sharedComponents/MainInterface";
 import Paginate from "../../sharedComponents/Paginate";
 import state from "../../stor";
-import { colors } from "../../lib/constants";
+import { colors } from "../../lib/validationSchemas";
 import { useSnapshot } from "valtio";
 
 export default function ShowEmp() {
-  const snap = useSnapshot(state);
+	const snap = useSnapshot(state);
 
-  useEffect(() => {
-    state.title = "سجل الموظفين";
-       state.searchTerm = "";
-  }, []);
+	useEffect(() => {
+		state.title = "سجل الموظفين";
+		state.searchTerm = "";
+	}, []);
 
-  return (
-    <>
-      <Title title={snap.title} color={colors.empLight} />
+	return (
+		<>
+			<Title title={snap.title} color={colors.empLight} />
 
-      <MainInterface>
-        <EmpButtons />
+			<MainInterface>
+				<EmpButtons />
 
-        <Divider mt="-8" />
+				<Divider mt="-8" />
 
-        <EmpTable />
-      </MainInterface>
-      <HStack mt="12" justify="center">
-        <Paginate />
-      </HStack>
-    </>
-  );
+				<EmpTable />
+			</MainInterface>
+			<HStack mt="12" justify="center">
+				<Paginate />
+			</HStack>
+		</>
+	);
 }

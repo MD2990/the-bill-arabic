@@ -6,75 +6,75 @@ import state from "../stor";
 import { Center } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-import { colors } from "../lib/constants";
+import { colors } from "../lib/validationSchemas";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import MySkeletons from "../sharedComponents/MySkeletons";
 import Sal from "../models/Sal";
 
 export default function ShowEmpPage({ emp, sal }) {
-  const router = useRouter();
-  const snap = useSnapshot(state);
+	const router = useRouter();
+	const snap = useSnapshot(state);
 
-  useEffect(() => {
-    state.emp = emp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
-    state.sal = sal;
-  }, [emp, sal]);
+	useEffect(() => {
+		state.emp = emp.sort((a, b) => (a.added_date < b.added_date ? 1 : -1));
+		state.sal = sal;
+	}, [emp, sal]);
 
-  if (!emp)
-    return (
-      <Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
-    );
-  if (!state.emp) return <MySkeletons />;
+	if (!emp)
+		return (
+			<Title title="حدث خطأ أثناء تحميل البيانات ، الرجاء المحاولة مرة أخرى" />
+		);
+	if (!state.emp) return <MySkeletons />;
 
-  if (state.emp?.length < 1)
-    return (
-      <>
-        <Title
-          title="لم يتم إضافة موظفين إلى الآن ..."
-          color={colors.empLight}
-        ></Title>
-        <Center my={["1%", "2%", "3%", "4%"]}>
-          <Btn
-            fontSize={["1rem", "1.5rem", "2rem", "2.5rem"]}
-            p={["1rem", "1.5rem", "2rem", "2.5rem"]}
-            click={() => router.replace(`/addNewEmpPage`)}
-            title="  إضافة موظف جديد"
-            icon={<AddIcon />}
-            color={colors.empLight}
-          ></Btn>
-        </Center>
-      </>
-    );
+	if (state.emp?.length < 1)
+		return (
+			<>
+				<Title
+					title="لم يتم إضافة موظفين إلى الآن ..."
+					color={colors.empLight}
+				></Title>
+				<Center my={["1%", "2%", "3%", "4%"]}>
+					<Btn
+						fontSize={["1rem", "1.5rem", "2rem", "2.5rem"]}
+						p={["1rem", "1.5rem", "2rem", "2.5rem"]}
+						click={() => router.replace(`/addNewEmpPage`)}
+						title="  إضافة موظف جديد"
+						icon={<AddIcon />}
+						color={colors.empLight}
+					></Btn>
+				</Center>
+			</>
+		);
 
-  return (
-    <>
-      <Hd title=" سجل الموظفين" />
+	return (
+		<>
+			<Hd title=" سجل الموظفين" />
 
-      <ShowEmp />
-    </>
-  );
+			<ShowEmp />
+		</>
+	);
 }
 export const getStaticProps = async () => {
-  await dbConnect();
-  const data = await Emp.find({});
-  const data2 = await Sal.find({});
-  if (!data || !data2) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  const emp = await jsonify(data);
-  const sal = await jsonify(data2);
+	await dbConnect();
+	const data = await Emp.find({});
+	const data2 = await Sal.find({});
+	if (!data || !data2) {
+		return {
+			redirect: {
+				destination: "/",
+				permanent: false,
+			},
+		};
+	}
+	const emp = await jsonify(data);
+	const sal = await jsonify(data2);
 
-  return {
-    props: {
-      emp,
-      sal,
-    },
-    revalidate: 1,
-  };
+	return {
+		props: {
+			emp,
+			sal,
+		},
+		revalidate: 1,
+	};
 };
