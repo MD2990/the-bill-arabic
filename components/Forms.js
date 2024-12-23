@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 import { Radio, RadioGroup } from "@/components/ui/radio";
 import { Button } from "@/components/ui/button";
-
 import { useRouter } from "next/navigation";
 import { AiOutlineDelete, AiOutlineRest, AiOutlineSave } from "react-icons/ai";
 import { TiArrowBack } from "react-icons/ti";
@@ -34,8 +33,8 @@ const CustomField = ({
 	isReadOnly,
 }) => (
 	<Field
-		invalid={errors[name]}
-		errorText={errors[name]}
+		invalid={!!errors[name]}
+		errorText={errors[name]?.message || ""} // Extract message from error object
 		label={label}
 		htmlFor={name}
 		fontSize={fontSize}
@@ -57,6 +56,7 @@ const CustomField = ({
 					isDisabled={isDisabled}
 					isReadOnly={isReadOnly}
 					autoComplete={type === "password" ? "current-password" : "on"}
+					isInvalid={!!errors[name]}
 					{...field}
 					placeholder={label}
 				/>
@@ -75,7 +75,8 @@ const CustomTextArea = ({
 }) => (
 	<GridItem p="1" mt="1" colSpan={textAreaColSpan}>
 		<Field
-			invalid={errors[name]}
+			invalid={!!errors[name]}
+			errorText={errors[name]?.message || ""}
 			mb="0.5"
 			htmlFor={name}
 			fontSize={fontSize}
@@ -90,6 +91,7 @@ const CustomTextArea = ({
 						minH={textAreaMinH}
 						fontSize={["sm", "md"]}
 						id={name}
+						isInvalid={!!errors[name]}
 						{...field}
 						placeholder={label}
 					/>
@@ -229,9 +231,6 @@ const ReusableForm = ({
 	const router = useRouter();
 	const [isPending, startTransition] = useTransition();
 
-	const getResolver = (schema) => {
-		return yupResolver(schema);
-	};
 	const {
 		handleSubmit,
 		control,
@@ -239,7 +238,7 @@ const ReusableForm = ({
 		formState: { errors, isSubmitting },
 	} = useForm({
 		defaultValues: initialValues,
-		resolver: getResolver(getResolver(validationSchema)),
+		resolver: yupResolver(validationSchema),
 	});
 
 	return (

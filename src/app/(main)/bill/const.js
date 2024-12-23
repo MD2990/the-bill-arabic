@@ -2,7 +2,7 @@ const BILL_FIELDS = [
 	{
 		name: "date",
 		label: "التاريخ",
-		type: "data",
+		type: "date", // Fixed from "data" to "date"
 		defaultValue: "",
 	},
 	{
