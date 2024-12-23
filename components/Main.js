@@ -4,6 +4,7 @@ import {
 	Flex,
 	HStack,
 	Separator,
+	SimpleGrid,
 	Stack,
 	Text,
 	VStack,
@@ -22,47 +23,51 @@ import {
 
 function CustomCol({ path, children, text }) {
 	return (
-		<Box
-			fontSize={["2rem", "4rem", "7rem", "9rem"]}
-			className="main"
-			shadow="inner"
+		<HStack
+			fontSize={["2rem", "4rem", "5rem"]}
 			textShadow="0px 0px 15px gray"
 			rounded="2xl"
 			p="2"
 			color={"teal.600"}
+			w="full"
+			border={"solid 1px lightGray"}
+			justify={"center"}
+			bg="gray.100"
+			_hover={{
+				bg: "teal.100",
+				color: "teal.800",
+				border: "solid 1px teal",
+			}}
 		>
 			<Link href={path}>
-				{React.cloneElement(children)}
-
-				<Text fontSize={[7, 10, 15, 20]} fontWeight="black" textAlign="center">
+				<Text fontSize={[10, 15, 20]} fontWeight="black" textAlign="center">
 					{text}
 				</Text>
+				{children}
 			</Link>
-		</Box>
+		</HStack>
 	);
 }
 
 const TheTitle = ({ text }) => (
-	<Flex align={"flex-start"}>
-		<Text
-			textAlign={"right"}
-			userSelect={"none"}
-			className="rotate"
-			p={[2, 3, 4]}
-			alignSelf={"center"}
-			fontSize={["sm", "md", "lg", "xl"]}
-			fontWeight="extrabold"
-			color={["teal.300"]}
-		>
-			{text}{" "}
-		</Text>
-	</Flex>
+	<Text
+		textAlign={"center"}
+		userSelect={"none"}
+		className="rotate"
+		p={1}
+		alignSelf={"center"}
+		fontSize={["sm", "md", "lg", "xl", "2xl"]}
+		fontWeight="extrabold"
+		color={["teal.300"]}
+	>
+		{text}{" "}
+	</Text>
 );
 
 export default function Main() {
 	return (
 		<>
-			<Center p="4" m="4">
+			<Center minH={"25lvh"}>
 				<Text
 					className="blob"
 					userSelect={"none"}
@@ -77,51 +82,38 @@ export default function Main() {
 				</Text>
 			</Center>
 
-			<Flex
-				wrap="nowrap"
-				pr={[2, 3, 4, 5]}
-				justify="space-around"
-				m={2}
-				shadow="lg"
-				rounded="2xl"
-			>
-				<VStack p="1" borderRight={"solid 1px lightGray"} w="full">
+			<SimpleGrid gap="40px" minChildWidth="md" dir="rtl" mb="4" mx="2">
+				<Stack p="2" justify={"center"} w="full">
 					<TheTitle text="الفواتير" />
-					<HStack p="2" justify={"center"}>
-						<CustomCol path="/addNewBillPage" text={"إضافة فاتورة"}>
-							<FcKindle />
-						</CustomCol>
-						<CustomCol path="/showBillPage" text={"عرض الفواتير"}>
-							<FcInspection />
-						</CustomCol>
-					</HStack>
-				</VStack>
-				<VStack p="1" borderRight={"solid 1px lightGray"} w="full">
+					<CustomCol path="/addNewBillPage" text={"إضافة فاتورة"}>
+						<FcKindle />
+					</CustomCol>
+					<CustomCol path="/showBillPage" text={"عرض الفواتير"}>
+						<FcInspection />
+					</CustomCol>
+				</Stack>
+				<Stack p="2" justify={"center"} w="full">
 					<TheTitle text="المصروفات" />
-					<HStack p="2" justify="center" w="full">
-						<CustomCol path="/addNewExpPage" text={"إضافة مصروفات"}>
-							<FcAcceptDatabase />
-						</CustomCol>
-						<CustomCol path="/showExpPage" text={"عرض المصروفات"}>
-							<FcBullish />
-						</CustomCol>
-					</HStack>
-				</VStack>
-				<VStack p="1" w="full">
+					<CustomCol path="/addNewExpPage" text={"إضافة مصروفات"}>
+						<FcAcceptDatabase />
+					</CustomCol>
+					<CustomCol path="/showExpPage" text={"عرض المصروفات"}>
+						<FcBullish />
+					</CustomCol>
+				</Stack>
+				<Stack p="1" w="full">
 					<TheTitle text="الموظفين" />
-					<HStack p="2" justify="center">
-						<CustomCol path="/addNewEmpPage" text={"إضافة موظف"}>
-							<FcBusinessman />
-						</CustomCol>
-						<CustomCol path="/showEmpPage" text={"بيانات الموظفين"}>
-							<FcCollaboration />
-						</CustomCol>
-						<CustomCol path="/showAllSalPage" text={"عرض الرواتب"}>
-							<FcDonate />
-						</CustomCol>
-					</HStack>
-				</VStack>
-			</Flex>
+					<CustomCol path="/addNewEmpPage" text={"إضافة موظف"}>
+						<FcBusinessman />
+					</CustomCol>
+					<CustomCol path="/showEmpPage" text={"بيانات الموظفين"}>
+						<FcCollaboration />
+					</CustomCol>
+					<CustomCol path="/showAllSalPage" text={"عرض الرواتب"}>
+						<FcDonate />
+					</CustomCol>
+				</Stack>
+			</SimpleGrid>
 		</>
 	);
 }

@@ -6,7 +6,7 @@
 		"skipLibCheck": true,
 		"paths": {
 			"@/*": ["./src/*"],
-			"@*": ["./src/app/[locale]/(main)/*"]
+			"@*": ["./components/*"]
 		}
 	}
 }

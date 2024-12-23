@@ -34,21 +34,21 @@ html,
 }
 
 .rotate {
-  animation: rotation 60s infinite linear;
+  animation: rotation 4s  infinite linear;
 }
 @keyframes rotation {
   from {
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(359deg);
+    transform: rotate(20deg);
   }
 }
 .btn {
     background: #e6eff8;
     border-radius: 6px;
     transition-property: 'background', 'border-radius';
-    transition-duration: 1s;
+    transition-duration: 0.5s;
     transition-timing-function: linear;
   }
     .btn:hover {
@@ -56,37 +56,37 @@ html,
     border-radius: 50% ; ;
   }
   .rotate{
-    transition: 0.70s;
-  -webkit-transition: 0.70s;
-  -moz-transition: 0.70s;
-  -ms-transition: 0.70s;
-  -o-transition: 0.70s;
+    transition: 0.07s;
+  -webkit-transition: 0.07s;
+  -moz-transition: 0.07s;
+  -ms-transition: 0.07s;
+  -o-transition: 0.07s;
   -webkit-transform: rotate(10deg);
-  -moz-transform: rotate(10deg);
-  -o-transform: rotate(120deg);
-  -ms-transform: rotate(180deg);
+  -moz-transform: rotate(15deg);
+  -o-transform: rotate(20deg);
+  -ms-transform: rotate(30deg);
   
   transform: rotate(0deg);
 }
 .rotate:hover {
-    transform: rotate(90deg);
-  transition: 0.70s;
-  -webkit-transition: 0.70s;
-  -moz-transition: 0.70s;
-  -ms-transition: 0.70s;
-  -o-transition: 0.70s;
-  -webkit-transition: 0.70s;
+    transform: rotate(9deg);
+  transition: 0.070s;
+  -webkit-transition: 0.07s;
+  -moz-transition: 0.07s;
+  -ms-transition: 0.07s;
+  -o-transition: 0.07s;
+  -webkit-transition: 0.07s;
 
  
 }
 
 
 .main{
-    transition: 0.50s;
-  -webkit-transition: 0.50s;
-  -moz-transition: 0.50s;
-  -ms-transition: 0.50s;
-  -o-transition: 0.50s;
+    transition: 0.05s;
+  -webkit-transition: 0.05s;
+  -moz-transition: 0.05s;
+  -ms-transition: 0.05s;
+  -o-transition: 0.05s;
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
   -o-transform: scale(1);
@@ -99,12 +99,12 @@ html,
 
 .main:hover {
     transform: scale(1.1);
-  transition: 0.50s;
-  -webkit-transition: 0.50s;
-  -moz-transition: 0.50s;
-  -ms-transition: 0.50s;
-  -o-transition: 0.50s;
-  -webkit-transition: 0.50s;
+  transition: 0.05s;
+  -webkit-transition: 0.05s;
+  -moz-transition: 0.05s;
+  -ms-transition: 0.05s;
+  -o-transition: 0.05s;
+  -webkit-transition: 0.05s;
 
  
 }
