@@ -9,6 +9,7 @@ import {
 	Text,
 	VStack,
 } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
 import {
@@ -40,7 +41,7 @@ function CustomCol({ path, children, text }) {
 			}}
 		>
 			<Link href={path}>
-				<Text fontSize={[10, 15, 20]} fontWeight="black" textAlign="center">
+				<Text fontSize={[10, 15, 20]} fontWeight="600" textAlign="center">
 					{text}
 				</Text>
 				{children}
@@ -56,8 +57,9 @@ const TheTitle = ({ text }) => (
 		className="rotate"
 		p={1}
 		alignSelf={"center"}
-		fontSize={["sm", "md", "lg", "xl", "2xl"]}
-		fontWeight="extrabold"
+		fontSize={["sm", "md", "lg", "3xl"]}
+		fontWeight="600"
+		letterSpacing={2}
 		color={["teal.300"]}
 	>
 		{text}{" "}
@@ -65,6 +67,8 @@ const TheTitle = ({ text }) => (
 );
 
 export default function Main() {
+	const t = useTranslations();
+
 	return (
 		<>
 			<Center minH={"25lvh"}>
@@ -75,17 +79,27 @@ export default function Main() {
 					p={[1, 2, 3]}
 					fontSize={["md", "lg", "3xl", "5xl"]}
 					textAlign="center"
-					fontWeight="extrabold"
-					color={["teal.200", "teal.300", "teal.400", "teal.500"]}
+					fontWeight="700"
+					color={[
+						"blue.fg",
+						"border.subtle",
+						"turquoise",
+						"yellow.800",
+
+						"teal.400",
+						"blue.400",
+						"green.400",
+						"red.600",
+					]}
 				>
-					مشاريع الأنهار المتكاملة
+					{t("HomePage.title")}
 				</Text>
 			</Center>
 
 			<SimpleGrid gap="40px" minChildWidth="md" dir="rtl" mb="4" mx="2">
 				<Stack p="2" justify={"center"} w="full">
-					<TheTitle text="الفواتير" />
-					<CustomCol path="/bill/add" text={"إضافة فاتورة"}>
+					<TheTitle text={t("bills.bills")} />
+					<CustomCol path="/bill/add" text={t("bills.addBill")}>
 						<FcKindle />
 					</CustomCol>
 					<CustomCol path="/showBillPage" text={"عرض الفواتير"}>

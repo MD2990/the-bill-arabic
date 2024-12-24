@@ -1,0 +1,13 @@
+{
+	"HomePage": {
+		"title": "The New World Shopping Center"
+	},
+	"bills": {
+		"addBill": "Add New Bill",
+		"editBill": "Edit Bill",
+		"deleteBill": "Delete Bill",
+		"showBill": "Show Bill",
+		"bills": "Bills",
+		"bill": "Bill"
+	}
+}
